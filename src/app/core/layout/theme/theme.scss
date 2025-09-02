@@ -1,0 +1,9 @@
+@use 'dark-theme';
+@use 'light-theme';
+
+mat-toolbar{
+  >button, mat-icon{
+    color: #FFF !important;
+  }
+}
+

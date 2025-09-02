@@ -1,0 +1,37 @@
+<body>
+  <div class='conteudoLogin'>
+      <div class="topoLogin">
+          <div style="font-size: 0.7em; font-weight: bold;">{{sistemaSigla}}</div>
+          <div *ngIf="sistemaNome" style="font-size: 0.45em;padding: 3px;">{{sistemaNome}}</div>
+          <div style="font-size: 0.4em">Versão {{sistemaVersao}}</div>
+      </div>
+      <div class="formLogin">
+          <div class="formTitulo">LOGIN</div>
+          <form id="form" [formGroup]="form" (submit)="logar()">
+              <mat-form-field  style="width:100%" appearance="outline">
+                  <mat-label>Título</mat-label>
+                  <input matInput formControlName="titulo" type='text'/>
+                  <button mat-icon-button matSuffix type="button">
+                      <mat-icon matSuffix title="Titulo de Eleitor" >verified_user</mat-icon>
+                  </button>
+              </mat-form-field>
+              <mat-form-field  class="border-red"  style="width:100%;" appearance="outline">
+                  <mat-label>Senha</mat-label>
+                  <input matInput formControlName="senha" [type]="hide ? 'password': 'text'">
+                  <button  mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide"  type="button">
+                      <mat-icon matSuffix title="{{hide ? 'Revelar Senha' : 'Ocultar Senha'}}">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
+                  </button>
+              </mat-form-field>
+            <div>
+                <button mat-flat-button color="primary" style="width: 100%" id="btAcessar" class="botao btAcessar" type="submit">
+                  Acessar
+                </button>
+            </div>
+          </form>
+      </div>
+      <div class="footerLogin">
+        <img src="assets/css/imagens/BrasaoTRE-FFFFFF.png">
+        <p>{{regional}}</p>
+      </div>
+  </div>
+</body>

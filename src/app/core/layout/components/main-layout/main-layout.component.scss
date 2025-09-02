@@ -1,0 +1,56 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 100%;
+}
+
+mat-card{
+    min-height: 81vh;
+    border-radius: 0;
+}
+
+.main{
+  padding: 3px;
+  min-height:calc(100vh - 89px);
+  height: calc(100vh - 89px);
+  overflow-y: auto;
+  background-color:transparent !important;
+  background-image: url("../../../../../../../public/assets/css/imagens/brasao-pb-trans.png");
+  background-size: 25vw;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.mainNav{
+  background-position: calc( (100vw - 230px)/2) !important;
+}
+.navTitle{
+  padding-left: 5px;
+  font-weight: bold;
+  font-size: 1.2em;
+}
+mat-nav-list{
+  >a{
+    padding-left: 25px;
+  }
+}
+div.logo{
+  text-align: center;
+  margin-bottom: 20px;
+  a>img{
+    width: 40%;
+  }
+  >div{
+    font-weight: bold;
+  }
+  >div.title{
+    font-size: 1.5em;
+  }
+  >div.moduleTitle{
+    font-size: 1em;
+  }
+  >mat-divider{
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+}
+

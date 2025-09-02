@@ -1,0 +1,38 @@
+.snackBar{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-content: center;
+  align-items: center;
+  padding: 5px;
+  border-radius: 5px;
+  white-space: pre-line;
+}
+.snackMsg{
+  font: message-box;
+  font-weight: bold;
+  font-size: 0.85em;
+  align-self: left;
+  padding: 5px;
+  padding-right: 20px;
+}
+.snackIcone{
+  display: flex;
+}
+.error{
+    background-color: #f9d3d5;
+    color:red;
+}
+.success{
+    background-color: #B9DDFC;
+    color:#5c6e7e;
+}
+.info{
+    background-color: #b1e2b5;
+    color:green;
+}
+.warn{
+    background-color: #ffe4b2;
+    color:#e59400;
+}

@@ -1,0 +1,11 @@
+<app-header-layout></app-header-layout>
+<div [ngClass]="{main:true,mainNav:sideNav}">
+  @if(sideNav){
+    <app-sidenav></app-sidenav>
+  }@else {
+    <router-outlet></router-outlet>
+  }
+</div>
+<app-footer></app-footer>
+
+

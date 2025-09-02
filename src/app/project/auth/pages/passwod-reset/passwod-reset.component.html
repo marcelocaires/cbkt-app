@@ -1,0 +1,73 @@
+<div class="main">
+  <div class='conteudoLogin'>
+    <div class="logo">
+      <img src="assets/css/imagens/logo.png">
+    </div>
+    <div class="formTitulo">{{sistemaSigla}}</div>
+    <div class="formSubTitulo">{{sistemaNome}}</div>
+    <div class="tokenInvalid" *ngIf="!validToken">
+      Token inválido ou expirado!
+    </div>
+    <div class="formLogin" *ngIf="validToken">
+      <form id="form" [formGroup]="form" (submit)="submit()">
+        <div class="informe">Cadastrar nova senha</div>
+        <div>
+          <mat-form-field style="width:100%" appearance="outline">
+            <mat-label>Nova senha</mat-label>
+            <input #senha matInput formControlName="senha" [type]="passwordHide ? 'password': 'text'"/>
+            <mat-hint *ngIf="form.dirty" align="end">{{senha.value.length}}</mat-hint>
+            <button  mat-icon-button matSuffix (click)="passwordHide = !passwordHide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="passwordHide"  type="button">
+              <mat-icon matSuffix title="{{passwordHide ? 'Revelar Senha' : 'Ocultar Senha'}}">{{passwordHide ? 'visibility' : 'visibility_off'}}</mat-icon>
+          </button>
+          </mat-form-field>
+          <mat-form-field style="width:100%;" appearance="outline">
+              <mat-label>Confirme a nova senha</mat-label>
+              <input #confirm matInput formControlName="confirm" [type]="confirmHide ? 'password': 'text'">
+              <mat-hint *ngIf="form.dirty" align="end">{{confirm.value.length}}</mat-hint>
+              <button  mat-icon-button matSuffix (click)="confirmHide = !confirmHide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="confirmHide"  type="button">
+                  <mat-icon matSuffix title="{{confirmHide ? 'Revelar Senha' : 'Ocultar Senha'}}">{{confirmHide ? 'visibility' : 'visibility_off'}}</mat-icon>
+              </button>
+          </mat-form-field>
+        </div>
+        <div class="matcher" *ngIf="form?.dirty">
+          <div class="title">A nova senha deve possuir, pelo menos: </div>
+          <div [ngClass]="{'error':!lengthMatcher(),'success': lengthMatcher()}">
+           <mat-icon *ngIf="lengthMatcher()">check_circle</mat-icon>
+           <mat-icon *ngIf="!lengthMatcher()">cancel</mat-icon>
+            6 caracteres
+          </div>
+          <div [ngClass]="{'error':!uppercaseMatcher(),'success': uppercaseMatcher()}">
+            <mat-icon *ngIf="uppercaseMatcher()">check_circle</mat-icon>
+            <mat-icon *ngIf="!uppercaseMatcher()">cancel</mat-icon>
+            Uma letra maiúscula
+          </div>
+          <div [ngClass]="{'error':!lowercaseMatcher(),'success': lowercaseMatcher()}">
+            <mat-icon *ngIf="lowercaseMatcher()">check_circle</mat-icon>
+            <mat-icon *ngIf="!lowercaseMatcher()">cancel</mat-icon>
+            Uma letra minúscula
+          </div>
+          <div [ngClass]="{'error':!numberMatcher(),'success': numberMatcher()}">
+            <mat-icon *ngIf="numberMatcher()">check_circle</mat-icon>
+            <mat-icon *ngIf="!numberMatcher()">cancel</mat-icon>
+            Um número
+          </div>
+          <div [ngClass]="{'error':!especialMatcher(),'success': especialMatcher()}">
+            <mat-icon *ngIf="especialMatcher()">check_circle</mat-icon>
+            <mat-icon *ngIf="!especialMatcher()">cancel</mat-icon>
+            Um caracter especial (Exemplos: %,$,&)
+          </div>
+       </div>
+        <div style="margin-top:20px;">
+            <button [disabled]="form.invalid" color="primary" mat-flat-button style="width:100%" class="botao" type="submit">
+              Cadastrar nova senha
+            </button>
+          </div>
+      </form>
+      </div>
+      <mat-divider></mat-divider>
+      <div class="footerLogin">
+        <img src="assets/css/imagens/brasaoTRE-sem-fundo.png">
+        <p>{{regional}}</p>
+      </div>
+  </div>
+</div>
