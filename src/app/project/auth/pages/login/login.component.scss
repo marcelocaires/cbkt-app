@@ -4,85 +4,86 @@
 }
 :host{
   background-color:transparent !important;
-  background-image: url("../../../../../../../../public/assets/css/imagens/brasao-azul-trans-4p.png");
   background-repeat: no-repeat;
   background-position: center;
 }
-div.conteudoLogin
-{
-  position:absolute;
-  top: calc(50% - 208px);
-  left: calc(50% - 150px);
-  width: 300px;
-  box-shadow: 0 0 1px 1px;
+div.conteudoLogin{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-content: center;
+  align-items: center;
+  justify-content: space-between;
+  height: 100vh;
+  width: 100vw;
 }
 div.formLogin {
-  padding: 15px;
+  width: 25vw;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  >form{
+    width: 75%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+  }
+}
+div.logoLogin {
+  width: 75vw;
+  height: 100vh;
+  background-color:#231f20 !important;
+  background-image: url("../../../../../../public/assets/images/cbkt-dark.png");
+  background-position: center;
+  background-repeat:no-repeat;
+  background-size:50%;
+}
+div.formTitulo{
+  font-size: 1.5em;
+  font-weight: bold;
   text-align: center;
-  color:#005E7A;
+  margin-bottom: 10px;
 }
-.formTitulo{
+div.formSubTitulo{
+  font-size: 0.8em;
+  color: gray;
+  text-align: left;
+  width: 100%;
+  margin-bottom: 10px;
+}
+.btPrimeiroAcesso{
+  cursor: pointer;
+  color: darkblue;
+  font-weight: 500;
+}
+.btEsqueciSenha{
+  text-decoration: none;
+  cursor: pointer;
   font-weight: bold;
-  padding-bottom: 10px;
-}
-div.topoLogin
-{
-  text-align: center;
-  font-size: 20pt;
-  padding-top: 25px;
-  padding-bottom: 25px;;
-  border-bottom: 1px solid;
-  font-weight: bold;
-  color:#FFFFFF;
-  background-image: linear-gradient(to right,#005E7A,#1F6A74,#62969d);
-	background-repeat: no-repeat;
-}
-.botao {
-  font-weight: bold;
-  background-position:80px;
-  font-size: 0.9em;
-  background-image: linear-gradient(to right,#005E7A,#1F6A74,#62969d);
-	background-repeat: no-repeat;
-}
-.botao:hover {
-  cursor: pointer !important;
+  font-size: 0.75em;
+  display: flex;
+  align-content: center;
+  align-items: center;
+  justify-content: flex-end;
+  margin-bottom: 20px;
+  >mat-icon{
+    height: 19px;
+    font-size: 19px;
+  }
 }
 .btAcessar{
-  background-image: url("../../../../../../../../public/assets/css/botoes/btLockW16.png");
-  background-size:14px;
-  background-repeat: no-repeat;
-}
-.btAcessar:HOVER{
-  background-image: url("../../../../../../../../public/assets/css/botoes/btUnlockW16.png");
-}
-.btCancelar{
-  background-image: url("../../../../../../../../public/assets/css/botoes/btCancelarW16.png");
-  background-color: rgba(229,57,53,1) !important;
-  background-repeat: no-repeat;
+  width: 100%;
+  border-radius: 5px;
   font-weight: bold;
-  color: #FFF !important;
+  background-color: #231f20 !important;
 }
-.btCancelar:HOVER{
-  background-color: rgba(229,57,53,0.8) !important;
-}
-div.footerLogin{
-  border-top: 1px solid;
-  padding: 10px;
-  text-align: center;
-  font-size: 0.6em;
-  font-weight: bold;
-	background-color: #005E7A;
-  color:#FFFFFF;
-  background-image: linear-gradient(to right,#005E7A,#1F6A74,#62969d);
-	background-repeat: no-repeat;
-}
-div.footerLogin img{
-  height:16px;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  margin-bottom: 5px;
-}
-div.footerLogin p{
-  margin: 0;
+
+@media screen and (max-width: 1024px) {
+  div.logoLogin {
+    display: none; /* Hide logo on smaller screens */
+  }
+  div.formLogin {
+    width: 100vw;
+  }
 }

@@ -1,14 +1,23 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, inject } from '@angular/core';
 import { AbstractControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
-import { appinfo } from '../../../../../../../environments/appinfo';
-import { BaseComponent } from '../../../../../shared/components/base/base.component';
-import { SharedModule } from '../../../../../shared/shared.module';
-import { AuthService, PasswordReset } from '../../services/authService.service';
+import { appinfo } from '../../../../../environments/appinfo';
+import { AuthService } from '../../../../core/security/services/authService.service';
+import { BaseComponent } from '../../../../shared/components/base/base.component';
+import { MaterialButtonModule } from '../../../../shared/material/material-button.module';
+import { MaterialFormModule } from '../../../../shared/material/material-form.module';
+import { MaterialLayoutModule } from '../../../../shared/material/material-layout.module';
+import { SharedModule } from '../../../../shared/shared.module';
+
+export interface PasswordReset{
+  password: string;
+  email: string;
+  token: string;
+}
 
 @Component({
   selector: 'app-passwod-reset',
-  imports: [SharedModule],
+  imports: [SharedModule,MaterialFormModule,MaterialButtonModule,MaterialLayoutModule],
   standalone: true,
   templateUrl: './passwod-reset.component.html',
   styleUrl: './passwod-reset.component.scss'

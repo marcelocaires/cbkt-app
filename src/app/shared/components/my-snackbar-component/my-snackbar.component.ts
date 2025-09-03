@@ -1,12 +1,14 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_SNACK_BAR_DATA } from '@angular/material/snack-bar';
+import { MaterialButtonModule } from '../../material/material-button.module';
 import { SharedModule } from '../../shared.module';
 
 @Component({
     selector: 'my-snackbar',
     templateUrl: './my-snackbar.component.html',
     styleUrls: ['./my-snackbar.component.scss'],
-    imports: [SharedModule]
+    imports: [SharedModule,MaterialButtonModule],
+    standalone: true
 })
 export class MySnackbarComponent implements OnInit {
 

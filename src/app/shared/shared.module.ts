@@ -1,19 +1,11 @@
 import { CommonModule, DatePipe } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
-const MATERIAL_ANGULAR=[
-  CommonModule,
-]
 
 @NgModule({
   declarations: [],
-  exports: [MATERIAL_ANGULAR,FormsModule,ReactiveFormsModule],
+  exports: [CommonModule],
   imports: [
-    CommonModule,
-    MATERIAL_ANGULAR,
-    FormsModule,
-    ReactiveFormsModule
+    CommonModule
   ],
   providers: [DatePipe],
 })

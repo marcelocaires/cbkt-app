@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { jwtDecode } from 'jwt-decode';
-import { StorageService } from '../storage/storage.service';
+import { StorageService } from '../../storage/services/storage.service';
 import { TokenService } from './tokenService.service';
 
 export class Usuario {
