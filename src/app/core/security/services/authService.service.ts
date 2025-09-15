@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { PasswordReset } from '../../../project/auth/pages/passwod-reset/passwod-reset.component';
+import { PasswordReset } from '../../../project/auth/pages/password-reset/password-reset.component';
 import { UsuarioService } from './usuarioService.service';
 
 @Injectable({
@@ -29,5 +29,9 @@ export class AuthService {
 
   passwordTokenCheck(token:string){
     return this.http.get(`${this.PASSWORD_PATH}/check/${token}`);
+  }
+
+  primeiroAcesso(form:any){
+    return this.http.post(`first`,form);
   }
 }

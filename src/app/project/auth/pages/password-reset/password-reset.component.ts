@@ -16,13 +16,13 @@ export interface PasswordReset{
 }
 
 @Component({
-  selector: 'app-passwod-reset',
+  selector: 'app-password-reset',
   imports: [SharedModule,MaterialFormModule,MaterialButtonModule,MaterialLayoutModule],
   standalone: true,
-  templateUrl: './passwod-reset.component.html',
-  styleUrl: './passwod-reset.component.scss'
+  templateUrl: './password-reset.component.html',
+  styleUrl: './password-reset.component.scss'
 })
-export class PasswodResetComponent extends BaseComponent  {
+export class PasswordResetComponent extends BaseComponent  {
   authService=inject(AuthService);
   passwordHide=true;
   confirmHide=true;

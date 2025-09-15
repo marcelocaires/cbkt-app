@@ -1,34 +1,24 @@
+import { Component, inject, OnInit } from '@angular/core';
 import { FormGroup, Validators } from '@angular/forms';
-
-import { Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { appinfo } from '../../../../../environments/appinfo';
 import { AuthService } from '../../../../core/security/services/authService.service';
 import { BaseComponent } from '../../../../shared/components/base/base.component';
+import { MaskDirective } from '../../../../shared/directives/mask.directive';
 import { MaterialButtonModule } from '../../../../shared/material/material-button.module';
 import { MaterialFormModule } from '../../../../shared/material/material-form.module';
 import { SharedModule } from '../../../../shared/shared.module';
 
 @Component({
-  selector: 'app-login',
+  selector: 'app-primeiro-acesso',
+  templateUrl: './primeiro-acesso.component.html',
+  styleUrls: ['./primeiro-acesso.component.scss'],
   standalone: true,
-  imports: [SharedModule,MaterialButtonModule,MaterialFormModule,RouterLink],
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  imports: [SharedModule,MaterialButtonModule,MaterialFormModule,MaskDirective,RouterLink]
 })
-export class LoginComponent extends BaseComponent {
-  esqueciSenha() {
-    this.msgService.msgSucesso("Instruções para recuperação de senha enviadas para o seu e-mail.");
-  }
+export class PrimeiroAcessoComponent extends BaseComponent implements OnInit {
   authService=inject(AuthService);
-  hide=true;
   form: FormGroup= new FormGroup({});
-  sistemaSigla: string = appinfo.sistemaSigla;
-  sistemaNome: string = appinfo.sistemaNome;
-  sistemaVersao: string = appinfo.sistemaVersao;
-  regional:string=appinfo.regionalNome;
-
-  constructor(){
+  constructor() {
     super();
   }
 
@@ -38,26 +28,24 @@ export class LoginComponent extends BaseComponent {
 
   gerarForm() {
     this.form = this.formBuilder.group({
-      titulo: ['', [Validators.required]],
-      senha: ['', [Validators.required]]
+      email: ['', [Validators.required,Validators.email]],
+      cpf: ['', [Validators.required]],
+      dtNascimento: ['', [Validators.required]]
     });
   }
 
-  logar() {
+  validar() {
     if (this.form.invalid) {
-      let msg = "Login inválido! Verifique suas credenciais e tente novamente     "
+      let msg = "Dados inválidos!"
       this.msgService.msgErro(msg);
       return;
     }
 
-    const titulo= this.form.controls['titulo'].value;
-    const senha = this.form.controls['senha'].value;
-
-    this.authService.autenticar(titulo,senha)
+    this.authService.primeiroAcesso(this.form.value)
       .subscribe({
         next: (data) => {
-          this.msgService.msgSucesso("Login realizado com sucesso!");
-          this.router.navigate(['admin']);
+          console.log(data);
+          this.msgService.msgSucesso("Login criado com sucesso!");
         },
         error: (err) => {
           let msg = "Login inválido! Verifique suas credenciais e tente novamente";
@@ -67,8 +55,5 @@ export class LoginComponent extends BaseComponent {
           this.msgService.msgErro(msg);
         }
       });
-  }
-  changeHide() {
-    this.hide = !this.hide;
   }
 }

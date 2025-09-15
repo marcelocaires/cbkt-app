@@ -1,0 +1,57 @@
+  <input type="text" name="fakeusernameremembered" style="display:none">
+  <input type="password" name="fakepasswordremembered" style="display:none">
+<div class='conteudoLogin'>
+  <div class="formLogin">
+    <form id="form" [formGroup]="form" (submit)="validar()" autocomplete="off">
+      <div class="logo">
+        <img style="width: 100%;" src="assets/images/cbkt-light.png">
+      </div>
+      <div class="formTitulo">Primeiro Acesso</div>
+      <div class="formSubTitulo">Valide seus dados para criar o seu login de acesso:</div>
+      <mat-form-field appearance="outline">
+        <mat-label>E-mail</mat-label>
+        <mat-icon matPrefix>mail</mat-icon>
+        <input
+          matInput
+          formControlName="email"
+          type="email"
+          name="no-username"
+          autocomplete="off"/>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>CPF</mat-label>
+        <mat-icon matPrefix>tag</mat-icon>
+        <input
+          matInput
+          formControlName="cpf"
+          type="text"
+          name="no-username"
+          autocomplete="off"/>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Data de Nascimento</mat-label>
+        <input matInput
+          [matDatepicker]="picker"
+          formControlName="dtNascimento"
+          type="text"
+          name="no-username"
+          autocomplete="off">
+        <mat-datepicker-toggle matIconPrefix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+      <div>
+        <button mat-flat-button color="primary" id="btAcessar" class="btAcessar" type="submit">
+          Validar
+        </button>
+        <button mat-flat-button color="warn" class="btCancelar" [routerLink]="['/login']">
+          Cancelar
+        </button>
+      </div>
+    </form>
+    <div>
+      Parabéns! Seu login foi criado com sucesso.
+      <p>Acesse o link enviado para o seu e-mail para criar a senha de acesso.</p>
+    </div>
+  </div>
+  <div class="logoLogin"></div>
+</div>

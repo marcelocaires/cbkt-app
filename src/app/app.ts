@@ -1,5 +1,6 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { ThemeService } from './core/layout/theme/theme.service';
 
 @Component({
   selector: 'app-root',
@@ -9,5 +10,10 @@ import { RouterOutlet } from '@angular/router';
   standalone: true
 })
 export class App {
+  themeService=inject(ThemeService);
   protected readonly title = signal('cbkt-app');
+
+  constructor() {
+    this.themeService.setTheme();
+  }
 }
