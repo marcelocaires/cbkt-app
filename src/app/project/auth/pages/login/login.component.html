@@ -29,10 +29,13 @@
           name="no-password">
         <mat-icon style="cursor: pointer;" matSuffix (click)="changeHide()" title="{{hide ? 'Revelar Senha' : 'Ocultar Senha'}}">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
       </mat-form-field>
-      <a class="btEsqueciSenha" (click)="esqueciSenha()" title="Criar uma nova senha.">
-        <mat-icon>lock_reset</mat-icon>
-        Esqueceu a senha?
-      </a>
+      <div>
+        <mat-slide-toggle>Lembrar-me</mat-slide-toggle>
+        <a class="btEsqueciSenha" (click)="esqueciSenha()" title="Criar uma nova senha.">
+          <mat-icon>lock_reset</mat-icon>
+          Esqueceu a senha?
+        </a>
+      </div>
       <div>
         <button mat-flat-button color="primary" id="btAcessar" class="btAcessar" type="submit">
           Login

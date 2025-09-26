@@ -18,7 +18,7 @@ div.conteudoLogin{
   width: 100vw;
 }
 div.formLogin {
-  width: 25vw;
+  width: 30vw;
   padding: 20px;
   display: flex;
   flex-direction: column;
@@ -43,7 +43,7 @@ div.formTitulo{
   font-size: 2em;
   font-weight: bold;
   text-align: center;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
   margin-top: 15px;
 }
 div.formSubTitulo{
@@ -51,7 +51,7 @@ div.formSubTitulo{
   color: #231f20;
   text-align: center;
   width: 100%;
-  margin-bottom: 5px;
+  margin-bottom: 15px;
 }
 .btPrimeiroAcesso{
   cursor: pointer;
@@ -87,6 +87,9 @@ div.formSubTitulo{
   font-weight: bold;
   background-color: #231f20 !important;
   color: white !important;
+}
+.btAcessar:disabled{
+  background-color:rgb(35,31,32,0.3) !important;
 }
 .btCancelar{
   width: 100%;

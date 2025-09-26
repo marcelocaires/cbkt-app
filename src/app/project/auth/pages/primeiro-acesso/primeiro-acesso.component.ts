@@ -7,6 +7,13 @@ import { MaskDirective } from '../../../../shared/directives/mask.directive';
 import { MaterialButtonModule } from '../../../../shared/material/material-button.module';
 import { MaterialFormModule } from '../../../../shared/material/material-form.module';
 import { SharedModule } from '../../../../shared/shared.module';
+import { CpfValidator } from '../../../../shared/validators/cpf-validator';
+import { Util } from '../../../../shared/util/util';
+
+interface UsuarioCriado {
+  nome: string;
+  email: string;
+}
 
 @Component({
   selector: 'app-primeiro-acesso',
@@ -18,6 +25,7 @@ import { SharedModule } from '../../../../shared/shared.module';
 export class PrimeiroAcessoComponent extends BaseComponent implements OnInit {
   authService=inject(AuthService);
   form: FormGroup= new FormGroup({});
+  usuarioCriado: UsuarioCriado | null = null;
   constructor() {
     super();
   }
@@ -29,7 +37,7 @@ export class PrimeiroAcessoComponent extends BaseComponent implements OnInit {
   gerarForm() {
     this.form = this.formBuilder.group({
       email: ['', [Validators.required,Validators.email]],
-      cpf: ['', [Validators.required]],
+      cpf: ['', [Validators.required,CpfValidator]],
       dtNascimento: ['', [Validators.required]]
     });
   }
@@ -41,17 +49,17 @@ export class PrimeiroAcessoComponent extends BaseComponent implements OnInit {
       return;
     }
 
+    this.form.value.cpf = this.form.value.cpf.replace(/\D/g, '');
+    this.form.value.dtNascimento = Util.formatarDataBR(this.form.value.dtNascimento);
+
     this.authService.primeiroAcesso(this.form.value)
       .subscribe({
-        next: (data) => {
-          console.log(data);
+        next: (data: any) => {
+          this.usuarioCriado = data;
           this.msgService.msgSucesso("Login criado com sucesso!");
         },
         error: (err) => {
-          let msg = "Login inválido! Verifique suas credenciais e tente novamente";
-          if (!"400".startsWith(err.status)) {
-            msg = "Sistema temporariamente indisponível. \n Por favor, abra um chamado para a STI, reportando o problema e tente novamente mais tarde."
-          };
+          let msg = "Atleta não encontrado. Verifique os dados informados!";
           this.msgService.msgErro(msg);
         }
       });
