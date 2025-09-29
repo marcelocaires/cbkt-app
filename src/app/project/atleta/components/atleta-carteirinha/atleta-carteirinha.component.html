@@ -1,18 +1,22 @@
 <div class="carteirinha">
   <div class="carteirinha-header">
       <div mat-card-avatar>
-        <img class="carteirinha-foto" *ngIf="atleta.sexo === 'F'" src="assets/images/avatar-af.png" alt="Foto do(a) atleta" />
-        <img class="carteirinha-foto" *ngIf="atleta.sexo === 'M'" src="assets/images/avatar-am.png" alt="Foto do(a) atleta" />
+        @if (atleta().sexo === 'F') {
+          <img class="carteirinha-foto" src="assets/images/avatar-af.png" alt="Foto do(a) atleta" />
+        }
+        @if (atleta().sexo === 'M') {
+          <img class="carteirinha-foto" src="assets/images/avatar-am.png" alt="Foto do(a) atleta" />
+        }
       </div>     <div class="carteirinha-info">
-      <div class="carteirinha-nome">{{ atleta.nomeAtleta }}</div>
-      <div class="carteirinha-categoria">Categoria: <strong>{{ atleta.categoria }}</strong></div>
-      <div class="carteirinha-graduacao">Graduação: <strong>{{ atleta.descricaoGraduacao }}</strong></div>
-      <div class="carteirinha-clube">Clube: <strong>{{ atleta.nomeClube }}</strong></div>
+      <div class="carteirinha-nome">{{ atleta().nomeAtleta }}</div>
+      <div class="carteirinha-categoria">Categoria: <strong>{{ atleta().categoria }}</strong></div>
+      <div class="carteirinha-graduacao">Graduação: <strong>{{ atleta().descricaoGraduacao }}</strong></div>
+      <div class="carteirinha-clube">Clube: <strong>{{ atleta().nomeClube }}</strong></div>
     </div>
   </div>
   <div class="carteirinha-dados">
-    <div>Data de Nascimento: <strong>{{ atleta.dataNascimento }}</strong></div>
-    <div>Cadastro: <strong>{{ atleta.dataCadastro | date:'dd/MM/yyyy' }}</strong></div>
+    <div>Data de Nascimento: <strong>{{ atleta().dataNascimento }}</strong></div>
+    <div>Cadastro: <strong>{{ atleta().dataCadastro | date:'dd/MM/yyyy' }}</strong></div>
   </div>
   <div class="carteirinha-footer">
     <span>Confederação Brasileira de Karatê Tradicional - CBKT</span>

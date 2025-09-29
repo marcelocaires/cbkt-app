@@ -5,6 +5,11 @@ import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/
 import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
 import { routes } from './app.routes';
 import { HttpInterceptor } from './core/interceptors/http-interceptor';
+// REGISTRA O LOCALE (importa base + extra)
+import { registerLocaleData } from '@angular/common';
+import ptBrExtra from '@angular/common/locales/extra/pt';
+import ptBr from '@angular/common/locales/pt';
+registerLocaleData(ptBr, 'pt-BR', ptBrExtra);
 
 export const appConfig: ApplicationConfig = {
   providers: [

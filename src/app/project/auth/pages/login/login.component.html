@@ -29,8 +29,8 @@
           name="no-password">
         <mat-icon style="cursor: pointer;" matSuffix (click)="changeHide()" title="{{hide ? 'Revelar Senha' : 'Ocultar Senha'}}">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
       </mat-form-field>
-      <div>
-        <mat-slide-toggle [(ngModel)]="lembrarMe" name="lembrarMe" (change)="lembrarMeChange()">Lembrar-me</mat-slide-toggle>
+      <div class="actions">
+        <mat-slide-toggle class="mat-slide-toggle" formControlName="lembreMe" name="lembrarMe"><b>Lembrar-me</b></mat-slide-toggle>
         <a class="btEsqueciSenha" (click)="esqueciSenha()" title="Criar uma nova senha.">
           <mat-icon>lock_reset</mat-icon>
           Esqueceu a senha?

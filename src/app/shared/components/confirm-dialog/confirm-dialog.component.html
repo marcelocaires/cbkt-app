@@ -1,0 +1,21 @@
+<h1 mat-dialog-title>{{data.title}}</h1>
+<mat-divider></mat-divider>
+<div mat-dialog-content>
+  <div *ngIf="data.alertMsg" class="alert">
+    {{data.alertMsg}}
+  </div>
+  <div class="msg">
+    {{data.confirmMsg}}
+  </div>
+</div>
+<mat-divider></mat-divider>
+<div mat-dialog-actions>
+  <button mat-dialog-close mat-flat-button color="primary" (click)="confirmDialog()">
+    <mat-icon>check_circle</mat-icon>
+    Sim
+  </button>
+  <button mat-dialog-close mat-flat-button color="warn">
+    <mat-icon>cancel</mat-icon>
+    Não
+  </button>
+</div>

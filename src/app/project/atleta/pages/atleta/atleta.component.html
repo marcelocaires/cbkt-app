@@ -1,10 +1,14 @@
-<ng-container *ngIf="atleta$ | async as atleta; else loading">
+@if (atleta$ | async; as atleta) {
   <app-atleta-carteirinha [atleta]="atleta"></app-atleta-carteirinha>
   <mat-card>
     <mat-card-header>
       <div mat-card-avatar>
-        <img *ngIf="atleta.sexo === 'F'" src="assets/images/avatar-af.png" alt="Foto do(a) atleta" />
-        <img *ngIf="atleta.sexo === 'M'" src="assets/images/avatar-am.png" alt="Foto do(a) atleta" />
+        @if (atleta.sexo === 'F') {
+          <img src="assets/images/avatar-af.png" alt="Foto do(a) atleta" />
+        }
+        @if (atleta.sexo === 'M') {
+          <img src="assets/images/avatar-am.png" alt="Foto do(a) atleta" />
+        }
       </div>
       <mat-card-title>{{ atleta.nomeAtleta }}</mat-card-title>
       <mat-card-subtitle>{{ atleta.categoria }} | {{ atleta.descricaoGraduacao }}</mat-card-subtitle>
@@ -32,7 +36,9 @@
         <h3>Endereço</h3>
         <p>
           <strong>Logradouro:</strong> {{ atleta.endereco.logradouro }}, {{ atleta.endereco.numero }}
-          <span *ngIf="atleta.endereco.complemento"> - {{ atleta.endereco.complemento }}</span>
+          @if (atleta.endereco.complemento) {
+            <span> - {{ atleta.endereco.complemento }}</span>
+          }
         </p>
         <p><strong>Bairro:</strong> {{ atleta.endereco.bairro }}</p>
         <p><strong>Estado:</strong> {{ atleta.endereco.estado }}</p>
@@ -45,18 +51,11 @@
       </section>
     </mat-card-content>
   </mat-card>
-</ng-container>
-<ng-template #loading>
+} @else {
   <mat-card>
     <mat-card-content style="display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 180px;">
       <mat-progress-spinner color="primary" mode="indeterminate" diameter="48"></mat-progress-spinner>
       <p style="margin-top: 18px; font-size: 1.1rem;">Carregando dados do atleta...</p>
     </mat-card-content>
   </mat-card>
-</ng-template>
-  <mat-card>
-    <mat-card-content style="display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 180px;">
-      <mat-progress-spinner color="primary" mode="indeterminate" diameter="48"></mat-progress-spinner>
-      <p style="margin-top: 18px; font-size: 1.1rem;">Carregando dados do atleta...</p>
-    </mat-card-content>
-  </mat-card>
+}

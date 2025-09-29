@@ -1,8 +1,9 @@
 import { Routes } from '@angular/router';
+import { AtletaComponent } from './project/atleta/pages/atleta/atleta.component';
 import { LoginComponent } from './project/auth/pages/login/login.component';
 import { PasswordResetComponent } from './project/auth/pages/password-reset/password-reset.component';
 import { PrimeiroAcessoComponent } from './project/auth/pages/primeiro-acesso/primeiro-acesso.component';
-import { AtletaComponent } from './project/atleta/pages/atleta/atleta.component';
+import { GraduacaoComponent } from './project/graduacao/pages/graduacao/graduacao.component';
 
 export const routes: Routes = [
   {
@@ -24,5 +25,9 @@ export const routes: Routes = [
   {
     path: 'atleta/:id',
     component: AtletaComponent
+  },
+  {
+    path: 'graduacoes',
+    component: GraduacaoComponent
   }
 ];

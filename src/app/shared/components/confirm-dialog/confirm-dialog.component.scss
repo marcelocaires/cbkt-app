@@ -1,0 +1,15 @@
+:host{
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  display: block;
+}
+.alert {
+  padding: 3px;
+}
+.msg{
+  padding: 3px;
+  color:red;
+  font-weight: bold;
+}
+.mat-mdc-dialog-content {
+  padding: 20px !important;
+}

@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, ChangeDetectorRef } from '@angular/core';
+import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 import { FormGroup, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { AuthService } from '../../../../core/security/services/authService.service';
@@ -7,8 +7,8 @@ import { MaskDirective } from '../../../../shared/directives/mask.directive';
 import { MaterialButtonModule } from '../../../../shared/material/material-button.module';
 import { MaterialFormModule } from '../../../../shared/material/material-form.module';
 import { SharedModule } from '../../../../shared/shared.module';
-import { CpfValidator } from '../../../../shared/validators/cpf-validator';
 import { Util } from '../../../../shared/util/util';
+import { CpfValidator } from '../../../../shared/validators/cpf-validator';
 
 interface UsuarioCriado {
   nome: string;
@@ -51,8 +51,10 @@ export class PrimeiroAcessoComponent extends BaseComponent implements OnInit {
       return;
     }
 
-    this.form.value.cpf = this.form.value.cpf.replace(/\D/g, '');
-    this.form.value.dtNascimento = Util.formatarDataBR(this.form.value.dtNascimento);
+    const cpf = this.form.controls['cpf'].value.replace(/\D/g, '');
+    const dtNascimento = Util.formatarDataBR(this.form.controls['dtNascimento'].value);
+    this.form.controls['cpf'].setValue(cpf);
+    this.form.controls['dtNascimento'].setValue(dtNascimento);
 
     this.authService.primeiroAcesso(this.form.value)
       .subscribe({

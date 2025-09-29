@@ -4,6 +4,7 @@
 // components according to the Material 3 design spec.
 // Learn more about theming and how to use it for your application's
 // custom components at https://material.angular.dev/guide/theming
+@use '@angular/material' as mat;
 @use './app/core/layout/theme/theme.scss';
 
 body {
@@ -23,6 +24,23 @@ body {
   margin: 0;
 }
 /* You can add global styles to this file, and also import other style files */
+:root {
+  @include mat.slide-toggle-overrides((
+    disabled-label-text-color: orange,
+    disabled-selected-handle-color: red,
+    selected-focus-state-layer-color: green,
+    selected-icon-color: blue,
+
+  ));
+}
+// Customize the entire app. Change :root to your selector if you want to scope the styles.
+.mat-slide-toggle {
+  transform: scale(0.7);
+  transform-origin: left center;
+  height: 22px;
+  position: relative;
+  top: -3px;
+}
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

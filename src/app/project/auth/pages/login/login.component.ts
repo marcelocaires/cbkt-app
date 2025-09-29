@@ -2,13 +2,12 @@ import { FormGroup, Validators } from '@angular/forms';
 
 import { Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { appinfo } from '../../../../../environments/appinfo';
 import { AuthService } from '../../../../core/security/services/authService.service';
+import { StorageService } from '../../../../core/storage/services/storage.service';
 import { BaseComponent } from '../../../../shared/components/base/base.component';
 import { MaterialButtonModule } from '../../../../shared/material/material-button.module';
 import { MaterialFormModule } from '../../../../shared/material/material-form.module';
 import { SharedModule } from '../../../../shared/shared.module';
-import { StorageService } from '../../../../core/storage/services/storage.service';
 
 @Component({
   selector: 'app-login',
@@ -22,7 +21,6 @@ export class LoginComponent extends BaseComponent {
   storate=inject(StorageService);
   hide=true;
   form: FormGroup= new FormGroup({});
-  lembrarMe = false;
 
   constructor(){
     super();
@@ -30,17 +28,18 @@ export class LoginComponent extends BaseComponent {
 
   ngOnInit() {
     this.gerarForm();
-    const rememberedEmail = this.storageService.localStorage.getItem('rememberedEmail');
+    const rememberedEmail = this.storageService.localStorage.getItem('loginEmail');
     if (rememberedEmail) {
       this.form.controls['email'].setValue(rememberedEmail);
-      this.lembrarMe = true;
+      this.form.controls['lembreMe'].setValue(true);
     }
   }
 
   gerarForm() {
     this.form = this.formBuilder.group({
       email: ['', [Validators.required]],
-      password: ['', [Validators.required]]
+      password: ['', [Validators.required]],
+      lembreMe: [false]
     });
   }
 
@@ -58,7 +57,7 @@ export class LoginComponent extends BaseComponent {
       .subscribe({
         next: (data) => {
           this.msgService.msgSucesso("Login realizado com sucesso!");
-          this.router.navigate(['atleta']);
+          this.router.navigate([`/atleta/${data.usuario.atletaId}`]);
         },
         error: (err) => {
           let msg = "Login inválido! Verifique suas credenciais e tente novamente";
@@ -73,18 +72,14 @@ export class LoginComponent extends BaseComponent {
     this.hide = !this.hide;
   }
   lembrar(){
-    if(this.lembrarMe){
+    const lembrarMe = this.form.controls['lembreMe'].value;
+    if(lembrarMe){
       if(this.form.controls['email'].valid){
-        this.storageService.localStorage.setItem('rememberedEmail', this.form.controls['email'].value);
-      }else{
-        this.lembrarMe = false;
+        this.storageService.localStorage.setItem('loginEmail', this.form.controls['email'].value);
       }
     }else{
-      this.storageService.localStorage.removeItem('rememberedEmail');
+      this.storageService.localStorage.removeItem('loginEmail');
     }
-  }
-  lembrarMeChange() {
-    this.lembrarMe = !this.lembrarMe;
   }
 
   esqueciSenha() {

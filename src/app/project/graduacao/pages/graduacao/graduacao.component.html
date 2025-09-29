@@ -1,0 +1,8 @@
+@if(graduacoes$ | async; as graduacoes){
+  <app-crud-mat-table
+    crudName="Graduações"
+    [data]="graduacoes"
+    [fieldColumns]="columns"
+    isDelete="true"
+  ></app-crud-mat-table>
+}
