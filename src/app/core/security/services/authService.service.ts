@@ -10,28 +10,26 @@ import { UsuarioService } from './usuarioService.service';
 export class AuthService {
   private http=inject(HttpClient);
   private usuarioService=inject(UsuarioService);
-  private readonly PATH: string = 'login';
-  private readonly PASSWORD_PATH: string = 'password';
 
   constructor(){}
 
-  autenticar(titulo: string, senha: string): Observable<any> {
-      return this.http.post(this.PATH,{titulo,senha});
-  }
-
-  passwordForgot(titulo:string){
-    return this.http.get(`${this.PASSWORD_PATH}/forgot/${titulo}`);
+  autenticar(email: string, password: string): Observable<any> {
+      return this.http.post('login',{email,password});
   }
 
   passwordReset(p:PasswordReset){
-    return this.http.post(`${this.PASSWORD_PATH}/reset/${p.token}`,p);
+    return this.http.post(`password/reset`,p);
   }
 
-  passwordTokenCheck(token:string){
-    return this.http.get(`${this.PASSWORD_PATH}/check/${token}`);
+  passwordResetEmail(email:String){
+    return this.http.post(`password/reset/email`,{email});
+  }
+
+  passwordTokenCheck(t:string){
+    return this.http.post(`token/check`,{token:t});
   }
 
   primeiroAcesso(form:any){
-    return this.http.post(`first`,form);
+    return this.http.post(`enroll`,form);
   }
 }

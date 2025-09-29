@@ -96,3 +96,20 @@ div.formSubTitulo{
     width: 100vw;
   }
 }
+/* Se seus estilos estão encapsulados, você pode usar ::ng-deep ou então colocar no styles globais */
+
+::ng-deep mat-slide-toggle .mat-slide-toggle-bar {
+  width: 14px;   /* ajuste conforme necessário */
+  height: 12px;
+}
+
+::ng-deep mat-slide-toggle .mat-slide-toggle-thumb {
+  width: 10px;
+  height: 10px;
+}
+
+/* Também corrija o deslocamento do thumb quando estiver marcado */
+::ng-deep mat-slide-toggle.mat-checked .mat-slide-toggle-thumb-container {
+  transform: translate3d( (10px - 10px), 0, 0 ) !important;
+  /* ou algo parecido, dependendo do tamanho que você aplicar */
+}

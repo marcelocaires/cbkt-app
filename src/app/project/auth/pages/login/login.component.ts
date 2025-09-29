@@ -8,6 +8,7 @@ import { BaseComponent } from '../../../../shared/components/base/base.component
 import { MaterialButtonModule } from '../../../../shared/material/material-button.module';
 import { MaterialFormModule } from '../../../../shared/material/material-form.module';
 import { SharedModule } from '../../../../shared/shared.module';
+import { StorageService } from '../../../../core/storage/services/storage.service';
 
 @Component({
   selector: 'app-login',
@@ -17,16 +18,11 @@ import { SharedModule } from '../../../../shared/shared.module';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent extends BaseComponent {
-  esqueciSenha() {
-    this.msgService.msgSucesso("Instruções para recuperação de senha enviadas para o seu e-mail.");
-  }
   authService=inject(AuthService);
+  storate=inject(StorageService);
   hide=true;
   form: FormGroup= new FormGroup({});
-  sistemaSigla: string = appinfo.sistemaSigla;
-  sistemaNome: string = appinfo.sistemaNome;
-  sistemaVersao: string = appinfo.sistemaVersao;
-  regional:string=appinfo.regionalNome;
+  lembrarMe = false;
 
   constructor(){
     super();
@@ -34,12 +30,17 @@ export class LoginComponent extends BaseComponent {
 
   ngOnInit() {
     this.gerarForm();
+    const rememberedEmail = this.storageService.localStorage.getItem('rememberedEmail');
+    if (rememberedEmail) {
+      this.form.controls['email'].setValue(rememberedEmail);
+      this.lembrarMe = true;
+    }
   }
 
   gerarForm() {
     this.form = this.formBuilder.group({
-      titulo: ['', [Validators.required]],
-      senha: ['', [Validators.required]]
+      email: ['', [Validators.required]],
+      password: ['', [Validators.required]]
     });
   }
 
@@ -50,18 +51,18 @@ export class LoginComponent extends BaseComponent {
       return;
     }
 
-    const titulo= this.form.controls['titulo'].value;
-    const senha = this.form.controls['senha'].value;
-
-    this.authService.autenticar(titulo,senha)
+    const email= this.form.controls['email'].value;
+    const password = this.form.controls['password'].value;
+    this.lembrar();
+    this.authService.autenticar(email,password)
       .subscribe({
         next: (data) => {
           this.msgService.msgSucesso("Login realizado com sucesso!");
-          this.router.navigate(['admin']);
+          this.router.navigate(['atleta']);
         },
         error: (err) => {
           let msg = "Login inválido! Verifique suas credenciais e tente novamente";
-          if (!"400".startsWith(err.status)) {
+          if (!"403".startsWith(err.status)) {
             msg = "Sistema temporariamente indisponível. \n Por favor, abra um chamado para a STI, reportando o problema e tente novamente mais tarde."
           };
           this.msgService.msgErro(msg);
@@ -70,5 +71,38 @@ export class LoginComponent extends BaseComponent {
   }
   changeHide() {
     this.hide = !this.hide;
+  }
+  lembrar(){
+    if(this.lembrarMe){
+      if(this.form.controls['email'].valid){
+        this.storageService.localStorage.setItem('rememberedEmail', this.form.controls['email'].value);
+      }else{
+        this.lembrarMe = false;
+      }
+    }else{
+      this.storageService.localStorage.removeItem('rememberedEmail');
+    }
+  }
+  lembrarMeChange() {
+    this.lembrarMe = !this.lembrarMe;
+  }
+
+  esqueciSenha() {
+    if (this.form.controls['email'].invalid) {
+      let msg = "Por favor, informe um e-mail válido para recuperação de senha!"
+      this.msgService.msgErro(msg);
+      return;
+    }
+    const email = this.form.controls['email'].value;
+    this.authService.passwordResetEmail(email)
+      .subscribe({
+        next: (data) => {
+          this.msgService.msgSucesso("Instruções para recuperação de senha enviadas para o e-mail.");
+        },
+        error: (err) => {
+          let msg = err.error.message || "Erro ao redefinir a senha!";
+          this.msgService.msgErro(msg);
+        }
+      });
   }
 }

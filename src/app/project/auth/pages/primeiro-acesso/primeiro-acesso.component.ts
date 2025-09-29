@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, ChangeDetectorRef } from '@angular/core';
 import { FormGroup, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { AuthService } from '../../../../core/security/services/authService.service';
@@ -26,6 +26,8 @@ export class PrimeiroAcessoComponent extends BaseComponent implements OnInit {
   authService=inject(AuthService);
   form: FormGroup= new FormGroup({});
   usuarioCriado: UsuarioCriado | null = null;
+  isUsuarioCriado: boolean = false;
+  private cdRef = inject(ChangeDetectorRef);
   constructor() {
     super();
   }
@@ -56,10 +58,11 @@ export class PrimeiroAcessoComponent extends BaseComponent implements OnInit {
       .subscribe({
         next: (data: any) => {
           this.usuarioCriado = data;
-          this.msgService.msgSucesso("Login criado com sucesso!");
+          this.isUsuarioCriado = true;
+          this.cdRef.detectChanges();
         },
         error: (err) => {
-          let msg = "Atleta não encontrado. Verifique os dados informados!";
+          let msg = err.error.message || "Erro ao criar usuário!";
           this.msgService.msgErro(msg);
         }
       });

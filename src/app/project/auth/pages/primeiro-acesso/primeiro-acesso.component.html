@@ -3,10 +3,10 @@
     <div class="logo">
       <img style="width: 100%;" src="assets/images/cbkt-light.png">
     </div>
-    @if(usuarioCriado) {
-      <div>
-        Parabéns {{usuarioCriado.nome.split(" ")[0]}}! Seu login foi criado com sucesso.
-        <p>Acesse o link enviado para {{usuarioCriado.email}} e crie sua senha de acesso.</p>
+    @if(isUsuarioCriado && usuarioCriado != null){
+      <div class="msgSucesso">
+        Parabéns <b>{{usuarioCriado.nome.split(" ")[0]}}</b>! Seu login foi criado com sucesso.
+        <p>Acesse o link enviado para <b>{{usuarioCriado.email}}</b> e crie sua senha de acesso.</p>
       </div>
     }@else{
       <div class="formTitulo">Primeiro Acesso</div>

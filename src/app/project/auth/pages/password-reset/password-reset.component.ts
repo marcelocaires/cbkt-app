@@ -1,7 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, inject } from '@angular/core';
+import { Component, ChangeDetectorRef, inject } from '@angular/core';
 import { AbstractControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
-import { appinfo } from '../../../../../environments/appinfo';
 import { AuthService } from '../../../../core/security/services/authService.service';
 import { BaseComponent } from '../../../../shared/components/base/base.component';
 import { MaterialButtonModule } from '../../../../shared/material/material-button.module';
@@ -11,7 +10,6 @@ import { SharedModule } from '../../../../shared/shared.module';
 
 export interface PasswordReset{
   password: string;
-  email: string;
   token: string;
 }
 
@@ -24,38 +22,49 @@ export interface PasswordReset{
 })
 export class PasswordResetComponent extends BaseComponent  {
   authService=inject(AuthService);
+  private cdRef = inject(ChangeDetectorRef);
   passwordHide=true;
   confirmHide=true;
   validToken=false;
   tokenMsg="";
-  email:any;
   token:any;
+  type:any;
+  check:boolean=false;
+
+  atleta:string|null=null;
   strongPasswordRegx: RegExp=/^(?=[^A-Z]*[A-Z])(?=[^a-z]*[a-z])(?=\D*\d)(?=.*[!@#$%^&*]).{6,}$/;
 
   form: FormGroup=this.formBuilder.group({
     senha: ['', [Validators.required, Validators.pattern(this.strongPasswordRegx)]],
     confirm: ['', [Validators.required,this.validateSamePassword]]
   });
-  sistemaSigla: string = appinfo.sistemaSigla;
-  sistemaNome: string = appinfo.sistemaNome;
-  sistemaVersao: string = appinfo.sistemaVersao;
-  regional:string=appinfo.regionalNome;
 
+  constructor(){
+    super();
+  }
 
   ngOnInit(): void {
     this.activatedRoute.paramMap.subscribe((params) => {
-      if (params != null) {
-        this.email = params.get('email');
-        this.token = params.get('token');
+      this.type = params.get('type');
+      this.token = params.get('token');
+      if (this.token!=null) {
         this.authService.passwordTokenCheck(this.token).subscribe({
           next: (response:any) => {
+            this.atleta=response.nome.split(' ')[0];
             this.validToken = true;
+            this.check=true;
+            this.cdRef.detectChanges();
           },
           error: (error: HttpErrorResponse) => {
             this.validToken = false;
-            //this.msgService.msgErro(error.error.error);
+            this.check=true;
+            this.cdRef.detectChanges();
           },
         });
+      } else {
+        this.validToken = false;
+        this.check = true;
+        this.cdRef.detectChanges();
       }
     });
   }
@@ -92,7 +101,6 @@ export class PasswordResetComponent extends BaseComponent  {
 
   submit(){
     if(this.form.valid){
-
       if(this.passwordFormField?.value != this.confirmFormField?.value ){
         this.msgService.msgErro('As senhas não conferem!');
         return;
@@ -100,7 +108,6 @@ export class PasswordResetComponent extends BaseComponent  {
 
       const passwordReset:PasswordReset={
         password: this.passwordFormField?.value,
-        email: this.email,
         token: this.token
       }
 
