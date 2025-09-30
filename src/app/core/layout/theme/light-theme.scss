@@ -1,5 +1,5 @@
 @use '@angular/material' as mat;
-//@use 'light-table.scss';
+@use 'light-table.scss';
 @include mat.core();
 
 $light-theme: mat.define-theme((

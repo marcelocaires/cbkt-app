@@ -1,40 +1,16 @@
-table{
-  width:100%
+:host{
+  display: block;
+  justify-content: center;
 }
-td.mat-cell{
-  border-bottom-style: none;
+table {
+  width: 100%;
 }
-mat-form-field{
-  width: 180px;
-  margin-right: 5px;
+.tdActions{
+  width: 50px;
+  text-align: center;
 }
-.filtro, .periodo{
-   display: block;
-}
-.filtro> span{
-   font-size: 0.5em;
-   display: block;
-}
-.fieldFiltro{
-  padding: 0 !important;
-  width: 400px;
-  margin: 0 !important;
-}
-.inputFilter{
-  background-color: #fff;
-  border: 1px solid silver;
-  width: 300px;
-  padding: 2px;
-  text-transform:uppercase;
-  font-size: 2em;
-  height: 25px;
-  border-radius: 5px;
-}
-.separador{
-  margin-left: 10px;
-  margin-right: 10px;
-  border-left: 1px solid;
-  height: 30px;
+.thFilter{
+  height: 45px;
 }
 div.filtro{
   display: flex;
@@ -43,50 +19,28 @@ div.filtro{
   align-content: center;
   align-items: center;
   justify-content: flex-start;
+  gap: 8px;
+  > .inputFilter{
+    width: 300px;
+    padding: 2px;
+    text-transform:uppercase;
+    height: 25px;
+    border-radius: 5px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+  }
+  > .separador{
+    margin-left: 10px;
+    margin-right: 10px;
+    border-left: 2px solid;
+    height: 28px;
+  }
 }
 .msg{
   color: red;
   font-size: 1.1em;
 }
-div.dashboardItem{
-  width: 200px;
-  text-align: center;
-  padding: 10px;
-  border-radius: 5px;
-  display: inline-block;
-  margin-right: 20px;
-}
-.dashboardItem>span{
- display:block;
-}
-.dashboardItem>span.number{
-  font-size: 1.5em;
-}
-.dashboardItem>span.title{
-  font-size: 0.8em;
-  p{
-    margin: 0;
+@media (max-width: 900px) {
+  table {
+    font-size: 0.95em;
   }
 }
-.dashboardItem>a{
-  cursor: pointer;
-}
-.votos{
-  padding: 15px;
-  text-align: center;
-}
-.btElement{
-  vertical-align:middle;
-  margin-left:4px;
-  cursor: pointer;
-}
-.tdActions{
-  width: 250px;
-  text-align: center;
-}
-.filterMsg{
-  color: red;
-  padding: 5px;
-}
-
-

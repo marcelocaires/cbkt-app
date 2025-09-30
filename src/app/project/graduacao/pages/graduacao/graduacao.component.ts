@@ -20,7 +20,7 @@ export class GraduacaoComponent implements OnInit {
   columns: MatTableColumnField[]=[
       {field:'id', columnName:'ID', type:FieldTypesEnum.number, length: 70},
       {field:'descricaoGraduacao', columnName:'Descrição', type:FieldTypesEnum.string, length: 200},
-      {field:'carencia', columnName:'Carência', type:FieldTypesEnum.string, length: 100}
+      {field:'carencia', columnName:'Carência', type:FieldTypesEnum.number, length: 100}
   ];
   constructor() { }
 

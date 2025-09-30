@@ -1,4 +1,5 @@
-<div class="mat-elevation-z8" style="padding: 10px;">
+<mat-card>
+  <mat-card-content>
   <table
     [dataSource]="dataSource"
     mat-table
@@ -9,9 +10,7 @@
         <th mat-header-cell *matHeaderCellDef [attr.colspan]="100" style='text-align: left !important;' class="thFilter">
           <div class="filtro">
             <mat-icon style="vertical-align:middle;margin-right:5px;">filter_alt</mat-icon>
-            <span style="vertical-align: middle">
-              <input matInput class="inputFilter" (keyup)="applyFilter($event)" [(ngModel)]="inputFilter" placeholder="Filtro">
-            </span>
+            <input matInput class="inputFilter" (keyup)="applyFilter($event)" [(ngModel)]="inputFilter" placeholder="Filtro">
             <a style="cursor: pointer;" title="Limpar Filtro" (click)="cleanFilter()">
                 <mat-icon style="vertical-align:middle;margin-left:5px;">filter_alt_off</mat-icon>
             </a>
@@ -110,4 +109,5 @@
       [pageSizeOptions]="[5, 10, 15, 20]"
       showFirstLastButtons>
   </mat-paginator>
-</div>
+  </mat-card-content>
+</mat-card>

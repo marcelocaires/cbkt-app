@@ -12,19 +12,21 @@ import { Util } from '../../util/util';
 import { ConfirmDialogComponent, ConfirmDialogData } from '../confirm-dialog/confirm-dialog.component';
 import { FieldTypesEnum } from './enums';
 import { CustomElementAction, customEventEmmiter, ElementCustomAction, MatTableColumnField } from './interfaces';
+import { MaterialLayoutModule } from '../../material/material-layout.module';
 
 @Component({
   selector: 'app-crud-mat-table',
   templateUrl: './crud-mat-table.component.html',
   styleUrls: ['./crud-mat-table.component.scss'],
   standalone: true,
-  imports:[SharedModule,MaterialTableModule,MaterialButtonModule,MaterialFormModule],
+  imports:[SharedModule,MaterialTableModule,MaterialButtonModule,MaterialFormModule,MaterialLayoutModule],
 })
 export class CrudMatTableComponent {
 
   crudName=input.required<string>();
   fieldColumns=input.required<MatTableColumnField[]>();
   data=input.required<any[]>();
+  msgDelete=input.required<string|null>();
   isPrintAll=input(false,{transform:(value:string|boolean)=>typeof value==="string"?value==="" || value==='true':value});
   isExportAll=input(false,{transform:(value:string|boolean)=>typeof value==="string"?value==="" || value==='true':value});
   isCreate=input(false,{transform:(value:string|boolean)=>typeof value==="string"?value==="" || value==='true':value});
@@ -149,10 +151,15 @@ export class CrudMatTableComponent {
   }
 
   deleteElement(element:any){
+    let msg:any="Deseja realmente remover este "+this.crudName().toLocaleLowerCase()+"?";
+    console.log(this.msgDelete());
+    if(this.msgDelete()!=null){
+      msg=this.msgDelete();
+    }
     const confirmData:ConfirmDialogData={
       title:"Remover "+this.crudName(),
       alertMsg:"",
-      confirmMsg:"Deseja realmente remover este "+this.crudName().toLocaleLowerCase()+"?"
+      confirmMsg:msg
     }
     const dialogRefConfirm = this.dialog.open(ConfirmDialogComponent, {
       height: 'auto',

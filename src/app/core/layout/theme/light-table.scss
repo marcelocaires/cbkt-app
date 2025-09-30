@@ -34,4 +34,20 @@
     background-color: $zebra !important;
     color: $zebraContrast;
   }
+  .mat-mdc-row {
+    height: 30px;
+  }
+  .mat-mdc-header-row {
+    height: 40px;
+  }
+  .mat-mdc-row:nth-child(even){
+    background-color: #f5f5f5;
+  }
+  .mat-mdc-row:nth-child(odd){
+    background-color: #FFF;
+  }
+  .mat-mdc-paginator{
+    transform: scale(0.9);
+    transform-origin: right center;
+  }
 }
