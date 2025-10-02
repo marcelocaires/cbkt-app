@@ -1,40 +1,33 @@
 .dark-table{
-  table{
-    background-color: #171C1F!important;
+  thead{
+      background-color: var(--mat-sys-primary);
+      >*{
+        background-color: var(--mat-sys-primary);
+        color: var(--mat-sys-on-primary);
+      }
+      color: var(--mat-sys-on-primary);
   }
-  mat-paginator{
-    background-color: #171C1F!important;
-    border-top: 1px solid black;
+  .mat-mdc-row {
+    height: 30px;
   }
-  thead>tr{
-    background-image: linear-gradient(to right,#005E7A,#1F6A74,#43786C);
-    background-repeat: no-repeat;
-    color: #FFF !important;
+  .mat-mdc-header-row {
+    height: 40px;
   }
-  thead>tr>th{
-    background:transparent !important;
-    color: #FFF !important;
-    >div>span>button{
-      background-color: #FFF !important;
-      color: #005E7A !important;
-    }
+  .mat-mdc-row:nth-child(even){
+    background-color: var(--mat-sys-background);
   }
-  thead>tr>.thFilter {
-    background-image: linear-gradient(to right,#1F6A74,#1F6A74,#62969d);
-    background-repeat: no-repeat;
-    color: #FFF !important;
-    border-color: #FFF !important;
+  .mat-mdc-row:nth-child(odd){
+    background-color: var(--mat-card-elevated-container-color, var(--mat-sys-surface-container-low));
   }
-  tbody>tr>td{
-    color: #FFF !important;
+  .mat-mdc-paginator{
+    transform: scale(0.9);
+    transform-origin: right center;
+    background-color: transparent;
   }
-  .mat-sort-header-arrow {
-    color:#FFF !important;
-  }
-  $zebra:#7a7a7a;
-  .rowZebra{
-    background-color: $zebra !important;
-    color: #FFF !important;
+  .mat-mdc-paginator-container {
+    padding: 0;
+    width: 100%;
+    min-height:auto;
   }
 }
 

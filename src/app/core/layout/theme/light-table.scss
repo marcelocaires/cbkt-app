@@ -1,38 +1,11 @@
 .light-table{
-  table{
-    background-color: #F4F3F6;
-  }
-  mat-paginator{
-    background-color: #F4F3F6;
-    border-top: 1px solid white;
-  }
-  thead>tr{
-    background-image: linear-gradient(to right,#005E7A,#1F6A74,#43786C);
-    background-repeat: no-repeat;
-    color: #FFF !important;
-  }
-  thead>tr>th{
-    background:transparent !important;
-    color: #FFF !important;
-    >div>span>button{
-      background-color: #FFF !important;
-      color: #005E7A !important;
-    }
-  }
-  thead>tr>.thFilter {
-    background-image: linear-gradient(to right,#005E7A,#1F6A74,#43786C);
-    background-repeat: no-repeat;
-    color: #FFF !important;
-    border-color: #FFF !important;
-  }
-  .mat-sort-header-arrow {
-    color:#FFF !important;
-  }
-  $zebra:rgb(185, 209, 213, 0.3);
-  $zebraContrast:#2a514c;
-  .rowZebra{
-    background-color: $zebra !important;
-    color: $zebraContrast;
+  thead{
+      background-color: var(--mat-sys-primary);
+      >*{
+        background-color: var(--mat-sys-primary);
+        color: var(--mat-sys-on-primary);
+      }
+      color: var(--mat-sys-on-primary);
   }
   .mat-mdc-row {
     height: 30px;
@@ -41,13 +14,19 @@
     height: 40px;
   }
   .mat-mdc-row:nth-child(even){
-    background-color: #f5f5f5;
+    background-color: var(--mat-sys-background);
   }
   .mat-mdc-row:nth-child(odd){
-    background-color: #FFF;
+    background-color: var(--mat-card-elevated-container-color, var(--mat-sys-surface-container-low));
   }
   .mat-mdc-paginator{
     transform: scale(0.9);
     transform-origin: right center;
+    background-color: transparent;
+  }
+  .mat-mdc-paginator-container {
+    padding: 0;
+    width: 100%;
+    min-height:auto;
   }
 }

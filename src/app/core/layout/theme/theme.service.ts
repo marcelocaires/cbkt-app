@@ -10,6 +10,10 @@ export class ThemeService {
 
   private _document = inject(DOCUMENT);
 
+  get activeTheme(): 'light' | 'dark' {
+    return this.storageService.localStorage.getItem('theme') === 'dark' ? 'dark' : 'light';
+  }
+
   setTheme() {
     if(this.storageService.localStorage.getItem('theme')) {
       if(this.storageService.localStorage.getItem('theme') === 'dark') {
@@ -19,6 +23,14 @@ export class ThemeService {
       }
     }else{
       this.switchTheme(false);
+    }
+  }
+
+  alternateTheme() {
+    if(this.activeTheme === 'dark') {
+      this.switchTheme(false);
+    } else {
+      this.switchTheme(true);
     }
   }
 
