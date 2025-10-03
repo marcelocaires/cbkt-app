@@ -1,0 +1,37 @@
+div.footer{
+	width: calc(100vw - 10px);
+	background-color: #005E7A;
+	background-image: url('/assets/css/images/bg-topo-principal.png');
+	background-repeat: no-repeat;
+  padding:2px 5px;
+  color: white;
+  font-weight: bold;
+  font-size: 0.8em;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+div.footer img{
+    height:16px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+div.userInfo{
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  >.icon{
+    font-size: 14px;height: 14px;width:14px
+  }
+  >span{
+    margin-left: 2px;
+  }
+}
+
+

@@ -8,8 +8,12 @@ $light-theme: mat.define-theme((
     primary: mat.$cyan-palette,
   ),
   typography: (
-    brand-family: 'Roboto',
-    bold-weight: 900
+    plain-family: Roboto,
+    brand-family: Open Sans,
+    bold-weight: 900,
+    medium-weight: 500,
+    regular-weight: 300,
+    use-system-variables: true
   ),
   density: (
     scale: -1
@@ -25,7 +29,7 @@ $light-theme: mat.define-theme((
     top: 0;
     z-index: 1000;
     box-shadow: 0 2px 4px -1px rgb(0 0 0 / 20%), 0 4px 5px 0 rgb(0 0 0 / 14%), 0 1px 10px 0 rgb(0 0 0 / 12%);
-    background-color: var(--mat-sys-primary);
-    color: var(--mat-sys-on-primary);
+    //background-color: #231f20;
+    color: var(--mat-sys-primary);
   }
 }

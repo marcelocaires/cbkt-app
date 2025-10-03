@@ -1,0 +1,22 @@
+:host {
+  display: block;
+}
+.logo{
+  height: 64px;
+  background-color: #231f20;
+  text-align: center;
+  >a>img{
+    height: 64px;
+  }
+}
+.menu{
+  //background-color: #231f20;
+}
+mat-sidenav{
+  margin-top:60px;
+  height: calc(100vh - 60px);
+  box-shadow: 1px 0 20px #231f20;
+  border: none;
+  //background-color: #231f20;
+  border-radius: 0;
+}

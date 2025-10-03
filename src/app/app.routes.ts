@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { MainLayoutComponent } from './core/layout/components/components/main-layout/main-layout.component';
 import { AtletaComponent } from './project/atleta/pages/atleta/atleta.component';
 import { LoginComponent } from './project/auth/pages/login/login.component';
 import { PasswordResetComponent } from './project/auth/pages/password-reset/password-reset.component';
@@ -23,11 +24,18 @@ export const routes: Routes = [
     component: PasswordResetComponent
   },
   {
-    path: 'atleta/:id',
-    component: AtletaComponent
+    path: 'graduacoes',
+    component: MainLayoutComponent,
+    children: [
+        {
+            path: '',
+            component: GraduacaoComponent
+        }
+    ],
+    //canActivate: [AuthGuard],
   },
   {
-    path: 'graduacoes',
-    component: GraduacaoComponent
+    path: 'atleta/:id',
+    component: AtletaComponent
   }
 ];

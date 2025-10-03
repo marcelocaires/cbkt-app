@@ -43,6 +43,11 @@ export class UsuarioService {
     this.storageService.sessionStorage.setItem('usuario',JSON.stringify(usuario));
   }
 
+  getUsuario(): Usuario | null {
+      const usuario = this.storageService.sessionStorage.getItem('usuario');
+      return usuario ? JSON.parse(usuario) : null;
+  }
+
   logout() {
       this.tokenService.removeToken();
       this.storageService.sessionStorage.removeItem('usuario');
