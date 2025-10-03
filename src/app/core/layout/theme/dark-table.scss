@@ -1,11 +1,11 @@
 .dark-table{
   thead{
-      background-color: var(--mat-sys-primary);
+      background-color: var(--mat-sys-primary-container);
       >*{
-        background-color: var(--mat-sys-primary);
-        color: var(--mat-sys-on-primary);
+        background-color: var(--mat-sys-primary-container);
+        color: var(--mat-sys-primary);
       }
-      color: var(--mat-sys-on-primary);
+      color: var(--mat-sys-primary);
   }
   .mat-mdc-row {
     height: 30px;
