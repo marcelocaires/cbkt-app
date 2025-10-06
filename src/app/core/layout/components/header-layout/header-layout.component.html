@@ -1,0 +1,18 @@
+<mat-toolbar class="toolbar flex">
+  <div class="right">
+    <div class="logo">
+      <a routerLink="/home" routerLinkActive="active">
+        <img src="assets/images/cbkt-trans.png" alt="logo cbkt">
+      </a>
+    </div>
+    <button mat-icon-button title="Menu" (click)="hideNavBar()">
+      <mat-icon>menu</mat-icon>
+    </button>
+  </div>
+  <div class="left">
+    <app-theme-toggle></app-theme-toggle>
+    <button mat-icon-button title="Sair do sistema" (click)="logof()">
+      <mat-icon>power_settings_new</mat-icon>
+    </button>
+  </div>
+</mat-toolbar>

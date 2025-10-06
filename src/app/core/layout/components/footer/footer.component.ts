@@ -1,9 +1,9 @@
 import { Component, inject } from '@angular/core';
-import { appinfo } from '../../../../../../environments/appinfo';
-import { environment as env } from '../../../../../../environments/environment';
-import { MaterialButtonModule } from '../../../../../shared/material/material-button.module';
-import { SharedModule } from '../../../../../shared/shared.module';
-import { Usuario, UsuarioService } from '../../../../security/services/usuarioService.service';
+import { appinfo } from '../../../../../environments/appinfo';
+import { environment as env } from '../../../../../environments/environment';
+import { MaterialButtonModule } from '../../../../shared/material/material-button.module';
+import { SharedModule } from '../../../../shared/shared.module';
+import { Usuario, UsuarioService } from '../../../security/services/usuarioService.service';
 ;
 
 @Component({

@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-
-import { appinfo } from '../../../../../../environments/appinfo';
-import { SharedModule } from '../../../../../shared/shared.module';
-import { HeaderLayoutComponent } from '../header-layout/header-layout.component';
+import { SharedModule } from '../../../../shared/shared.module';
 import { SidenavComponent } from '../sidenav/sidenav.component';
+import { HeaderLayoutComponent } from '../header-layout/header-layout.component';
+import { appinfo } from '../../../../../environments/appinfo';
 
 @Component({
     selector: 'app-main-layout',
@@ -22,6 +21,7 @@ export class MainLayoutComponent implements OnInit {
 
   public loading = true;
   public sideNav:boolean=appinfo.isSideNav;
+  isNavHide=false;
 
   constructor() {}
 

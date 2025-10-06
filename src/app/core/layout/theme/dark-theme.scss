@@ -6,6 +6,7 @@ $dark-theme: mat.define-theme((
   color: (
     theme-type: dark,
     primary: mat.$cyan-palette,
+    tertiary: mat.$red-palette,
   ),
   typography: (
     brand-family: 'Roboto',
@@ -26,6 +27,17 @@ $dark-theme: mat.define-theme((
     z-index: 1000;
     box-shadow: 0 2px 4px -1px rgb(0 0 0 / 20%), 0 4px 5px 0 rgb(0 0 0 / 14%), 0 1px 10px 0 rgb(0 0 0 / 12%);
     background-color: var(--mat-sys-primary-container);
-    color: var(--mat-sys-primary);
+    >*{
+      color:#FFF;
+    }
+  }
+  mat-sidenav{
+    margin-top:60px;
+    height: calc(100vh - 60px);
+    box-shadow: 1px 0 20px #231f20;
+    border: none;
+    background-color: var(--mat-sys-primary-container);
+    color: #FFF;
+    border-radius: 0;
   }
 }

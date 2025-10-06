@@ -22,6 +22,10 @@ export class ThemeToggleComponent {
   private themeService = inject(ThemeService);
   isDarkMode = false;
 
+  ngOnInit() {
+    this.isDarkMode = this.themeService.activeTheme === 'dark';
+  }
+
   toggleTheme() {
     this.isDarkMode = !this.isDarkMode;
     this.themeService.switchTheme(this.isDarkMode);

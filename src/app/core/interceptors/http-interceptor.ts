@@ -3,7 +3,7 @@ import { inject } from '@angular/core';
 import { tap, throwError } from 'rxjs';
 import { appinfo } from '../../../environments/appinfo';
 import { environment as env } from '../../../environments/environment';
-import { LoadingDialogService } from '../layout/components/components/loading-dialog/loading-dialog.service';
+import { LoadingDialogService } from '../layout/components/loading-dialog/loading-dialog.service';
 
 export const HttpInterceptor: HttpInterceptorFn=(req:HttpRequest<unknown>,next:HttpHandlerFn) => {
   const loadingService=inject(LoadingDialogService);
@@ -26,7 +26,8 @@ export const HttpInterceptor: HttpInterceptorFn=(req:HttpRequest<unknown>,next:H
     url:isExemplos?req.url:env.apiUrl+req.url
   });
 
-  //loadingService.openDialog();
+
+  loadingService.openDialog();
   return next(modifiedReq).pipe(
     tap({
       next:()=>{},
@@ -44,7 +45,7 @@ export const HttpInterceptor: HttpInterceptorFn=(req:HttpRequest<unknown>,next:H
       },
       complete:()=>{},
       finalize:()=>{
-        //loadingDialogService.hideDialog();
+        loadingService.hideDialog();
       }
     })
   );

@@ -1,0 +1,36 @@
+:host{
+  display: block;
+  button{
+    color: #FFF;
+  }
+}
+.flex{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0;
+}
+div.logo{
+  height: 60px;
+  width: 200px;
+  background-color: #231f20;
+  text-align: center;
+  >a>img{
+    height: 60px;
+  }
+}
+.right{
+  display: flex;
+  align-content: center;
+  align-items: center;
+  flex-direction: row;
+  flex-wrap: nowrap;
+}
+.left{
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  align-items: center;
+}

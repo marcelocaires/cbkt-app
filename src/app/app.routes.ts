@@ -1,10 +1,10 @@
 import { Routes } from '@angular/router';
-import { MainLayoutComponent } from './core/layout/components/components/main-layout/main-layout.component';
 import { AtletaComponent } from './project/atleta/pages/atleta/atleta.component';
 import { LoginComponent } from './project/auth/pages/login/login.component';
 import { PasswordResetComponent } from './project/auth/pages/password-reset/password-reset.component';
 import { PrimeiroAcessoComponent } from './project/auth/pages/primeiro-acesso/primeiro-acesso.component';
 import { GraduacaoComponent } from './project/graduacao/pages/graduacao/graduacao.component';
+import { MainLayoutComponent } from './core/layout/components/main-layout/main-layout.component';
 
 export const routes: Routes = [
   {

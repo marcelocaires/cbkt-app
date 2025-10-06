@@ -6,13 +6,14 @@ import { MatTableColumnField } from '../../../../shared/components/crud-mat-tabl
 import { SharedModule } from '../../../../shared/shared.module';
 import { Graduacao } from '../../model/graduacao';
 import { GraduacaoService } from '../../services/graduacao.service';
+import { MaterialProgressModule } from '../../../../shared/material/material-progress.module';
 
 @Component({
   selector: 'app-graduacao',
   templateUrl: './graduacao.component.html',
   styleUrls: ['./graduacao.component.scss'],
   standalone: true,
-  imports: [SharedModule,CrudMatTableComponent]
+  imports: [SharedModule,CrudMatTableComponent,MaterialProgressModule]
 })
 export class GraduacaoComponent implements OnInit {
   service=inject(GraduacaoService);
