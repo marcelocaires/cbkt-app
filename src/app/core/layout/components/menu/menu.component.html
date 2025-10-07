@@ -1,8 +1,41 @@
-<mat-nav-list>
-  @for (item of menuItems(); track item) {
-    <a mat-list-item [routerLink]="item.route">
-      <mat-icon matListIcon>{{ item.icon }}</mat-icon>
-      <span matLine>{{ item.label }}</span>
-    </a>
-  }
-</mat-nav-list>
+<mat-accordion displayMode="flat">
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <mat-icon >menu</mat-icon>
+        TEste1
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <div class="menu-content">
+      <div>Teste</div>
+      <div>Teste</div>
+      <div>Teste</div>
+    </div>
+  </mat-expansion-panel>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <mat-icon >menu</mat-icon>
+        Teste2
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <div class="menu-content">
+      <div>Teste</div>
+      <div>Teste</div>
+      <div>Teste</div>
+    </div>
+  </mat-expansion-panel>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <mat-icon >menu</mat-icon>
+        Teste2
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <div class="menu-content">
+      <div>Teste</div>
+      <div>Teste</div>
+      <div>Teste</div>
+    </div>
+  </mat-expansion-panel>
+</mat-accordion>

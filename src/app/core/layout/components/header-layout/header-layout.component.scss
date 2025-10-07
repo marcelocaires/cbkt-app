@@ -20,6 +20,16 @@ div.logo{
   >a>img{
     height: 60px;
   }
+  background-image: url("../../../../../../public/assets/images/cbkt-logo.png");
+  background-size: 60px;
+  background-repeat: no-repeat;
+  background-position: center;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-content: center;
+  align-items: center;
+  justify-content: flex-start;
 }
 .right{
   display: flex;

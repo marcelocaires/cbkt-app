@@ -27,6 +27,11 @@ export class SidenavComponent {
 
   isOpen=input<boolean>(true);
 
+  menuItems=[
+    { label: 'Dashboard', icon: 'dashboard', route: '/dashboard' },
+    { label: 'Usuários', icon: 'people', route: '/usuarios' },
+    { label: 'Configurações', icon: 'settings', route: '/configuracoes' }
+  ];
   constructor(){
     this.usuario=this.usuarioService.getUsuario();
     if(this.usuario){

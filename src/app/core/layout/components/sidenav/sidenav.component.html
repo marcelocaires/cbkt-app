@@ -4,11 +4,7 @@
     [opened]="isOpen()"
     fixedInViewport="true"
     style="width: 200px;">
-    <app-menu [menuItems]="[
-      { label: 'Dashboard', icon: 'dashboard', route: '/dashboard' },
-      { label: 'Usuários', icon: 'people', route: '/usuarios' },
-      { label: 'Configurações', icon: 'settings', route: '/configuracoes' }
-    ]"></app-menu>
+    <app-menu [menuItems]="menuItems"></app-menu>
   </mat-sidenav>
   <mat-sidenav-content>
     <router-outlet></router-outlet>

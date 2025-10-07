@@ -1,11 +1,31 @@
-mat-nav-list {
-  width: 100%;
+@use 'sass:color';
+@use '@angular/material' as mat;
+
+.menu-content{
+  padding-left: 25px;
+  background-color: aqua;
+  color: black;
 }
 
-mat-list-item {
-  cursor: pointer;
-}
-
-mat-icon {
-  margin-right: 8px;
+:host{
+  @include mat.expansion-overrides((
+    container-background-color: var(--mat-sys-primary),
+    container-text-color:var(--mat-sys-on-primary),
+    header-text-color: var(--mat-sys-on-primary),
+    header-indicator-color: var(--mat-sys-on-primary),
+    header-collapsed-state-height: 30px,
+    header-expanded-state-height: 30px,
+    container-shape:30px
+  ));
+  .mat-expansion-panel:last-of-type{
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+  .mat-expansion-panel:first-of-type {
+    border-top-right-radius: 0;
+    border-top-left-radius: 0;
+  }
+  .mat-expansion-panel-header{
+    padding: 0 10px;
+  }
 }

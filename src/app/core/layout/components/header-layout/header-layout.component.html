@@ -1,13 +1,13 @@
 <mat-toolbar class="toolbar flex">
   <div class="right">
     <div class="logo">
+      <button mat-icon-button title="Menu" (click)="hideNavBar()">
+        <mat-icon>menu</mat-icon>
+      </button>
       <a routerLink="/home" routerLinkActive="active">
-        <img src="assets/images/cbkt-trans.png" alt="logo cbkt">
       </a>
+      <div></div>
     </div>
-    <button mat-icon-button title="Menu" (click)="hideNavBar()">
-      <mat-icon>menu</mat-icon>
-    </button>
   </div>
   <div class="left">
     <app-theme-toggle></app-theme-toggle>
