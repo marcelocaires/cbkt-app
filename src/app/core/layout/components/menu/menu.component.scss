@@ -1,10 +1,22 @@
 @use 'sass:color';
 @use '@angular/material' as mat;
 
-.menu-content{
-  padding-left: 25px;
-  background-color: aqua;
-  color: black;
+ul.menu-content{
+  background-color:#231f20;
+  color: white;
+  margin: 0;
+  padding: 0;
+  >li{
+    padding-left: 25px;
+    color: white;
+    cursor: pointer;
+    list-style: none;
+    border-left: 5px solid rgba(35,31,32,0.5);
+  }
+  >li:hover{
+    opacity: 0.5;
+    font-weight: 100;
+  }
 }
 
 :host{
