@@ -5,7 +5,13 @@
       [data]="graduacoes"
       [fieldColumns]="columns"
       isDelete="true"
+      (delete)="selectedGraduacao=$event"
       msgDelete="Deseja realmente remover esta graduação?"
     ></app-crud-mat-table>
   </div>
+  @if(selectedGraduacao) {
+    <app-graduacao-crud
+      [graduacao]="selectedGraduacao"
+    ></app-graduacao-crud>
+  }
 }

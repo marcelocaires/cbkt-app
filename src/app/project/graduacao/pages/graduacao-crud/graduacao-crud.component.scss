@@ -1,0 +1,61 @@
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.full-width {
+  grid-column: 1 / -1;
+}
+
+mat-card {
+  max-width: 1200px;
+  margin: 20px auto;
+}
+
+mat-card-header {
+  margin-bottom: 16px;
+}
+
+mat-card-actions {
+  padding: 16px 24px;
+  display: flex;
+  gap: 8px;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+.mat-mdc-progress-spinner {
+  margin-right: 8px;
+}
+
+// Responsive adjustments
+@media (max-width: 768px) {
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  mat-card {
+    margin: 10px;
+  }
+}
+
+// Form validation styles
+.mat-mdc-form-field.mat-form-field-invalid .mat-mdc-text-field-wrapper {
+  background-color: rgba(244, 67, 54, 0.04);
+}
+
+// Button loading state
+button[disabled] {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+// Error message styling
+mat-error {
+  font-size: 12px;
+  margin-top: 4px;
+}
