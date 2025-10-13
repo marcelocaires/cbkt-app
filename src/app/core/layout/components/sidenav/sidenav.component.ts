@@ -1,12 +1,12 @@
 import { RouterOutlet } from '@angular/router';
 
-import { Component, inject, input, output } from '@angular/core';
+import { Component, inject, input } from '@angular/core';
 import { appinfo } from '../../../../../environments/appinfo';
 import { MaterialButtonModule } from '../../../../shared/material/material-button.module';
 import { MaterialNavigationModule } from '../../../../shared/material/material-navigation.module';
 import { SharedModule } from '../../../../shared/shared.module';
 import { Usuario, UsuarioService } from '../../../security/services/usuarioService.service';
-import { MenuComponent } from '../menu/menu.component';
+import { MenuComponent, MenuItem } from '../menu/menu.component';
 
 
 @Component({
@@ -26,12 +26,24 @@ export class SidenavComponent {
   isDev=false;
 
   isOpen=input<boolean>(true);
-
-  menuItems=[
-    { label: 'Dashboard', icon: 'dashboard', route: '/dashboard' },
-    { label: 'Usuários', icon: 'people', route: '/usuarios' },
-    { label: 'Configurações', icon: 'settings', route: '/configuracoes' }
+  menuItems: MenuItem[]= [
+    {
+      label: 'Atletas',
+      icon: 'sports_martial_arts',
+      route: '/atletas'
+    },
+    {
+      label: 'Graduações',
+      icon: 'school',
+      route: '/graduacoes'
+    },
+    {
+      label: 'Usuários',
+      icon: 'people',
+      route: '/usuarios'
+    }
   ];
+
   constructor(){
     this.usuario=this.usuarioService.getUsuario();
     if(this.usuario){

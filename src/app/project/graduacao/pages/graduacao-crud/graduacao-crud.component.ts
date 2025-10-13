@@ -1,12 +1,18 @@
-import { Component, inject, input } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Observable, tap } from 'rxjs';
 import { BaseComponent } from '../../../../shared/components/base/base.component';
+import { MaterialButtonModule } from '../../../../shared/material/material-button.module';
 import { MaterialFormModule } from '../../../../shared/material/material-form.module';
 import { MaterialLayoutModule } from '../../../../shared/material/material-layout.module';
 import { MaterialProgressModule } from '../../../../shared/material/material-progress.module';
 import { SharedModule } from '../../../../shared/shared.module';
+import { Cor, Grau, ParametroService } from '../../../services/parametro.service';
+import { FaixaKarateComponent } from '../../components/faixa-karate';
 import { Graduacao } from '../../model/graduacao';
+import { GraduacaoStateTransferService } from '../../services/graduacao-state-transfer.service';
 import { GraduacaoService } from '../../services/graduacao.service';
+import { DecimalDirective } from '../../../../shared/directives/decimal.directive';
 
 @Component({
   selector: 'app-graduacao-crud',
@@ -18,28 +24,68 @@ import { GraduacaoService } from '../../services/graduacao.service';
     MaterialFormModule,
     MaterialProgressModule,
     ReactiveFormsModule,
-    SharedModule
+    MaterialButtonModule,
+    SharedModule,
+    FaixaKarateComponent,
+    DecimalDirective
   ]
 })
 export class GraduacaoCrudComponent extends BaseComponent{
-  graduacao = input<Graduacao | null>(null);
+  graduacao:Graduacao | null = null;
+  graduacaoId:number | null = null;
   graduacaoService=inject(GraduacaoService);
+  parametrosService=inject(ParametroService);
+  transferService=inject(GraduacaoStateTransferService);
+
+  graus:Grau[] = [];
+  readonly graus$:Observable<Grau[]> = this.parametrosService.getGraus().pipe(
+    tap((graus: Grau[]) => {
+      this.graus = graus;
+    })
+  );
+  cores:Cor[] = [];
+  readonly cores$:Observable<Cor[]> = this.parametrosService.getCores().pipe(
+    tap((cores: Cor[]) => {
+      this.cores = cores;
+    })
+  )
 
   form: FormGroup;
   isEditing = false;
   isLoading = false;
 
+  corSelecionada: Cor | null = null;
+  grauSelecionado: Grau | null = null;
+
   constructor() {
     super();
     this.form = this.createForm();
+    this.graduacao = this.transferService.get();
   }
 
   ngOnInit(): void {
-    const graduacaoValue = this.graduacao();
-    if (graduacaoValue) {
+    if(this.graduacao) {
+      this.populateForm(this.graduacao);
       this.isEditing = true;
-      this.populateForm(graduacaoValue);
+    }else{
+      this.isEditing = false;
     }
+  }
+  ngAfterViewInit(): void {
+    if(this.graduacao && this.graduacao.cor)
+      this.selecionarCor(this.graduacao.cor);
+    if(this.graduacao && this.graduacao.grau)
+      this.selecionarGrau(this.graduacao.grau);
+  }
+
+  selecionarGrau(codigo:string) {
+    console.log(this.graus);
+    const grau:Grau|null = this.graus.find(g => g.codigo === codigo) || null;
+    this.grauSelecionado = grau;
+  }
+  selecionarCor(codigo:string) {
+    const cor:Cor|null = this.cores.find(c => c.codigo === codigo) || null;
+    this.corSelecionada = cor;
   }
 
   private createForm(): FormGroup {
@@ -47,10 +93,9 @@ export class GraduacaoCrudComponent extends BaseComponent{
       id: [null],
       descricaoGraduacao: ['', [Validators.required, Validators.maxLength(100)]],
       grau: [''],
-      corNome: [''],
-      corCodigo: [''],
+      cor: [''],
       carencia: [0, [Validators.required, Validators.min(0)]],
-      carenciaMenor: [0, [Validators.required, Validators.min(0)]],
+      carenciaMenor: [0, [Validators.min(0)]],
       valor: [0, [Validators.required, Validators.min(0)]],
       idadeMinima: [5, [Validators.required, Validators.min(0)]],
       anuidadeAte: [0, [Validators.required, Validators.min(0)]],
@@ -64,8 +109,7 @@ export class GraduacaoCrudComponent extends BaseComponent{
       id: graduacao.id,
       descricaoGraduacao: graduacao.descricaoGraduacao,
       grau: graduacao.grau,
-      corNome: graduacao.corNome,
-      corCodigo: graduacao.corCodigo,
+      cor: graduacao.cor,
       carencia: graduacao.carencia,
       carenciaMenor: graduacao.carenciaMenor,
       valor: graduacao.valor,
@@ -76,23 +120,31 @@ export class GraduacaoCrudComponent extends BaseComponent{
     });
   }
 
+  getContrastingColor(cor: string) {
+    const color = cor.replace('#', '');
+    const r = parseInt(color.substring(0, 2), 16);
+    const g = parseInt(color.substring(2, 4), 16);
+    const b = parseInt(color.substring(4, 6), 16);
+    const brightness = (r * 299 + g * 587 + b * 114) / 1000;
+    return brightness > 128 ? 'black' : 'white';
+  }
+
   onSubmit(): void {
     if (this.form.valid) {
       this.isLoading = true;
-      const formData = this.form.value;
 
       const operation = this.isEditing
-        ? this.graduacaoService.update(formData)
+        ? this.graduacaoService.update(this.form.value)
         : this.graduacaoService.create(this.form);
 
       operation.subscribe({
         next: (response) => {
-          console.log('Graduação salva com sucesso:', response);
+          this.msgService.msgSucesso('Graduação salva com sucesso!');
           this.isLoading = false;
-          this.router.navigate(['/graduacao']);
+          this.router.navigate(['/graduacoes']);
         },
         error: (error) => {
-          console.error('Erro ao salvar graduação:', error);
+          this,this.msgService.msgErro('Erro ao salvar graduação!');
           this.isLoading = false;
         }
       });
@@ -102,7 +154,8 @@ export class GraduacaoCrudComponent extends BaseComponent{
   }
 
   onCancel(): void {
-    this.router.navigate(['/graduacao']);
+    this.transferService.clear();
+    this.router.navigate(['/graduacoes']);
   }
 
   onDelete(): void {

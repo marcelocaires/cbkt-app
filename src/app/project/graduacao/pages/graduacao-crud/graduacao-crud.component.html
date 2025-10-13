@@ -1,131 +1,122 @@
-<mat-card>
-  <mat-card-header>
-    <mat-card-title>
-      {{ isEditing ? 'Editar Graduação' : 'Nova Graduação' }}
-    </mat-card-title>
-  </mat-card-header>
-
-  <mat-card-content>
-    <form [formGroup]="form" (ngSubmit)="onSubmit()">
-      <div class="form-grid">
-        <!-- Descrição da Graduação -->
-        <mat-form-field appearance="outline" class="full-width">
-          <mat-label>Descrição da Graduação</mat-label>
-          <input matInput formControlName="descricaoGraduacao" placeholder="Ex: AZUL CL. (8º)">
-          @if (form.get('descricaoGraduacao')?.hasError('required') && form.get('descricaoGraduacao')?.touched) {
-            <mat-error>{{ getErrorMessage('descricaoGraduacao') }}</mat-error>
-          }
-        </mat-form-field>
-
-        <!-- Grau -->
-        <mat-form-field appearance="outline">
-          <mat-label>Grau</mat-label>
-          <input matInput formControlName="grau" placeholder="Grau da graduação">
-        </mat-form-field>
-
-        <!-- Cor Nome -->
-        <mat-form-field appearance="outline">
-          <mat-label>Nome da Cor</mat-label>
-          <input matInput formControlName="corNome" placeholder="Ex: Azul Claro">
-        </mat-form-field>
-
-        <!-- Cor Código -->
-        <mat-form-field appearance="outline">
-          <mat-label>Código da Cor</mat-label>
-          <input matInput formControlName="corCodigo" placeholder="Ex: #87CEEB">
-        </mat-form-field>
-
-        <!-- Carência -->
-        <mat-form-field appearance="outline">
-          <mat-label>Carência (meses)</mat-label>
-          <input matInput type="number" formControlName="carencia" min="0">
-          @if (form.get('carencia')?.hasError('required') && form.get('carencia')?.touched) {
-            <mat-error>{{ getErrorMessage('carencia') }}</mat-error>
-          }
-        </mat-form-field>
-
-        <!-- Carência Menor -->
-        <mat-form-field appearance="outline">
-          <mat-label>Carência Menor (meses)</mat-label>
-          <input matInput type="number" formControlName="carenciaMenor" min="0">
-          @if (form.get('carenciaMenor')?.hasError('required') && form.get('carenciaMenor')?.touched) {
-            <mat-error>{{ getErrorMessage('carenciaMenor') }}</mat-error>
-          }
-        </mat-form-field>
-
-        <!-- Valor -->
-        <mat-form-field appearance="outline">
-          <mat-label>Valor (R$)</mat-label>
-          <input matInput type="number" formControlName="valor" min="0" step="0.01">
-          <span matPrefix>R$ </span>
-          @if (form.get('valor')?.hasError('required') && form.get('valor')?.touched) {
-            <mat-error>{{ getErrorMessage('valor') }}</mat-error>
-          }
-        </mat-form-field>
-
-        <!-- Idade Mínima -->
-        <mat-form-field appearance="outline">
-          <mat-label>Idade Mínima</mat-label>
-          <input matInput type="number" formControlName="idadeMinima" min="0">
-          @if (form.get('idadeMinima')?.hasError('required') && form.get('idadeMinima')?.touched) {
-            <mat-error>{{ getErrorMessage('idadeMinima') }}</mat-error>
-          }
-        </mat-form-field>
-
-        <!-- Anuidade Até -->
-        <mat-form-field appearance="outline">
-          <mat-label>Anuidade Até (R$)</mat-label>
-          <input matInput type="number" formControlName="anuidadeAte" min="0" step="0.01">
-          <span matPrefix>R$ </span>
-          @if (form.get('anuidadeAte')?.hasError('required') && form.get('anuidadeAte')?.touched) {
-            <mat-error>{{ getErrorMessage('anuidadeAte') }}</mat-error>
-          }
-        </mat-form-field>
-
-        <!-- Anuidade Após -->
-        <mat-form-field appearance="outline">
-          <mat-label>Anuidade Após (R$)</mat-label>
-          <input matInput type="number" formControlName="anuidadeApos" min="0" step="0.01">
-          <span matPrefix>R$ </span>
-          @if (form.get('anuidadeApos')?.hasError('required') && form.get('anuidadeApos')?.touched) {
-            <mat-error>{{ getErrorMessage('anuidadeApos') }}</mat-error>
-          }
-        </mat-form-field>
-
-        <!-- Anuidade -->
-        <mat-form-field appearance="outline">
-          <mat-label>Anuidade</mat-label>
-          <mat-select formControlName="anuidade">
-            <mat-option value="SIM">SIM</mat-option>
-            <mat-option value="NAO">NÃO</mat-option>
-          </mat-select>
-          @if (form.get('anuidade')?.hasError('required') && form.get('anuidade')?.touched) {
-            <mat-error>{{ getErrorMessage('anuidade') }}</mat-error>
-          }
-        </mat-form-field>
-      </div>
-    </form>
-  </mat-card-content>
-
-  <mat-card-actions align="end">
-    <button mat-button type="button" (click)="onCancel()" [disabled]="isLoading">
+<div class="header">
+  <div class="title">{{ isEditing ? 'Editar Graduação' : 'Nova Graduação' }}</div>
+  <div>
+    <button mat-button type="button" (click)="onCancel()">
       Cancelar
     </button>
-
     @if (isEditing) {
-      <button mat-button color="warn" type="button" (click)="onDelete()" [disabled]="isLoading">
-        @if (isLoading) {
-          <mat-progress-spinner diameter="20" mode="indeterminate"></mat-progress-spinner>
-        }
+      <button mat-button color="warn" type="button" (click)="onDelete()">
         Excluir
       </button>
     }
-
-    <button mat-raised-button color="primary" type="submit" (click)="onSubmit()" [disabled]="form.invalid || isLoading">
-      @if (isLoading) {
-        <mat-progress-spinner diameter="20" mode="indeterminate"></mat-progress-spinner>
-      }
+    <button mat-raised-button color="primary" type="submit" (click)="onSubmit()" [disabled]="form.invalid">
       {{ isEditing ? 'Atualizar' : 'Salvar' }}
     </button>
-  </mat-card-actions>
-</mat-card>
+  </div>
+</div>
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <app-faixa-karate
+    [nomeCor]="corSelecionada ? corSelecionada.nome : null"
+    [corHex]="corSelecionada ? corSelecionada.hex : null"
+    [grau]="grauSelecionado ? grauSelecionado.grau : null"
+  ></app-faixa-karate>
+  <div class="form-grid">
+    <mat-form-field appearance="outline">
+      <mat-label>Grau</mat-label>
+      @if(graus$ | async; as graus) {
+        <mat-select formControlName="grau" placeholder="Selecione o grau" (selectionChange)="selecionarGrau($event.value)">
+          @for(grau of graus; track grau) {
+            <mat-option [value]="grau.codigo">{{ grau.grau }}</mat-option>
+          }
+        </mat-select>
+      } @else {
+        <mat-progress-spinner diameter="30" mode="indeterminate"></mat-progress-spinner>
+      }
+    </mat-form-field>
+
+    <!-- Cor -->
+    <mat-form-field appearance="outline">
+      <mat-label>Cor</mat-label>
+      @if(cores$ | async; as cores) {
+        <mat-select formControlName="cor" placeholder="Selecione a cor" (selectionChange)="selecionarCor($event.value)">
+          @for(cor of cores; track cor) {
+            <mat-option
+              [style.background-color]="cor.hex"
+              [style.color]="getContrastingColor(cor.hex)"
+              [value]="cor.codigo">
+              {{ cor.nome }}
+            </mat-option>
+          }
+        </mat-select>
+      } @else {
+        <mat-progress-spinner diameter="30" mode="indeterminate"></mat-progress-spinner>
+      }
+    </mat-form-field>
+
+    <!-- Carência -->
+    <mat-form-field appearance="outline">
+      <mat-label>Carência (meses)</mat-label>
+      <input matInput type="number" formControlName="carencia" min="0">
+      @if (form.get('carencia')?.hasError('required') && form.get('carencia')?.touched) {
+        <mat-error>{{ getErrorMessage('carencia') }}</mat-error>
+      }
+    </mat-form-field>
+
+    <!-- Carência Menor -->
+    <mat-form-field appearance="outline">
+      <mat-label>Carência Menor (meses)</mat-label>
+      <input matInput type="number" formControlName="carenciaMenor" min="0">
+      @if (form.get('carenciaMenor')?.hasError('required') && form.get('carenciaMenor')?.touched) {
+        <mat-error>{{ getErrorMessage('carenciaMenor') }}</mat-error>
+      }
+    </mat-form-field>
+
+    <!-- Valor -->
+    <mat-form-field appearance="outline">
+      <mat-label>Valor (R$)</mat-label>
+      <input decimalFormat [decimals]="2" matInput type="text" formControlName="valor" min="0" step="0.01" placeholder="0.00">
+      @if (form.get('valor')?.hasError('required') && form.get('valor')?.touched) {
+        <mat-error>{{ getErrorMessage('valor') }}</mat-error>
+      }
+    </mat-form-field>
+
+    <!-- Idade Mínima -->
+    <mat-form-field appearance="outline">
+      <mat-label>Idade Mínima</mat-label>
+      <input matInput type="number" formControlName="idadeMinima" min="0">
+      @if (form.get('idadeMinima')?.hasError('required') && form.get('idadeMinima')?.touched) {
+        <mat-error>{{ getErrorMessage('idadeMinima') }}</mat-error>
+      }
+    </mat-form-field>
+
+    <!-- Anuidade Até -->
+    <mat-form-field appearance="outline">
+      <mat-label>Anuidade Até (R$)</mat-label>
+      <input matInput type="number" formControlName="anuidadeAte" min="0" step="0.01">
+      @if (form.get('anuidadeAte')?.hasError('required') && form.get('anuidadeAte')?.touched) {
+        <mat-error>{{ getErrorMessage('anuidadeAte') }}</mat-error>
+      }
+    </mat-form-field>
+
+    <!-- Anuidade Após -->
+    <mat-form-field appearance="outline">
+      <mat-label>Anuidade Após (R$)</mat-label>
+      <input matInput type="number" formControlName="anuidadeApos" min="0" step="0.01">
+      @if (form.get('anuidadeApos')?.hasError('required') && form.get('anuidadeApos')?.touched) {
+        <mat-error>{{ getErrorMessage('anuidadeApos') }}</mat-error>
+      }
+    </mat-form-field>
+
+    <!-- Anuidade -->
+    <mat-form-field appearance="outline">
+      <mat-label>Anuidade</mat-label>
+      <mat-select formControlName="anuidade">
+        <mat-option value="SIM">SIM</mat-option>
+        <mat-option value="NAO">NÃO</mat-option>
+      </mat-select>
+      @if (form.get('anuidade')?.hasError('required') && form.get('anuidade')?.touched) {
+        <mat-error>{{ getErrorMessage('anuidade') }}</mat-error>
+      }
+    </mat-form-field>
+  </div>
+</form>

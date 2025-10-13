@@ -22,14 +22,14 @@ import { MaterialLayoutModule } from '../../material/material-layout.module';
   imports:[SharedModule,MaterialTableModule,MaterialButtonModule,MaterialFormModule,MaterialLayoutModule],
 })
 export class CrudMatTableComponent {
-
   crudName=input.required<string>();
   fieldColumns=input.required<MatTableColumnField[]>();
   data=input.required<any[]>();
-  msgDelete=input.required<string|null>();
+  msgDelete=input<string|null>(null);
   isPrintAll=input(false,{transform:(value:string|boolean)=>typeof value==="string"?value==="" || value==='true':value});
   isExportAll=input(false,{transform:(value:string|boolean)=>typeof value==="string"?value==="" || value==='true':value});
   isCreate=input(false,{transform:(value:string|boolean)=>typeof value==="string"?value==="" || value==='true':value});
+  isEdit=input(false,{transform:(value:string|boolean)=>typeof value==="string"?value==="" || value==='true':value});
   isDelete=input(false,{transform:(value:string|boolean)=>typeof value==="string"?value==="" || value==='true':value});
   isUpdate=input(false,{transform:(value:string|boolean)=>typeof value==="string"?value==="" || value==='true':value});
   isPrint=input(false,{transform:(value:string|boolean)=>typeof value==="string"?value==="" || value==='true':value});
@@ -38,6 +38,7 @@ export class CrudMatTableComponent {
   customTableActions=input<CustomElementAction[]>([]);
 
   @Output() create= new EventEmitter<FormGroup>();
+  @Output() edit= new EventEmitter<any>();
   @Output() select= new EventEmitter<any>();
   @Output() delete= new EventEmitter<any>();
   @Output() update= new EventEmitter<any>();
@@ -83,7 +84,14 @@ export class CrudMatTableComponent {
     });
   }
 
+  editElement(element: any) {
+    this.edit.emit(element);
+  }
+
   private objectsConverter(objects:any[]){
+    if(this.isEdit()){
+      this.displayedColumns.push("edit");
+    }
     this.fieldColumns().forEach((fieldColumn)=>{
       this.displayedColumns.push(fieldColumn.columnName);
     });

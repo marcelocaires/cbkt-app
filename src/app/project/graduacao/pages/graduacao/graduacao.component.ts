@@ -8,28 +8,32 @@ import { SharedModule } from '../../../../shared/shared.module';
 import { Graduacao } from '../../model/graduacao';
 import { GraduacaoService } from '../../services/graduacao.service';
 import { GraduacaoCrudComponent } from '../graduacao-crud/graduacao-crud.component';
+import { BaseComponent } from '../../../../shared/components/base/base.component';
+import { GraduacaoStateTransferService } from '../../services/graduacao-state-transfer.service';
 
 @Component({
   selector: 'app-graduacao',
   templateUrl: './graduacao.component.html',
   styleUrls: ['./graduacao.component.scss'],
   standalone: true,
-  imports: [SharedModule,CrudMatTableComponent,MaterialProgressModule,GraduacaoCrudComponent]
+  imports: [SharedModule,CrudMatTableComponent,MaterialProgressModule]
 })
-export class GraduacaoComponent implements OnInit {
+export class GraduacaoComponent extends BaseComponent implements OnInit {
   service=inject(GraduacaoService);
+  transferService=inject(GraduacaoStateTransferService);
   graduacoes$=new Observable<Graduacao[]>();
   selectedGraduacao: Graduacao | null = null;
   columns: MatTableColumnField[]=[
-      {field:'id', columnName:'ID', type:FieldTypesEnum.number, length: 70},
-      {field:'descricaoGraduacao', columnName:'Descrição', type:FieldTypesEnum.string, length: 200},
-      {field:'carencia', columnName:'Carência', type:FieldTypesEnum.number, length: 100},
-      {field:'grau', columnName:'Grau', type:FieldTypesEnum.string, length: 100},
-      {field:'corNome', columnName:'Cor', type:FieldTypesEnum.string, length: 100},
-      {field:'corCodigo', columnName:'Cor Código', type:FieldTypesEnum.string, length: 100},
-      {field:'valor', columnName:'Valor', type:FieldTypesEnum.number, length: 100},
+    {field:'descricaoGraduacao', columnName:'Descrição', type:FieldTypesEnum.string, length: 200},
+    {field:'grauNome', columnName:'Grau', type:FieldTypesEnum.string, length: 100},
+    {field:'corNome', columnName:'Cor', type:FieldTypesEnum.string, length: 100},
+    {field:'carencia', columnName:'Carência', type:FieldTypesEnum.number, length: 100},
+    {field:'carenciaMenor', columnName:'Carência Menor', type:FieldTypesEnum.number, length: 100},
+    {field:'valor', columnName:'Valor', type:FieldTypesEnum.number, length: 100},
   ];
-  constructor() { }
+  constructor() {
+    super();
+  }
 
   ngOnInit() {
     this.graduacoes$=this.service.read()
@@ -42,5 +46,13 @@ export class GraduacaoComponent implements OnInit {
     );
   }
 
-
+  graduacaoEdit(graduacao: Graduacao) {
+    /*this.router.navigate([`/graduacao`], {
+      queryParams: {object: JSON.stringify(graduacao)}
+    });*/
+    this.transferService.set(graduacao);
+    this.router.navigate([`/graduacao`], {
+      state: {graduacao}
+    });
+  }
 }

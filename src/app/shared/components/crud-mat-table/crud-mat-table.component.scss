@@ -39,6 +39,15 @@ div.filtro{
   color: red;
   font-size: 1.1em;
 }
+.btElement{
+  cursor: pointer;
+  >mat-icon{
+    vertical-align: middle;
+    font-size: 20px;
+    height: 20px;
+    width: 20px;
+  }
+}
 @media (max-width: 900px) {
   table {
     font-size: 0.95em;

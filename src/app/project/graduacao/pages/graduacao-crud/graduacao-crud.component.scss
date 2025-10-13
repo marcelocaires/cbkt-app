@@ -1,3 +1,8 @@
+:host{
+  display: block;
+  padding: 16px;
+  box-sizing: border-box;
+}
 .form-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -7,25 +12,6 @@
 
 .full-width {
   grid-column: 1 / -1;
-}
-
-mat-card {
-  max-width: 1200px;
-  margin: 20px auto;
-}
-
-mat-card-header {
-  margin-bottom: 16px;
-}
-
-mat-card-actions {
-  padding: 16px 24px;
-  display: flex;
-  gap: 8px;
-}
-
-mat-form-field {
-  width: 100%;
 }
 
 .mat-mdc-progress-spinner {
@@ -59,3 +45,22 @@ mat-error {
   font-size: 12px;
   margin-top: 4px;
 }
+.header{
+  border-bottom: 1px solid;
+  padding: 5px 0;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+  >.title{
+    font-size: 20px;
+    font-weight: 600;
+  }
+}
+
+input[decimalFormat] {
+  text-align: end;
+}
+

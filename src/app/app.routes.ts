@@ -5,6 +5,7 @@ import { PasswordResetComponent } from './project/auth/pages/password-reset/pass
 import { PrimeiroAcessoComponent } from './project/auth/pages/primeiro-acesso/primeiro-acesso.component';
 import { GraduacaoComponent } from './project/graduacao/pages/graduacao/graduacao.component';
 import { MainLayoutComponent } from './core/layout/components/main-layout/main-layout.component';
+import { GraduacaoCrudComponent } from './project/graduacao/pages/graduacao-crud/graduacao-crud.component';
 
 export const routes: Routes = [
   {
@@ -33,6 +34,16 @@ export const routes: Routes = [
         }
     ],
     //canActivate: [AuthGuard],
+  },
+  {
+    path: 'graduacao',
+    component: MainLayoutComponent,
+    children: [
+        {
+            path: '',
+            component: GraduacaoCrudComponent
+        }
+    ],
   },
   {
     path: 'atleta/:id',

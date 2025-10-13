@@ -21,6 +21,12 @@ $dark-theme: mat.define-theme((
   @include mat.all-component-themes($dark-theme);
   @include mat.system-level-colors($dark-theme);
   @include mat.system-level-typography($dark-theme);
+  @include mat.expansion-overrides((
+    container-background-color: var(--mat-sys-primary-container),
+    container-text-color:var(--mat-sys-primary),
+    header-text-color: var(--mat-sys-primary),
+    header-indicator-color: var(--mat-sys-primary),
+  ));
   mat-toolbar{
     position: sticky;
     top: 0;

@@ -1,0 +1,100 @@
+.faixa-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 60px;
+  padding: 16px;
+  border-radius: 8px;
+  border: 2px solid #333;
+  box-shadow:
+    0 2px 4px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+  margin: 8px 0;
+  position: relative;
+  overflow: hidden;
+
+  // Textura sutil da faixa
+  background-image:
+    radial-gradient(circle at 1px 1px, rgba(255,255,255,0.05) 1px, transparent 0);
+  background-size: 10px 10px;
+
+  .faixa-texto {
+    font-weight: bold;
+    font-size: 16px;
+    color: #fff;
+    text-shadow:
+      1px 1px 2px rgba(0, 0, 0, 0.8),
+      -1px -1px 2px rgba(0, 0, 0, 0.8),
+      1px -1px 2px rgba(0, 0, 0, 0.8),
+      -1px 1px 2px rgba(0, 0, 0, 0.8);
+    text-align: center;
+    z-index: 3;
+    position: relative;
+  }
+
+  // 6 Costuras paralelas distribuídas uniformemente
+  .costura-paralela {
+    position: absolute;
+    left: 8px;
+    right: 8px;
+    height: 2px;
+    background: repeating-linear-gradient(
+      to right,
+      transparent 0px,
+      transparent 3px,
+      rgba(0, 0, 0, 0.4) 3px,
+      rgba(0, 0, 0, 0.4) 5px,
+      rgba(255, 255, 255, 0.2) 5px,
+      rgba(255, 255, 255, 0.2) 6px,
+      transparent 6px,
+      transparent 9px
+    );
+    border-radius: 1px;
+    z-index: 2;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+
+    &.costura-1 {
+      top: 8px;
+    }
+
+    &.costura-2 {
+      top: calc(8px + (100% - 16px) * 0.2);
+    }
+
+    &.costura-3 {
+      top: calc(8px + (100% - 16px) * 0.4);
+    }
+
+    &.costura-4 {
+      top: calc(8px + (100% - 16px) * 0.6);
+    }
+
+    &.costura-5 {
+      top: calc(8px + (100% - 16px) * 0.8);
+    }
+
+    &.costura-6 {
+      bottom: 8px;
+    }
+  }
+}
+
+// Responsividade
+@media (max-width: 768px) {
+  .faixa-container {
+    min-height: 50px;
+    padding: 12px;
+
+    // Ajustar costuras em telas menores
+    .costura-paralela {
+      left: 6px;
+      right: 6px;
+      background-size: 6px 2px;
+    }
+
+    .faixa-texto {
+      font-size: 14px;
+    }
+  }
+}

@@ -7,13 +7,17 @@ ul.menu-content{
   margin: 0;
   padding: 0;
   >li{
-    padding-left: 25px;
+    padding-left: 15px;
     color: white;
     cursor: pointer;
     list-style: none;
-    border-left: 5px solid rgba(35,31,32,0.5);
+    border-left: 2px solid #f6f6f6;
   }
   >li:hover{
+    opacity: 0.5;
+    font-weight: 100;
+  }
+  >li::marker{
     opacity: 0.5;
     font-weight: 100;
   }
@@ -21,10 +25,6 @@ ul.menu-content{
 
 :host{
   @include mat.expansion-overrides((
-    container-background-color: var(--mat-sys-primary),
-    container-text-color:var(--mat-sys-on-primary),
-    header-text-color: var(--mat-sys-on-primary),
-    header-indicator-color: var(--mat-sys-on-primary),
     header-collapsed-state-height: 30px,
     header-expanded-state-height: 30px,
     container-shape:30px
@@ -40,4 +40,8 @@ ul.menu-content{
   .mat-expansion-panel-header{
     padding: 0 10px;
   }
+}
+.selected {
+  background-color: #e0f7fa; /* cor de destaque */
+  font-weight: bold;
 }

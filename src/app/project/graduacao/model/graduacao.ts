@@ -4,8 +4,7 @@ export interface Graduacao {
   id: number;
   descricaoGraduacao: string;
   grau: string | null;
-  corNome: string | null;
-  corCodigo: string | null;
+  cor: string | null;
   carencia: number;
   carenciaMenor: number;
   valor: number;
