@@ -2,6 +2,8 @@ import { Component, inject } from '@angular/core';
 import { FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Observable, tap } from 'rxjs';
 import { BaseComponent } from '../../../../shared/components/base/base.component';
+import { PageTitleComponent } from '../../../../shared/components/page-title/page-title.component';
+import { DecimalDirective } from '../../../../shared/directives/decimal.directive';
 import { MaterialButtonModule } from '../../../../shared/material/material-button.module';
 import { MaterialFormModule } from '../../../../shared/material/material-form.module';
 import { MaterialLayoutModule } from '../../../../shared/material/material-layout.module';
@@ -12,7 +14,6 @@ import { FaixaKarateComponent } from '../../components/faixa-karate';
 import { Graduacao } from '../../model/graduacao';
 import { GraduacaoStateTransferService } from '../../services/graduacao-state-transfer.service';
 import { GraduacaoService } from '../../services/graduacao.service';
-import { DecimalDirective } from '../../../../shared/directives/decimal.directive';
 
 @Component({
   selector: 'app-graduacao-crud',
@@ -27,7 +28,8 @@ import { DecimalDirective } from '../../../../shared/directives/decimal.directiv
     MaterialButtonModule,
     SharedModule,
     FaixaKarateComponent,
-    DecimalDirective
+    DecimalDirective,
+    PageTitleComponent
   ]
 })
 export class GraduacaoCrudComponent extends BaseComponent{

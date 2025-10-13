@@ -1,0 +1,19 @@
+<div class="tituloPagina">
+  <a title="voltar">{{title()}}</a>
+  <div class="actions">
+    @if(isCrud()) {
+      <button matButton="tonal" class="btCancelar" type="button" (click)="onCancel()">
+        <mat-icon>cancel</mat-icon>
+        Cancelar
+      </button>
+      <button matButton="tonal" class="btExcluir" type="button" (click)="onDelete()">
+        <mat-icon>delete</mat-icon>
+        Excluir
+      </button>
+      <button matButton="filled" class="btSalvar" type="submit" (click)="onSave()" [disabled]="!isValid()">
+        <mat-icon>save</mat-icon>
+        Salvar
+      </button>
+    }
+  </div>
+</div>

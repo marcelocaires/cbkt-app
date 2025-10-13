@@ -1,19 +1,11 @@
-<div class="header">
-  <div class="title">{{ isEditing ? 'Editar Graduação' : 'Nova Graduação' }}</div>
-  <div>
-    <button mat-button type="button" (click)="onCancel()">
-      Cancelar
-    </button>
-    @if (isEditing) {
-      <button mat-button color="warn" type="button" (click)="onDelete()">
-        Excluir
-      </button>
-    }
-    <button mat-raised-button color="primary" type="submit" (click)="onSubmit()" [disabled]="form.invalid">
-      {{ isEditing ? 'Atualizar' : 'Salvar' }}
-    </button>
-  </div>
-</div>
+<app-page-title
+  [title]="isEditing ? 'Editar Graduação' : 'Nova Graduação' "
+  [isValid]="form.valid"
+  isCrud
+  (delete)="onDelete()"
+  (save)="onSubmit()"
+  (cancel)="onCancel()"
+  ></app-page-title>
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
   <app-faixa-karate
     [nomeCor]="corSelecionada ? corSelecionada.nome : null"
@@ -74,7 +66,7 @@
     <!-- Valor -->
     <mat-form-field appearance="outline">
       <mat-label>Valor (R$)</mat-label>
-      <input decimalFormat [decimals]="2" matInput type="text" formControlName="valor" min="0" step="0.01" placeholder="0.00">
+      <input decimalFormat [decimals]="2" type="text" matInput formControlName="valor">
       @if (form.get('valor')?.hasError('required') && form.get('valor')?.touched) {
         <mat-error>{{ getErrorMessage('valor') }}</mat-error>
       }
@@ -92,7 +84,7 @@
     <!-- Anuidade Até -->
     <mat-form-field appearance="outline">
       <mat-label>Anuidade Até (R$)</mat-label>
-      <input matInput type="number" formControlName="anuidadeAte" min="0" step="0.01">
+      <input matInput decimalFormat [decimals]="2" type="text"formControlName="anuidadeAte">
       @if (form.get('anuidadeAte')?.hasError('required') && form.get('anuidadeAte')?.touched) {
         <mat-error>{{ getErrorMessage('anuidadeAte') }}</mat-error>
       }
@@ -101,7 +93,7 @@
     <!-- Anuidade Após -->
     <mat-form-field appearance="outline">
       <mat-label>Anuidade Após (R$)</mat-label>
-      <input matInput type="number" formControlName="anuidadeApos" min="0" step="0.01">
+      <input matInput decimalFormat [decimals]="2" type="text"formControlName="anuidadeApos">
       @if (form.get('anuidadeApos')?.hasError('required') && form.get('anuidadeApos')?.touched) {
         <mat-error>{{ getErrorMessage('anuidadeApos') }}</mat-error>
       }
