@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Observable, tap } from 'rxjs';
 import { BaseComponent } from '../../../../shared/components/base/base.component';
+import { ConfirmDialogComponent, ConfirmDialogData } from '../../../../shared/components/confirm-dialog/confirm-dialog.component';
 import { PageTitleComponent } from '../../../../shared/components/page-title/page-title.component';
 import { DecimalDirective } from '../../../../shared/directives/decimal.directive';
 import { MaterialButtonModule } from '../../../../shared/material/material-button.module';
@@ -160,10 +161,22 @@ export class GraduacaoCrudComponent extends BaseComponent{
     this.router.navigate(['/graduacoes']);
   }
 
-  onDelete(): void {
-    if (this.isEditing && this.form.value.id) {
-      if (confirm('Tem certeza que deseja excluir esta graduação?')) {
-        this.isLoading = true;
+  onDelete(){
+    let msg:any="Deseja realmente remover esta graduação?";
+    const confirmData:ConfirmDialogData={
+      title:"Remover Graduação",
+      alertMsg:"",
+      confirmMsg:msg
+    }
+    const dialogRefConfirm = this.matDialog.open(ConfirmDialogComponent, {
+      height: 'auto',
+      width: '40%',
+      disableClose: true,
+      data:confirmData
+    });
+
+    dialogRefConfirm.afterClosed().subscribe(result => {
+      if(result.event == 'sim'){
         const graduacao = this.form.value as Graduacao;
         this.graduacaoService.delete(graduacao).subscribe({
           next: () => {
@@ -177,7 +190,7 @@ export class GraduacaoCrudComponent extends BaseComponent{
           }
         });
       }
-    }
+    });
   }
 
   private markFormGroupTouched(): void {

@@ -14,3 +14,14 @@ div.tituloPagina{
     gap:5px
   }
 }
+.btExcluir {
+  background-color: #dc3545 !important;
+  color: #FFF !important;//#f5c6cb !important;
+  mat-icon {
+    color: #FFF;
+  }
+
+  &:hover {
+    opacity: 0.9;
+  }
+}

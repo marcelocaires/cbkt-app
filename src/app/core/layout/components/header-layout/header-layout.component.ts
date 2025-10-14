@@ -19,6 +19,7 @@ export class HeaderLayoutComponent extends BaseComponent{
   usuarioService=inject(UsuarioService);
   hideNav=output<boolean>();
   isNavHide=false;
+  usuario: any = this.usuarioService.getUsuario();
 
   constructor(){
     super()

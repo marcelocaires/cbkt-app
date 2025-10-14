@@ -14,10 +14,10 @@ body {
   position: relative;
   top: -3px;
 }
-mat-form-field{
-  //transform: scale(0.9);
-}
 .mat-expansion-panel-body{
   padding: 0 !important;
 }
-html, body { height: 100%; }
+.mat-mdc-dialog-surface {
+  border-radius: 5px !important;
+  transform: scale(0.8) !important;
+}

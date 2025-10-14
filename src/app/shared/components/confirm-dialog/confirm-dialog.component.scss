@@ -1,6 +1,10 @@
+@use '@angular/material' as mat;
 :host{
   font-family: Roboto, "Helvetica Neue", sans-serif;
   display: block;
+  @include mat.dialog-overrides((
+    container-shape: rectangle
+  ));
 }
 .alert {
   padding: 3px;
@@ -13,3 +17,7 @@
 .mat-mdc-dialog-content {
   padding: 20px !important;
 }
+    .my-custom-dialog-container {
+      border-radius: 24px; // Example: more rounded corners
+      // Other styling properties like background-color, box-shadow, etc.
+    }
