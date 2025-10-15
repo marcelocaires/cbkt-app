@@ -1,18 +1,17 @@
-import { Component, EventEmitter, input, Output, ViewChild } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { Component, EventEmitter, input, output, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { MaterialButtonModule } from '../../material/material-button.module';
 import { MaterialFormModule } from '../../material/material-form.module';
+import { MaterialLayoutModule } from '../../material/material-layout.module';
 import { MaterialTableModule } from '../../material/material-table.module';
 import { SharedModule } from '../../shared.module';
 import { Util } from '../../util/util';
 import { ConfirmDialogComponent, ConfirmDialogData } from '../confirm-dialog/confirm-dialog.component';
 import { FieldTypesEnum } from './enums';
 import { CustomElementAction, customEventEmmiter, ElementCustomAction, MatTableColumnField } from './interfaces';
-import { MaterialLayoutModule } from '../../material/material-layout.module';
 
 @Component({
   selector: 'app-crud-mat-table',
@@ -37,25 +36,26 @@ export class CrudMatTableComponent {
   customElementActions=input<CustomElementAction[]>([]);
   customTableActions=input<CustomElementAction[]>([]);
 
-  @Output() create= new EventEmitter<FormGroup>();
-  @Output() edit= new EventEmitter<any>();
-  @Output() select= new EventEmitter<any>();
-  @Output() delete= new EventEmitter<any>();
-  @Output() update= new EventEmitter<any>();
-  @Output() print= new EventEmitter<any>();
-  @Output() printAll= new EventEmitter<any>();
-  @Output() export= new EventEmitter<any>();
-  @Output() exportAll= new EventEmitter<any>();
-  @Output() customTableAction1= new EventEmitter<any>();
-  @Output() customTableAction2= new EventEmitter<any>();
-  @Output() customTableAction3= new EventEmitter<any>();
-  @Output() customTableAction4= new EventEmitter<any>();
-  @Output() customTableAction5= new EventEmitter<any>();
-  @Output() customElementAction1= new EventEmitter<any>();
-  @Output() customElementAction2= new EventEmitter<any>();
-  @Output() customElementAction3= new EventEmitter<any>();
-  @Output() customElementAction4= new EventEmitter<any>();
-  @Output() customElementAction5= new EventEmitter<any>();
+  create=output();
+  edit=output<any>();
+  select=output<any>();
+  delete=output<any>();
+  update=output<any>();
+  print=output<any>();
+  printAll=output<any>();
+  export=output<any>();
+  exportAll=output<any>();
+  customTableAction1=output();
+  customTableAction2=output();
+  customTableAction3=output();
+  customTableAction4=output();
+  customTableAction5=output();
+  customElementAction1=output<any>();
+  customElementAction2=output<any>();
+  customElementAction3=output<any>();
+  customElementAction4=output<any>();
+  customElementAction5=output<any>();
+
   customEvents:customEventEmmiter[]=[];
   customActions:ElementCustomAction[]=[];
 

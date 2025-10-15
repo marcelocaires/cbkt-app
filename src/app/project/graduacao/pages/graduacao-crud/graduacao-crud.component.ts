@@ -82,13 +82,23 @@ export class GraduacaoCrudComponent extends BaseComponent{
   }
 
   selecionarGrau(codigo:string) {
-    console.log(this.graus);
     const grau:Grau|null = this.graus.find(g => g.codigo === codigo) || null;
     this.grauSelecionado = grau;
+    this.preencherDescricao();
   }
   selecionarCor(codigo:string) {
     const cor:Cor|null = this.cores.find(c => c.codigo === codigo) || null;
     this.corSelecionada = cor;
+    this.preencherDescricao();
+  }
+
+  private preencherDescricao() {
+    if(this.grauSelecionado && this.corSelecionada) {
+      let grau= this.grauSelecionado.grau;
+      let cor= this.corSelecionada.nome;
+      const descricao=`Faixa ${cor} ${grau}`.trim();
+      this.form.get('descricaoGraduacao')?.setValue(descricao);
+    }
   }
 
   private createForm(): FormGroup {

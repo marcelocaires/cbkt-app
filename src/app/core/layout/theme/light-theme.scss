@@ -47,4 +47,7 @@ $light-theme: mat.define-theme((
     color: #FFF;
     border-radius: 0;
   }
+  .mat-mdc-raised-button,.mat-tonal-button,.mat-mdc-flat-button,.mat-mdc-stroked-button,.mat-tonal-button,.mat-mdc-unelevated-button{
+    border-radius:5px !important;
+  }
 }

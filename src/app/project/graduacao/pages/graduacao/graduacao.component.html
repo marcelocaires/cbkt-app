@@ -5,9 +5,10 @@
   <div>
     <app-crud-mat-table
       crudName="Graduações"
-      [data]="graduacoes"
+      [data]="sort(graduacoes)"
       [fieldColumns]="columns"
-      isEdit (edit)="graduacaoEdit($event)"
+      isEdit (edit)="edit($event)"
+      isCreate (create)="create()"
     ></app-crud-mat-table>
   </div>
 }
