@@ -10,6 +10,7 @@ export interface Graduacao {
   corCodigo: string | null;
   carencia: number;
   carenciaMenor: number;
+  carenciaAulas: number;
   valor: number;
   idadeMinima: number;
   anuidadeAte: number;

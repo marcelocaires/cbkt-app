@@ -1,4 +1,4 @@
-<app-header-layout (hideNav)="isNavHide=$event"></app-header-layout>
+<app-header-layout [isNav]="true" (hideNav)="isNavHide=$event"></app-header-layout>
 <div [ngClass]="{main:true,mainNav:sideNav}">
   @if(sideNav){
     <app-sidenav [isOpen]="!isNavHide"></app-sidenav>

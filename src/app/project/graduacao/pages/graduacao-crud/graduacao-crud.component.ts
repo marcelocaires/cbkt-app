@@ -109,8 +109,9 @@ export class GraduacaoCrudComponent extends BaseComponent{
       cor: [''],
       carencia: [0, [Validators.required, Validators.min(0)]],
       carenciaMenor: [0, [Validators.min(0)]],
+      carenciaAulas: [0, [Validators.required, Validators.min(0)]],
       valor: [0, [Validators.required, Validators.min(0)]],
-      idadeMinima: [5, [Validators.required, Validators.min(0)]],
+      idadeMinima: [0, [Validators.required, Validators.min(0)]],
       anuidadeAte: [0, [Validators.required, Validators.min(0)]],
       anuidadeApos: [0, [Validators.required, Validators.min(0)]],
       anuidade: ['NAO', Validators.required]
@@ -125,6 +126,7 @@ export class GraduacaoCrudComponent extends BaseComponent{
       cor: graduacao.cor,
       carencia: graduacao.carencia,
       carenciaMenor: graduacao.carenciaMenor,
+      carenciaAulas: graduacao.carenciaAulas,
       valor: graduacao.valor,
       idadeMinima: graduacao.idadeMinima,
       anuidadeAte: graduacao.anuidadeAte,

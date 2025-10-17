@@ -26,9 +26,10 @@ export class GraduacaoComponent extends BaseComponent implements OnInit {
     {field:'descricaoGraduacao', columnName:'Descrição', type:FieldTypesEnum.string, length: 200},
     {field:'grauNome', columnName:'Grau', type:FieldTypesEnum.string, length: 100},
     {field:'corNome', columnName:'Cor', type:FieldTypesEnum.string, length: 100},
+    {field:'idadeMinima', columnName:'Idade Mínima', type:FieldTypesEnum.number, length: 100},
     {field:'carencia', columnName:'Carência', type:FieldTypesEnum.number, length: 100},
-    {field:'carenciaMenor', columnName:'Carência Menor', type:FieldTypesEnum.number, length: 100},
-    {field:'valor', columnName:'Valor', type:FieldTypesEnum.number, length: 100},
+    {field:'carenciaAulas', columnName:'Carência Aulas', type:FieldTypesEnum.number, length: 100},
+    {field:'valor', columnName:'Valor Exame (R$)', type:FieldTypesEnum.currency, length: 100},
   ];
   constructor() {
     super();

@@ -1,56 +1,39 @@
 @if (atleta$ | async; as atleta) {
-  <app-atleta-carteirinha [atleta]="atleta"></app-atleta-carteirinha>
-  <mat-card>
-    <mat-card-header>
-      <div mat-card-avatar>
-        @if (atleta.sexo === 'F') {
-          <img src="assets/images/avatar-af.png" alt="Foto do(a) atleta" />
-        }
-        @if (atleta.sexo === 'M') {
-          <img src="assets/images/avatar-am.png" alt="Foto do(a) atleta" />
-        }
+  <mat-tab-group headerPosition="below" labelClass="tab-header">
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <div>
+          <mat-icon>thumb_up</mat-icon>
+          <div>Dados</div>
+        </div>
+      </ng-template>
+      <div class="tab-content">
+        <app-atleta-carteirinha [atleta]="atleta"></app-atleta-carteirinha>
       </div>
-      <mat-card-title>{{ atleta.nomeAtleta }}</mat-card-title>
-      <mat-card-subtitle>{{ atleta.categoria }} | {{ atleta.descricaoGraduacao }}</mat-card-subtitle>
-    </mat-card-header>
-    <mat-card-content>
-      <section>
-        <h3>Dados Pessoais</h3>
-        <p><strong>Sexo:</strong> {{ atleta.sexo }}</p>
-        <p><strong>Data de Nascimento:</strong> {{ atleta.dataNascimento }}</p>
-        <p><strong>Data de Cadastro:</strong> {{ atleta.dataCadastro | date:'dd/MM/yyyy' }}</p>
-      </section>
-      <section>
-        <h3>Clube</h3>
-        <p><strong>Nome:</strong> {{ atleta.nomeClube }}</p>
-      </section>
-      <section>
-        <h3>Graduação</h3>
-        <p><strong>Descrição:</strong> {{ atleta.descricaoGraduacao }}</p>
-      </section>
-      <section>
-        <h3>Documentos</h3>
-        <p><strong>CPF:</strong> {{ atleta.documentos.cpf }}</p>
-      </section>
-      <section>
-        <h3>Endereço</h3>
-        <p>
-          <strong>Logradouro:</strong> {{ atleta.endereco.logradouro }}, {{ atleta.endereco.numero }}
-          @if (atleta.endereco.complemento) {
-            <span> - {{ atleta.endereco.complemento }}</span>
-          }
-        </p>
-        <p><strong>Bairro:</strong> {{ atleta.endereco.bairro }}</p>
-        <p><strong>Estado:</strong> {{ atleta.endereco.estado }}</p>
-        <p><strong>CEP:</strong> {{ atleta.endereco.cep }}</p>
-      </section>
-      <section>
-        <h3>Contato</h3>
-        <p><strong>Email:</strong> {{ atleta.contato.email }}</p>
-        <p><strong>Telefone:</strong> {{ atleta.contato.telefone }}</p>
-      </section>
-    </mat-card-content>
-  </mat-card>
+    </mat-tab>
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <div>
+          <mat-icon>thumb_up</mat-icon>
+          <div>Dados</div>
+        </div>
+      </ng-template>
+      <div class="tab-content">
+        <app-atleta-dados [atleta]="atleta"></app-atleta-dados>
+      </div>
+    </mat-tab>
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <div>
+          <mat-icon>thumb_up</mat-icon>
+          <div>Dados</div>
+        </div>
+      </ng-template>
+      <div class="tab-content">
+        <app-atleta-dados [atleta]="atleta"></app-atleta-dados>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
 } @else {
   <mat-card>
     <mat-card-content style="display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 180px;">

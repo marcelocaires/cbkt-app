@@ -1,4 +1,4 @@
-import { Component, inject, output } from '@angular/core';
+import { Component, inject, input, output } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { BaseComponent } from '../../../../shared/components/base/base.component';
 import { MaterialButtonModule } from '../../../../shared/material/material-button.module';
@@ -17,6 +17,7 @@ import { ThemeToggleComponent } from '../../theme/theme-toggle.component';
 })
 export class HeaderLayoutComponent extends BaseComponent{
   usuarioService=inject(UsuarioService);
+  isNav=input.required<boolean>();
   hideNav=output<boolean>();
   isNavHide=false;
   usuario: any = this.usuarioService.getUsuario();

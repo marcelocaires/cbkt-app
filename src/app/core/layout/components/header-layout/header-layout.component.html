@@ -1,9 +1,11 @@
 <mat-toolbar class="toolbar flex">
   <div class="right">
     <div class="logo">
-      <button mat-icon-button title="Menu" (click)="hideNavBar()">
-        <mat-icon>menu</mat-icon>
-      </button>
+      @if(isNav()) {
+        <button mat-icon-button title="Menu" (click)="hideNavBar()">
+          <mat-icon>menu</mat-icon>
+        </button>
+      }
       <a routerLink="/home" routerLinkActive="active">
       </a>
       <div></div>
