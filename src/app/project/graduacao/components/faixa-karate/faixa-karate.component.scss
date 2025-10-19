@@ -2,15 +2,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 60px;
-  padding: 16px;
-  border-radius: 8px;
-  border: 2px solid #333;
+  min-height: 30px;
+  padding: 20px;
+  border: 1px solid #333;
   box-shadow:
     0 2px 4px rgba(0, 0, 0, 0.1),
     inset 0 1px 0 rgba(255, 255, 255, 0.1),
     inset 0 -1px 0 rgba(0, 0, 0, 0.1);
-  margin: 8px 0;
   position: relative;
   overflow: hidden;
 
@@ -33,24 +31,37 @@
     position: relative;
   }
 
-  // 6 Costuras paralelas distribuídas uniformemente
+.faixa-preta{
+  background: repeating-linear-gradient(
+    to right,
+    #f0f0f0 0,
+    #f0f0f0 4px,
+    transparent 4px,
+    transparent 8px
+  );
+  /* O modo de mesclagem 'difference' cria um contraste sutil */
+  mix-blend-mode: difference;
+  opacity: 0.25; /* Opacidade para sutileza */
+}
+.faixa-colorida{
+  background: repeating-linear-gradient(
+    to right,
+    #fff 0, /* Cor branca para o traço */
+    #fff 4px,
+    transparent 4px,
+    transparent 8px
+  );
+  filter: invert(1);
+  mix-blend-mode: normal;
+  opacity: 0.4;
+}
+
+  // 5 Costuras paralelas distribuídas uniformemente
   .costura-paralela {
     position: absolute;
     left: 8px;
     right: 8px;
-    height: 2px;
-    background: repeating-linear-gradient(
-      to right,
-      transparent 0px,
-      transparent 3px,
-      rgba(0, 0, 0, 0.4) 3px,
-      rgba(0, 0, 0, 0.4) 5px,
-      rgba(255, 255, 255, 0.2) 5px,
-      rgba(255, 255, 255, 0.2) 6px,
-      transparent 6px,
-      transparent 9px
-    );
-    border-radius: 1px;
+    height: 1px;
     z-index: 2;
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
 
@@ -59,22 +70,18 @@
     }
 
     &.costura-2 {
-      top: calc(8px + (100% - 16px) * 0.2);
+      top: calc(8px + (100% - 16px) * 0.25);
     }
 
     &.costura-3 {
-      top: calc(8px + (100% - 16px) * 0.4);
+      top: calc(8px + (100% - 16px) * 0.5);
     }
 
     &.costura-4 {
-      top: calc(8px + (100% - 16px) * 0.6);
+      top: calc(8px + (100% - 16px) * 0.75);
     }
 
     &.costura-5 {
-      top: calc(8px + (100% - 16px) * 0.8);
-    }
-
-    &.costura-6 {
       bottom: 8px;
     }
   }

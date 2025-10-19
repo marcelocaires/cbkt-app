@@ -1,5 +1,5 @@
-import { Component, input } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Component, input } from '@angular/core';
 
 @Component({
   selector: 'app-faixa-karate',
@@ -12,4 +12,5 @@ export class FaixaKarateComponent {
   corHex=input<string|null>('#FFFFFF');
   nomeCor=input<string|null>(null);
   grau=input<string|null>(null);
+  borderRadius=input<string|null>('8px');
 }

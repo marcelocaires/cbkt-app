@@ -1,10 +1,8 @@
-import { MaterialLayoutModule } from './../../../../shared/material/material-layout.module';
-import { Component, input, output, signal, computed, effect } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
-import { RouterLink, RouterLinkActive, Router, NavigationEnd } from '@angular/router';
-import { MenuStateService } from './menu-state.service';
+import { MaterialLayoutModule } from './../../../../shared/material/material-layout.module';
 
 export interface MenuItem {
   label: string;
@@ -16,7 +14,7 @@ export interface MenuItem {
 @Component({
   selector: 'app-menu',
   standalone: true,
-  imports: [MaterialLayoutModule,MatListModule, MatIconModule, MatButtonModule, RouterLink, RouterLinkActive],
+  imports: [MaterialLayoutModule,MatListModule, MatIconModule, MatButtonModule],
   templateUrl: './menu.component.html',
   styleUrls: ['./menu.component.scss']
 })

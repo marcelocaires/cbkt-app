@@ -1,31 +1,33 @@
 @if(atleta(); as atleta){
   <div class="carteirinha">
-    <div class="carteirinha-header">
-      <div mat-card-avatar>
+    <div class="header">
+      <img src="assets/images/cbkt-logo.png">
+      Confederação Brasileira de Karatê-Dô Tradicional
+    </div>
+    <div class="body">
+      <div mat-card-avatar class="carteirinha-foto">
         @if (atleta.sexo === 'F') {
-          <img class="carteirinha-foto" src="assets/images/avatar-af.png" alt="Foto do(a) atleta" />
+          <img src="assets/images/avatar-af.png" alt="Foto do(a) atleta" />
         }
         @if (atleta.sexo === 'M') {
-          <img class="carteirinha-foto" src="assets/images/avatar-am.png" alt="Foto do(a) atleta" />
+          <img src="assets/images/avatar-am.png" alt="Foto do(a) atleta" />
         }
       </div>
-      <div class="carteirinha-info">
-        <div class="carteirinha-nome">{{ atleta.nomeAtleta }}</div>
-        <div class="carteirinha-categoria">Categoria: <strong>{{ atleta.categoria }}</strong></div>
-        <div class="carteirinha-clube">Clube: <strong>{{ atleta.nomeClube }}</strong></div>
+      <div class="carteirinha-dados">
+        <div class="carteirinha-nome"><strong>{{ atleta.nomeAtleta }}</strong> </div>
+        <div class="carteirinha-categoria"><strong>Categoria:</strong> {{ atleta.categoria }}</div>
+        <div class="carteirinha-clube"><strong>Clube:</strong> {{ atleta.nomeClube }}</div>
+        <div><strong>Data de Nascimento:</strong> {{ atleta.dataNascimento }}</div>
+        <div><strong>Cadastro:</strong> {{ atleta.dataCadastro | date:'dd/MM/yyyy' }}</div>
       </div>
     </div>
-    <app-faixa-karate
-      [corHex]="atleta.graduacao.corHex"
-      [grau]="atleta.graduacao.grauNome"
-      [nomeCor]="atleta.graduacao.corNome">
-    </app-faixa-karate>
-    <div class="carteirinha-dados">
-      <div>Data de Nascimento: <strong>{{ atleta.dataNascimento }}</strong></div>
-      <div>Cadastro: <strong>{{ atleta.dataCadastro | date:'dd/MM/yyyy' }}</strong></div>
-    </div>
-    <div class="carteirinha-footer">
-      <span>Confederação Brasileira de Karatê Tradicional - CBKT</span>
+    <div class="footer">
+      <app-faixa-karate
+        [corHex]="atleta.graduacao.corHex"
+        [grau]="atleta.graduacao.grauNome"
+        [nomeCor]="atleta.graduacao.corNome"
+        borderRadius="0">
+      </app-faixa-karate>
     </div>
   </div>
 }
