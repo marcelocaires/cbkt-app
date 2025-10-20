@@ -14,11 +14,25 @@
         }
       </div>
       <div class="carteirinha-dados">
-        <div class="carteirinha-nome"><strong>{{ atleta.nomeAtleta }}</strong> </div>
-        <div class="carteirinha-categoria"><strong>Categoria:</strong> {{ atleta.categoria }}</div>
-        <div class="carteirinha-clube"><strong>Clube:</strong> {{ atleta.nomeClube }}</div>
-        <div><strong>Data de Nascimento:</strong> {{ atleta.dataNascimento }}</div>
-        <div><strong>Cadastro:</strong> {{ atleta.dataCadastro | date:'dd/MM/yyyy' }}</div>
+        <div class="nome">{{ atleta.nomeAtleta }}</div>
+        <div class="dado">
+          <span>Categoria</span>
+          <div>{{ atleta.categoria }}</div>
+        </div>
+        <div class="dado">
+          <span>Clube</span>
+          <div>{{ atleta.nomeClube }}</div>
+        </div>
+        <div class="datas">
+          <div class="dado">
+            <span>Data de Nascimento</span>
+            <div>{{ atleta.dataNascimento }}</div>
+          </div>
+          <div class="dado">
+            <span>Data de Cadastro</span>
+            <div>{{ atleta.dataCadastro | date:'dd/MM/yyyy' }}</div>
+          </div>
+        </div>
       </div>
     </div>
     <div class="footer">

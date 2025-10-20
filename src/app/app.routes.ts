@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { AtletaLayoutComponent } from './core/layout/components/atleta-layout/atleta-layout.component';
 import { MainLayoutComponent } from './core/layout/components/main-layout/main-layout.component';
+import { ExemplosComponent } from './examples/exemplos.component';
 import { AtletaComponent } from './project/atleta/pages/atleta/atleta.component';
 import { LoginComponent } from './project/auth/pages/login/login.component';
 import { PasswordResetComponent } from './project/auth/pages/password-reset/password-reset.component';
@@ -16,6 +17,10 @@ export const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent
+  },
+  {
+    path: 'exemplos',
+    component: ExemplosComponent
   },
   {
     path: 'primeiro-acesso',

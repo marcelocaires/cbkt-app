@@ -1,0 +1,47 @@
+.example-form {
+    min-width: 150px;
+    max-width: 500px;
+    width: 100%;
+}
+.example-full-width {
+    width: 100%;
+}
+.toolbar{
+  background-image: linear-gradient(to right,#005E7A,#1F6A74,#43786C);
+  background-repeat: no-repeat;
+  color: #FFF !important;
+}
+main > mat-card {
+	margin: 1rem;
+}
+.error{
+    background-color: #f9d3d5 !important;
+    color:red !important;
+}
+.success{
+    background-color: #B9DDFC !important;
+    color:#5c6e7e !important;
+}
+.info{
+    background-color: #b1e2b5 !important;
+    color:green !important;
+}
+.warn{
+    background-color: #ffe4b2 !important;
+    color:#e59400 !important;
+}
+.example-spacer {
+  flex: 1 1 auto;
+}
+mat-card{
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding: 15px;
+}
+mat-card{
+  padding: 5px;
+}
+button{
+  margin: 5px 5px 5px 0;
+}
+

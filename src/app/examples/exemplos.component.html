@@ -1,0 +1,254 @@
+<div class="mat-elevation-z8" style="padding:20px">
+  <div style="text-align: center;">
+    <h1 style="font-weight: bold;">Componentes Material Angular</h1>
+  </div>
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Toolbar</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-toolbar class="toolbar">
+        <span>My App</span>
+        <span class="example-spacer"></span>
+        <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
+          <mat-icon>favorite</mat-icon>
+        </button>
+        <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
+          <mat-icon>share</mat-icon>
+        </button>
+        <button mat-icon-button [matMenuTriggerFor]="themeMenu" aria-label="Example icon-button with a menu">
+          <mat-icon>format_color_fill</mat-icon>
+        </button>
+        <mat-menu #themeMenu="matMenu">
+        </mat-menu>
+        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item>
+            <mat-icon>dialpad</mat-icon>
+            <span>Redial</span>
+          </button>
+          <button mat-menu-item disabled>
+            <mat-icon>voicemail</mat-icon>
+            <span>Check voice mail</span>
+          </button>
+          <button mat-menu-item>
+            <mat-icon>notifications_off</mat-icon>
+            <span>Disable alerts</span>
+          </button>
+        </mat-menu>
+      </mat-toolbar>
+    </mat-card-content>
+  </mat-card>
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Tabela e Datasource</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <app-my-table></app-my-table>
+    </mat-card-content>
+  </mat-card>
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Card</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-card>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed elementum euismod dolor. Ut in eros urna. Fusce eget tellus in arcu maximus feugiat. Etiam dictum lectus nulla, ac consectetur nunc sodales non. Mauris aliquam nunc ut suscipit commodo. Pellentesque ac dignissim massa. Curabitur non diam sed diam volutpat auctor eu eu lacus. Vivamus sollicitudin metus id nisi varius, malesuada fermentum orci bibendum. Sed volutpat non libero id elementum. Ut suscipit leo ut luctus vehicula. Suspendisse aliquet arcu consectetur, tristique augue eu, posuere libero. Aenean lacinia tellus vitae sem luctus rhoncus. Donec vestibulum semper sapien ac aliquet. Nullam pulvinar ac massa eget fermentum. Phasellus vulputate nulla sed dui tempus, eget venenatis dolor suscipit. Donec volutpat non nisl a scelerisque. Fusce felis enim, suscipit sed neque ut, tempor mollis leo. Vestibulum sit amet sollicitudin metus. Sed volutpat, sapien et tincidunt malesuada, ipsum felis finibus erat, id sagittis velit nunc ornare mauris. Nunc condimentum libero id leo vulputate, in egestas eros venenatis. Nam aliquam rhoncus suscipit. Phasellus faucibus neque in libero molestie tristique.
+      </mat-card>
+    </mat-card-content>
+  </mat-card>
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Ícones</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <app-icon-example></app-icon-example>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Button e Dialog</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <button mat-flat-button color="primary" (click)="openDialog()">
+        <mat-icon>open_in_new</mat-icon>
+        Dialog
+      </button>
+      <button mat-stroked-button color="tertiary" (click)="openDialog()">
+        <mat-icon>open_in_new</mat-icon>
+        Dialog
+      </button>
+      <button mat-raised-button color="error" (click)="openDialog()">
+        <mat-icon>open_in_new</mat-icon>
+        Dialog
+      </button>
+    </mat-card-content>
+  </mat-card>
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Formulário em Dialog</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <button mat-flat-button color="primary" (click)="openFormDialog()">
+        <mat-icon>wysiwyg</mat-icon>
+        Form Dialog
+      </button>
+    </mat-card-content>
+  </mat-card>
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Mensagens (clique)</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <button mat-raised-button class="info">Info</button>
+      <button mat-raised-button class="success">Sucesso</button>
+      <button mat-raised-button class="warn">Alerta</button>
+      <button mat-raised-button class="error">Erro</button>
+    </mat-card-content>
+  </mat-card>
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Tabs</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-tab-group>
+        <mat-tab label="First">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed elementum euismod dolor. Ut in eros urna. Fusce eget tellus in arcu maximus feugiat. Etiam dictum lectus nulla, ac consectetur nunc sodales non. Mauris aliquam nunc ut suscipit commodo. Pellentesque ac dignissim massa. Curabitur non diam sed diam volutpat auctor eu eu lacus. Vivamus sollicitudin metus id nisi varius, malesuada fermentum orci bibendum. Sed volutpat non libero id elementum. Ut suscipit leo ut luctus vehicula. Suspendisse aliquet arcu consectetur, tristique augue eu, posuere libero.
+          Aenean lacinia tellus vitae sem luctus rhoncus. Donec vestibulum semper sapien ac aliquet. Nullam pulvinar ac massa eget fermentum. Phasellus vulputate nulla sed dui tempus, eget venenatis dolor suscipit. Donec volutpat non nisl a scelerisque. Fusce felis enim, suscipit sed neque ut, tempor mollis leo. Vestibulum sit amet sollicitudin metus. Sed volutpat, sapien et tincidunt malesuada, ipsum felis finibus erat, id sagittis velit nunc ornare mauris. Nunc condimentum libero id leo vulputate, in egestas eros venenatis. Nam aliquam rhoncus suscipit. Phasellus faucibus neque in libero molestie tristique.
+        </mat-tab>
+        <mat-tab label="Second">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed elementum euismod dolor. Ut in eros urna. Fusce eget tellus in arcu maximus feugiat. Etiam dictum lectus nulla, ac consectetur nunc sodales non. Mauris aliquam nunc ut suscipit commodo. Pellentesque ac dignissim massa. Curabitur non diam sed diam volutpat auctor eu eu lacus. Vivamus sollicitudin metus id nisi varius, malesuada fermentum orci bibendum. Sed volutpat non libero id elementum. Ut suscipit leo ut luctus vehicula. Suspendisse aliquet arcu consectetur, tristique augue eu, posuere libero.
+          Aenean lacinia tellus vitae sem luctus rhoncus. Donec vestibulum semper sapien ac aliquet. Nullam pulvinar ac massa eget fermentum. Phasellus vulputate nulla sed dui tempus, eget venenatis dolor suscipit. Donec volutpat non nisl a scelerisque. Fusce felis enim, suscipit sed neque ut, tempor mollis leo. Vestibulum sit amet sollicitudin metus. Sed volutpat, sapien et tincidunt malesuada, ipsum felis finibus erat, id sagittis velit nunc ornare mauris. Nunc condimentum libero id leo vulputate, in egestas eros venenatis. Nam aliquam rhoncus suscipit. Phasellus faucibus neque in libero molestie tristique.
+        </mat-tab>
+        <mat-tab label="Third">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed elementum euismod dolor. Ut in eros urna. Fusce eget tellus in arcu maximus feugiat. Etiam dictum lectus nulla, ac consectetur nunc sodales non. Mauris aliquam nunc ut suscipit commodo. Pellentesque ac dignissim massa. Curabitur non diam sed diam volutpat auctor eu eu lacus. Vivamus sollicitudin metus id nisi varius, malesuada fermentum orci bibendum. Sed volutpat non libero id elementum. Ut suscipit leo ut luctus vehicula. Suspendisse aliquet arcu consectetur, tristique augue eu, posuere libero.
+          Aenean lacinia tellus vitae sem luctus rhoncus. Donec vestibulum semper sapien ac aliquet. Nullam pulvinar ac massa eget fermentum. Phasellus vulputate nulla sed dui tempus, eget venenatis dolor suscipit. Donec volutpat non nisl a scelerisque. Fusce felis enim, suscipit sed neque ut, tempor mollis leo. Vestibulum sit amet sollicitudin metus. Sed volutpat, sapien et tincidunt malesuada, ipsum felis finibus erat, id sagittis velit nunc ornare mauris. Nunc condimentum libero id leo vulputate, in egestas eros venenatis. Nam aliquam rhoncus suscipit. Phasellus faucibus neque in libero molestie tristique.
+        </mat-tab>
+      </mat-tab-group>
+    </mat-card-content>
+  </mat-card>
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Stepper</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <button mat-flat-button (click)="isLinear = !isLinear" id="toggle-linear" color="primary">
+        {{!isLinear ? 'Enable linear mode' : 'Disable linear mode'}}
+      </button>
+      <mat-stepper [linear]="isLinear" #stepper>
+        <mat-step [stepControl]="firstFormGroup">
+          <form [formGroup]="firstFormGroup">
+            <ng-template matStepLabel>Fill out your name</ng-template>
+            <mat-form-field appearance="fill">
+              <mat-label>Name</mat-label>
+              <input matInput placeholder="Last name, First name" formControlName="firstCtrl" required>
+            </mat-form-field>
+            <div>
+              <button mat-button matStepperNext>Next</button>
+            </div>
+          </form>
+        </mat-step>
+        <mat-step [stepControl]="secondFormGroup" label="Fill out your address">
+          <form [formGroup]="secondFormGroup">
+            <mat-form-field appearance="fill">
+              <mat-label>Address</mat-label>
+              <input matInput formControlName="secondCtrl" placeholder="Ex. 1 Main St, New York, NY"
+                    required>
+            </mat-form-field>
+            <div>
+              <button mat-button matStepperPrevious>Back</button>
+              <button mat-button matStepperNext>Next</button>
+            </div>
+          </form>
+        </mat-step>
+        <mat-step>
+          <ng-template matStepLabel>Done</ng-template>
+          <p>You are now done.</p>
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button (click)="stepper.reset()">Reset</button>
+          </div>
+        </mat-step>
+      </mat-stepper>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Progress Bar</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-progress-bar style="width:100%" color="primary" mode="indeterminate"></mat-progress-bar>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Accordion</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-accordion class="example-headers-align">
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Personal data
+            </mat-panel-title>
+            <mat-panel-description>
+              Type your name and age
+              <mat-icon>account_circle</mat-icon>
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+
+          <mat-form-field appearance="fill">
+            <mat-label>First name</mat-label>
+            <input matInput>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+            <mat-label>Age</mat-label>
+            <input matInput type="number" min="1">
+          </mat-form-field>
+
+        </mat-expansion-panel>
+        <mat-expansion-panel disabled>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Destination
+            </mat-panel-title>
+            <mat-panel-description>
+              Type the country name
+              <mat-icon>map</mat-icon>
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+
+          <mat-form-field appearance="fill">
+            <mat-label>Country</mat-label>
+            <input matInput>
+          </mat-form-field>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Day of the trip
+            </mat-panel-title>
+            <mat-panel-description>
+              Inform the date you wish to travel
+              <mat-icon>date_range</mat-icon>
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+
+          <mat-form-field appearance="fill">
+            <mat-label>Date</mat-label>
+            <input matInput [matDatepicker]="picker" (focus)="picker.open()" readonly>
+          </mat-form-field>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-expansion-panel>
+       </mat-accordion>
+    </mat-card-content>
+  </mat-card>
+</div>
+
