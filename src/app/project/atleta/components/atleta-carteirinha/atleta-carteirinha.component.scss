@@ -5,7 +5,7 @@
 .carteirinha {
   max-width: 450px;
   border-radius: 16px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
   background: #fff;
   margin: 24px auto;
   font-family: "Roboto", Arial, sans-serif;
@@ -89,8 +89,11 @@ div.dado{
   :host{
     font-size: clamp(1em, 1em + 1vw, 1.5em);
   }
+  .header{
+    font-size: 0.70em;
+  }
   .carteirinha {
-    width: 80%;
+    width: 85%;
   }
   .body[_ngcontent-ng-c2860134819] {
     width: 100%;
