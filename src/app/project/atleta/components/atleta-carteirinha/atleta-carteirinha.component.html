@@ -1,4 +1,50 @@
 @if(atleta(); as atleta){
+ <div class="content">
+  <div class="carteirinha">
+    <div class="header">
+      <img src="assets/images/cbkt-logo.png">
+      <div>Confederação Brasileira de Karatê-Dô Tradicional</div>
+    </div>
+    <div class="body">
+      <div mat-card-avatar class="carteirinha-foto">
+        @if (atleta.sexo === 'F') {
+          <img src="assets/images/avatar-af.png" alt="Foto do(a) atleta" />
+        }
+        @if (atleta.sexo === 'M') {
+          <img src="assets/images/avatar-am.png" alt="Foto do(a) atleta" />
+        }
+      </div>
+      <div class="carteirinha-dados">
+        <div class="nome">{{ atleta.nomeAtleta }}</div>
+        <div class="dado">
+          <span>Categoria</span>
+          <div>{{ atleta.categoria }}</div>
+        </div>
+        <div class="dado">
+          <span>Clube</span>
+          <div>{{ atleta.nomeClube }}</div>
+        </div>
+        <div class="datas">
+          <div class="dado">
+            <span>Data de Nascimento</span>
+            <div>{{ atleta.dataNascimento }}</div>
+          </div>
+          <div class="dado">
+            <span>Data de Cadastro</span>
+            <div>{{ atleta.dataCadastro | date:'dd/MM/yyyy' }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer">
+      <app-faixa-karate
+        [corHex]="atleta.graduacao.corHex"
+        [grau]="atleta.graduacao.grauNome"
+        [nomeCor]="atleta.graduacao.corNome"
+        borderRadius="0">
+      </app-faixa-karate>
+    </div>
+  </div>
   <div class="carteirinha">
     <div class="header">
       <img src="assets/images/cbkt-logo.png">
@@ -44,4 +90,5 @@
       </app-faixa-karate>
     </div>
   </div>
+</div>
 }

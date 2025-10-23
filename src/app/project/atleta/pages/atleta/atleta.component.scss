@@ -1,3 +1,6 @@
+:host{
+  display: block;
+}
 @media (max-width: 600px) {
   mat-card {
     max-width: 98vw;
@@ -9,7 +12,9 @@
   }
 }
 div.tab-content {
-  overflow-y: scroll;
+  overflow-y: auto;
+  width: 100%;
+  height: calc(100vh - 112px);
 }
 ::ng-deep .mat-mdc-tab-header {
   position: fixed !important;;

@@ -6,6 +6,7 @@ body {
   color: var(--mat-sys-on-surface);
   font: var(--mat-sys-body-medium);
   margin: 0;
+  overflow: hidden;
 }
 .mat-slide-toggle {
   transform: scale(0.7);
