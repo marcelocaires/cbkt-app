@@ -7,6 +7,7 @@ import { MaterialProgressModule } from '../../../../shared/material/material-pro
 import { SharedModule } from '../../../../shared/shared.module';
 import { AtletaCarteirinhaComponent } from '../../components/atleta-carteirinha/atleta-carteirinha.component';
 import { AtletaDadosComponent } from '../../components/atleta-dados/atleta-dados.component';
+import { AtletaGraduacoesComponent } from '../../components/atleta-graduacoes/atleta-graduacoes.component';
 import { Atleta } from '../../models/atleta.model';
 import { AtletaService } from '../../services/atleta.service';
 
@@ -21,7 +22,8 @@ import { AtletaService } from '../../services/atleta.service';
     MaterialProgressModule,
     AtletaCarteirinhaComponent,
     MaterialButtonModule,
-    AtletaDadosComponent
+    AtletaDadosComponent,
+    AtletaGraduacoesComponent
   ]
 })
 export class AtletaComponent implements OnInit {
