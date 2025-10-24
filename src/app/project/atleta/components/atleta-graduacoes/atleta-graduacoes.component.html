@@ -1,9 +1,8 @@
 <div class="graduacoes-container">
-  <h3>Histórico de Graduações</h3>
-
-  @if (graduacoes().length > 0) {
+  <app-page-title title="Histórico de Graduações"></app-page-title>
+  @if (graduacoes(); as graduacoes) {
     <div class="cards-grid">
-      @for (graduacao of graduacoes(); track graduacao.id) {
+      @for (graduacao of graduacoes; track graduacao.id) {
         <mat-card class="graduacao-card" [style.border-left]="'5px solid ' + (graduacao.graduacao.corHex || '#ccc')">
           <mat-card-content>
             <app-faixa-karate
@@ -15,12 +14,12 @@
             <div class="graduacao-info">
               <div class="info-item">
                 <mat-icon>event</mat-icon>
-                <span>Data do exame: {{graduacao.dataGraduacao | date:'dd/MM/yyyy'}}</span>
+                <span><strong>Data do exame:</strong> {{graduacao.dataGraduacao | date:'dd/MM/yyyy'}}</span>
               </div>
               @if (graduacao.notaGraduacao) {
                 <div class="info-item">
                   <mat-icon>grade</mat-icon>
-                  <span>Nota: {{graduacao.notaGraduacao}}</span>
+                  <span><strong>Nota:</strong> {{graduacao.notaGraduacao}}</span>
                 </div>
               }
             </div>

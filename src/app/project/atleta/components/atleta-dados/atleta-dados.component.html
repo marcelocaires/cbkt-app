@@ -1,53 +1,274 @@
 @if(atleta(); as atleta) {
-  <mat-card>
-    <mat-card-header>
-      <div mat-card-avatar>
-        @if (atleta.sexo === 'F') {
-          <img src="assets/images/avatar-af.png" alt="Foto do(a) atleta" />
-        }
-        @if (atleta.sexo === 'M') {
-          <img src="assets/images/avatar-am.png" alt="Foto do(a) atleta" />
-        }
-      </div>
-      <mat-card-title>{{ atleta.nomeAtleta }}</mat-card-title>
-      <mat-card-subtitle>{{ atleta.categoria }} | {{ atleta.graduacao.descricaoGraduacao }}</mat-card-subtitle>
-    </mat-card-header>
-    <mat-card-content>
-      <section>
-        <h3>Dados Pessoais</h3>
-        <p><strong>Sexo:</strong> {{ atleta.sexo }}</p>
-        <p><strong>Data de Nascimento:</strong> {{ atleta.dataNascimento }}</p>
-        <p><strong>Data de Cadastro:</strong> {{ atleta.dataCadastro | date:'dd/MM/yyyy' }}</p>
-      </section>
-      <section>
-        <h3>Clube</h3>
-        <p><strong>Nome:</strong> {{ atleta.nomeClube }}</p>
-      </section>
-      <section>
-        <h3>Graduação</h3>
-        <p><strong>Descrição:</strong> {{ atleta.graduacao.descricaoGraduacao }}</p>
-      </section>
-      <section>
-        <h3>Documentos</h3>
-        <p><strong>CPF:</strong> {{ atleta.documentos.cpf }}</p>
-      </section>
-      <section>
-        <h3>Endereço</h3>
-        <p>
-          <strong>Logradouro:</strong> {{ atleta.endereco.logradouro }}, {{ atleta.endereco.numero }}
-          @if (atleta.endereco.complemento) {
-            <span> - {{ atleta.endereco.complemento }}</span>
+  <div class="atleta-container">
+    <app-page-title title="Dados Cadastrais"></app-page-title>
+    <!-- Header Card -->
+    <mat-card class="header-card">
+      <mat-card-header>
+        <div mat-card-avatar>
+          @if (atleta.urlFoto) {
+            <img [src]="atleta.urlFoto" alt="Foto do(a) atleta" class="atleta-photo" />
+          } @else {
+            @if (atleta.sexo === 'F') {
+              <img src="assets/images/avatar-af.png" alt="Foto do(a) atleta" class="atleta-photo" />
+            }
+            @if (atleta.sexo === 'M') {
+              <img src="assets/images/avatar-am.png" alt="Foto do(a) atleta" class="atleta-photo" />
+            }
           }
-        </p>
-        <p><strong>Bairro:</strong> {{ atleta.endereco.bairro }}</p>
-        <p><strong>Estado:</strong> {{ atleta.endereco.estado }}</p>
-        <p><strong>CEP:</strong> {{ atleta.endereco.cep }}</p>
-      </section>
-      <section>
-        <h3>Contato</h3>
-        <p><strong>Email:</strong> {{ atleta.contato.email }}</p>
-        <p><strong>Telefone:</strong> {{ atleta.contato.telefone }}</p>
-      </section>
-    </mat-card-content>
-  </mat-card>
+        </div>
+        <mat-card-title>{{ atleta.nomeAtleta }}</mat-card-title>
+        <mat-card-subtitle>
+          {{ atleta.categoria }}
+          @if (atleta.graduacao.descricaoGraduacao) {
+            | {{ atleta.graduacao.descricaoGraduacao }}
+          }
+        </mat-card-subtitle>
+      </mat-card-header>
+
+      @if (atleta.ativo || atleta.chkArbitro || atleta.chkAvaliador || atleta.pcd) {
+        <mat-card-content>
+          <div class="status-chips">
+            @if (atleta.ativo) {
+              <span class="status-chip">
+                <mat-icon>check_circle</mat-icon>
+                Ativo
+              </span>
+            }
+            @if (atleta.chkArbitro) {
+              <span class="status-chip">
+                <mat-icon>sports_martial_arts</mat-icon>
+                Árbitro
+              </span>
+            }
+            @if (atleta.chkAvaliador) {
+              <span class="status-chip">
+                <mat-icon>fact_check</mat-icon>
+                Avaliador
+              </span>
+            }
+            @if (atleta.pcd) {
+              <span class="status-chip">
+                <mat-icon>accessible</mat-icon>
+                PCD
+              </span>
+            }
+          </div>
+        </mat-card-content>
+      }
+    </mat-card>
+
+    <!-- Dados Pessoais -->
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>
+          <mat-icon>person</mat-icon>
+          Dados Pessoais
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="info-grid">
+          <div class="info-item">
+            <span class="label">Sexo:</span>
+            <span class="value">{{ atleta.sexo === 'M' ? 'Masculino' : 'Feminino' }}</span>
+          </div>
+          <div class="info-item">
+            <span class="label">Data de Nascimento:</span>
+            <span class="value">{{ atleta.dataNascimento }}</span>
+          </div>
+          <div class="info-item">
+            <span class="label">Data de Cadastro:</span>
+            <span class="value">{{ atleta.dataCadastro | date:'dd/MM/yyyy' }}</span>
+          </div>
+          @if (atleta.dataFaixa) {
+            <div class="info-item">
+              <span class="label">Data da Faixa:</span>
+              <span class="value">{{ atleta.dataFaixa | date:'dd/MM/yyyy' }}</span>
+            </div>
+          }
+          @if (atleta.nacionalidade) {
+            <div class="info-item">
+              <span class="label">Nacionalidade:</span>
+              <span class="value">{{ atleta.nacionalidade }}</span>
+            </div>
+          }
+          @if (atleta.naturalidade) {
+            <div class="info-item">
+              <span class="label">Naturalidade:</span>
+              <span class="value">{{ atleta.naturalidade }}</span>
+            </div>
+          }
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Documentos -->
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>
+          <mat-icon>description</mat-icon>
+          Documentos
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="info-grid">
+          @if (atleta.documentos.cpf) {
+            <div class="info-item">
+              <span class="label">CPF:</span>
+              <span class="value">{{ atleta.documentos.cpf }}</span>
+            </div>
+          }
+          @if (atleta.documentos.rg) {
+            <div class="info-item">
+              <span class="label">RG:</span>
+              <span class="value">{{ atleta.documentos.rg }}</span>
+            </div>
+          }
+          @if (atleta.documentos.rgOrgao) {
+            <div class="info-item">
+              <span class="label">Órgão Emissor:</span>
+              <span class="value">{{ atleta.documentos.rgOrgao }}</span>
+            </div>
+          }
+          @if (atleta.documentos.rgEstado) {
+            <div class="info-item">
+              <span class="label">Estado Emissor:</span>
+              <span class="value">{{ atleta.documentos.rgEstado }}</span>
+            </div>
+          }
+          @if (atleta.documentos.certidaoNascimento) {
+            <div class="info-item">
+              <span class="label">Certidão de Nascimento:</span>
+              <span class="value">{{ atleta.documentos.certidaoNascimento }}</span>
+            </div>
+          }
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Endereço -->
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>
+          <mat-icon>home</mat-icon>
+          Endereço
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="info-grid">
+          <div class="info-item full-width">
+            <span class="label">Logradouro:</span>
+            <span class="value">
+              {{ atleta.endereco.logradouro }}, {{ atleta.endereco.numero }}
+              @if (atleta.endereco.complemento) {
+                - {{ atleta.endereco.complemento }}
+              }
+            </span>
+          </div>
+          <div class="info-item">
+            <span class="label">Bairro:</span>
+            <span class="value">{{ atleta.endereco.bairro }}</span>
+          </div>
+          <div class="info-item">
+            <span class="label">Cidade:</span>
+            <span class="value">{{ atleta.endereco.cidade }}</span>
+          </div>
+          <div class="info-item">
+            <span class="label">Estado:</span>
+            <span class="value">{{ atleta.endereco.estado }}</span>
+          </div>
+          <div class="info-item">
+            <span class="label">CEP:</span>
+            <span class="value">{{ atleta.endereco.cep }}</span>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Contato -->
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>
+          <mat-icon>contact_mail</mat-icon>
+          Contato
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="info-grid">
+          @if (atleta.contato.email) {
+            <div class="info-item">
+              <span class="label">Email:</span>
+              <span class="value">{{ atleta.contato.email }}</span>
+            </div>
+          }
+          @if (atleta.contato.telefone) {
+            <div class="info-item">
+              <span class="label">Telefone:</span>
+              <span class="value">{{ atleta.contato.telefone }}</span>
+            </div>
+          }
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Clube -->
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>
+          <mat-icon>sports</mat-icon>
+          Clube
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="info-grid">
+          <div class="info-item">
+            <span class="label">Nome:</span>
+            <span class="value">{{ atleta.nomeClube }}</span>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Informações Familiares -->
+    @if (atleta.nomeMae || atleta.nomePai || atleta.filiacaoMae || atleta.filiacaoPai) {
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>
+            <mat-icon>family_restroom</mat-icon>
+            Informações Familiares
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="info-grid">
+            @if (atleta.nomeMae || atleta.filiacaoMae) {
+              <div class="info-item">
+                <span class="label">Nome da Mãe:</span>
+                <span class="value">{{ atleta.nomeMae || atleta.filiacaoMae }}</span>
+              </div>
+            }
+            @if (atleta.nomePai || atleta.filiacaoPai) {
+              <div class="info-item">
+                <span class="label">Nome do Pai:</span>
+                <span class="value">{{ atleta.nomePai || atleta.filiacaoPai }}</span>
+              </div>
+            }
+          </div>
+        </mat-card-content>
+      </mat-card>
+    }
+
+    <!-- Observações -->
+    @if (atleta.observacao) {
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>
+            <mat-icon>note</mat-icon>
+            Observações
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p class="observacao">{{ atleta.observacao }}</p>
+        </mat-card-content>
+      </mat-card>
+    }
+  </div>
 }

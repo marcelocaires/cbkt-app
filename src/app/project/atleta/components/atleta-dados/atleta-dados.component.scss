@@ -1,65 +1,220 @@
+.atleta-container {
+  margin: 0 auto;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.mat-mdc-card-avatar {
+  height: 40px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-bottom: 16px;
+  object-fit: cover;
+}
+// Cards com estilo minimalista
 mat-card {
-  max-width: 500px;
-  margin: 32px auto;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
-  border-radius: 16px;
-  background: #fafafa;
+  border-radius: 8px;
+
+  mat-card-header {
+    padding: 16px;
+
+    mat-card-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 1.25rem;
+      font-weight: 500;
+
+      mat-icon {
+        font-size: 20px;
+        width: 20px;
+        height: 20px;
+      }
+    }
+
+    mat-card-subtitle {
+      margin-top: 4px;
+    }
+  }
+
+  mat-card-content {
+    padding: 0 16px 16px;
+  }
 }
 
-mat-card-header {
-  background: linear-gradient(90deg, #1976d2 60%, #42a5f5 100%);
-  color: #fff;
-  border-radius: 16px 16px 0 0;
-  padding-bottom: 8px;
+// Header card específico
+.header-card {
+  mat-card-header {
+    padding: 24px 16px 16px;
+  }
+
+  mat-card-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    gap: 0;
+  }
+
+  mat-card-subtitle {
+    font-size: 1rem;
+    margin-top: 8px;
+  }
 }
 
-mat-card-title {
-  font-size: 1.4rem;
-  font-weight: 600;
-}
-
-mat-card-subtitle {
-  font-size: 1rem;
-  color: #e3f2fd;
-}
-
-mat-card-content section {
-  margin-bottom: 18px;
-  padding-bottom: 8px;
-  border-bottom: 1px solid #e0e0e0;
-}
-
-mat-card-content section:last-child {
-  border-bottom: none;
-}
-
-mat-card-content h3 {
-  font-size: 1.1rem;
-  color: #1976d2;
-  margin-bottom: 4px;
-  font-weight: 500;
-}
-
-mat-card-content p {
-  margin: 2px 0 2px 0;
-  font-size: 0.98rem;
-}
-
-img[alt="Foto do(a) atleta"] {
-  width: 48px;
-  height: 48px;
+// Foto do atleta
+.atleta-photo {
+  width: 56px;
+  height: 56px;
   border-radius: 50%;
   object-fit: cover;
-  border: 2px solid #1976d2;
 }
 
-@media (max-width: 600px) {
-  mat-card {
-    max-width: 98vw;
-    margin: 16px;
-    border-radius: 8px;
+// Status chips minimalistas
+.status-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+
+  .status-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 8px;
+    border-radius: 16px;
+    border: 1px solid;
+    font-size: 0.75rem;
+    font-weight: 500;
+
+    mat-icon {
+      font-size: 16px;
+      width: 16px;
+      height: 16px;
+    }
   }
-  mat-card-header {
-    border-radius: 8px 8px 0 0;
+}
+
+// Grid de informações
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 16px;
+
+  .info-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    &.full-width {
+      grid-column: 1 / -1;
+    }
+
+    .label {
+      font-size: 0.875rem;
+      font-weight: 500;
+      opacity: 0.7;
+    }
+
+    .value {
+      font-size: 1rem;
+      word-break: break-word;
+    }
+  }
+}
+
+// Observações
+.observacao {
+  margin: 0;
+  line-height: 1.5;
+  font-size: 1rem;
+}
+
+// Responsividade
+@media (max-width: 768px) {
+  .atleta-container {
+    padding: 12px;
+    gap: 12px;
+  }
+
+  mat-card {
+    mat-card-header {
+      padding: 16px 12px;
+
+      mat-card-title {
+        font-size: 1.125rem;
+
+        mat-icon {
+          font-size: 18px;
+          width: 18px;
+          height: 18px;
+        }
+      }
+    }
+
+    mat-card-content {
+      padding: 0 12px 12px;
+    }
+  }
+
+  .header-card {
+    mat-card-header {
+      padding: 20px 12px 12px;
+    }
+
+    mat-card-title {
+      font-size: 1.375rem;
+    }
+
+    mat-card-subtitle {
+      font-size: 0.9rem;
+    }
+  }
+
+  .atleta-photo {
+    width: 48px;
+    height: 48px;
+  }
+
+  .status-chips {
+    gap: 6px;
+
+    .status-chip {
+      padding: 3px 6px;
+      font-size: 0.7rem;
+
+      mat-icon {
+        font-size: 14px;
+        width: 14px;
+        height: 14px;
+      }
+    }
+  }
+
+  .info-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+
+    .info-item {
+      gap: 2px;
+
+      .label {
+        font-size: 0.8rem;
+      }
+
+      .value {
+        font-size: 0.9rem;
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .atleta-container {
+    padding: 8px;
+    gap: 8px;
+  }
+
+  .info-grid {
+    gap: 8px;
   }
 }

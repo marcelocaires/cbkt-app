@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 
 import { MatDialog } from '@angular/material/dialog';
+import { ThemeToggleComponent } from '../core/layout/theme/theme-toggle.component';
 import { MaterialButtonModule } from '../shared/material/material-button.module';
 import { MaterialFormModule } from '../shared/material/material-form.module';
 import { MaterialLayoutModule } from '../shared/material/material-layout.module';
@@ -26,7 +27,8 @@ import { MyTableComponent } from './my-table/my-table.component';
       MaterialNavigationModule,
       MaterialFormModule,
       MaterialProgressModule,
-      IconExampleComponent
+      IconExampleComponent,
+      ThemeToggleComponent
     ]
 })
 export class ExemplosComponent{

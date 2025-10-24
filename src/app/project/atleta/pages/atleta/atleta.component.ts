@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { MaterialButtonModule } from '../../../../shared/material/material-button.module';
 import { MaterialLayoutModule } from '../../../../shared/material/material-layout.module';
 import { MaterialProgressModule } from '../../../../shared/material/material-progress.module';
@@ -38,7 +38,10 @@ export class AtletaComponent implements OnInit {
 
   ngOnInit() {
     if (this.atletaId) {
-      this.atleta$ = this.atletaService.getAtletaById(this.atletaId);
+      this.atleta$ = this.atletaService.getAtletaById(this.atletaId)
+      .pipe(
+        tap(atleta => console.log('Atleta carregado:', atleta))
+      );
     }
   }
 }
