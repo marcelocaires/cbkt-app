@@ -8,18 +8,3 @@ body {
   margin: 0;
   overflow: hidden;
 }
-.mat-slide-toggle {
-  transform: scale(0.7);
-  transform-origin: left center;
-  height: 22px;
-  position: relative;
-  top: -3px;
-}
-.mat-expansion-panel-body{
-  padding: 0 !important;
-}
-.mat-mdc-dialog-surface {
-  border-radius: 5px !important;
-  transform: scale(0.8) !important;
-}
-

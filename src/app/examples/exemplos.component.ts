@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, Validators } from '@angular/forms';
 
 import { MatDialog } from '@angular/material/dialog';
 import { ThemeToggleComponent } from '../core/layout/theme/theme-toggle.component';
+import { MySnackBarService } from '../shared/components/my-snackbar-component/my-snackbar.service';
 import { MaterialButtonModule } from '../shared/material/material-button.module';
 import { MaterialFormModule } from '../shared/material/material-form.module';
 import { MaterialLayoutModule } from '../shared/material/material-layout.module';
@@ -34,6 +35,7 @@ import { MyTableComponent } from './my-table/my-table.component';
 export class ExemplosComponent{
   dialog=inject(MatDialog);
   _formBuilder=inject(FormBuilder);
+  msgService=inject(MySnackBarService)
 
   firstFormGroup = this._formBuilder.group({
     firstCtrl: ['', Validators.required],
@@ -56,4 +58,14 @@ export class ExemplosComponent{
     console.log(object);
   }
 
+  mensagem(t:string){
+    if(t==="info")
+      this.msgService.msgInfo("Mensagem de informação!");
+    else if(t==="warn")
+      this.msgService.msgAlerta("Mensagem de alerta!");
+    else if(t==="error")
+      this.msgService.msgErro("Mensagem de erro!");
+    else if(t==="success")
+      this.msgService.msgSucesso("Mensagem de sucesso!");
+  }
 }

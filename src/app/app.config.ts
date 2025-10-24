@@ -1,8 +1,7 @@
-import { ApplicationConfig, DEFAULT_CURRENCY_CODE, LOCALE_ID, provideBrowserGlobalErrorListeners, provideZonelessChangeDetection } from '@angular/core';
-import { provideRouter } from '@angular/router';
-
 import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
+import { ApplicationConfig, DEFAULT_CURRENCY_CODE, LOCALE_ID, provideBrowserGlobalErrorListeners, provideZonelessChangeDetection } from '@angular/core';
 import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
+import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';
 import { HttpInterceptor } from './core/interceptors/http-interceptor';
 // REGISTRA O LOCALE (importa base + extra)

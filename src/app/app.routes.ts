@@ -20,7 +20,13 @@ export const routes: Routes = [
   },
   {
     path: 'exemplos',
-    component: ExemplosComponent
+    component: MainLayoutComponent,
+    children: [
+        {
+            path: '',
+            component: ExemplosComponent
+        }
+    ],
   },
   {
     path: 'primeiro-acesso',

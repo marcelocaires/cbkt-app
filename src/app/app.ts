@@ -1,7 +1,6 @@
 import { Component, inject, signal } from '@angular/core';
-import { MatIconRegistry } from '@angular/material/icon';
-import { DomSanitizer } from '@angular/platform-browser';
 import { RouterOutlet } from '@angular/router';
+import { IconSvgRegisterService } from './core/layout/services/icon-svg-register.service';
 import { ThemeService } from './core/layout/theme/theme.service';
 import { MaterialButtonModule } from './shared/material/material-button.module';
 import { MaterialLayoutModule } from './shared/material/material-layout.module';
@@ -16,13 +15,10 @@ import { MaterialLayoutModule } from './shared/material/material-layout.module';
 export class App {
   protected readonly title = signal('cbkt-app');
   themeService=inject(ThemeService);
-  iconRegistry=inject(MatIconRegistry);
-  sanitizer=inject(DomSanitizer);
+  iconSvgRegister=inject(IconSvgRegisterService);
+
   constructor() {
     this.themeService.setTheme();
-    this.iconRegistry.addSvgIconSetInNamespace(
-      'carteirinha',
-      this.sanitizer.bypassSecurityTrustResourceUrl('../../public/assets/icons/carteirinha.svg')
-    );
+    this.iconSvgRegister.register();
   }
 }

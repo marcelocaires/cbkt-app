@@ -21,33 +21,4 @@ $light-theme: mat.define-theme((
   @include mat.all-component-themes($light-theme);
   @include mat.system-level-colors($light-theme);
   @include mat.system-level-typography($light-theme);
-  @include mat.expansion-overrides((
-    container-background-color: var(--mat-sys-primary),
-    container-text-color:var(--mat-sys-primary),
-    header-text-color: var(--mat-sys-on-primary),
-    header-indicator-color: var(--mat-sys-on-primary),
-  ));
-  mat-toolbar{
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    box-shadow: 0 2px 4px -1px rgb(0 0 0 / 20%), 0 4px 5px 0 rgb(0 0 0 / 14%), 0 1px 10px 0 rgb(0 0 0 / 12%);
-    background-color: var(--mat-sys-primary);
-    color: #FFF;
-    >*{
-      color:#FFF;
-    }
-  }
-  mat-sidenav{
-    margin-top:60px;
-    height: calc(100vh - 60px);
-    box-shadow: 1px 0 20px #231f20;
-    border: none;
-    background-color: var(--mat-sys-primary);
-    color: #FFF;
-    border-radius: 0;
-  }
-  .mat-mdc-raised-button,.mat-tonal-button,.mat-mdc-flat-button,.mat-mdc-stroked-button,.mat-tonal-button,.mat-mdc-unelevated-button{
-    border-radius:5px !important;
-  }
 }

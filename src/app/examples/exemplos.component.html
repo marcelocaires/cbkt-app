@@ -1,4 +1,4 @@
-<div class="mat-elevation-z8" style="padding:20px">
+<div class="mat-elevation-z8" style="padding:20px;scroll:auto;">
   <div style="text-align: center;">
     <h1 style="font-weight: bold;">Componentes Material Angular</h1>
   </div>
@@ -104,10 +104,10 @@
       <mat-card-title>Mensagens (clique)</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-      <button mat-raised-button class="info">Info</button>
-      <button mat-raised-button class="success">Sucesso</button>
-      <button mat-raised-button class="warn">Alerta</button>
-      <button mat-raised-button class="error">Erro</button>
+      <button mat-raised-button class="info" (click)="mensagem('info')">Info</button>
+      <button mat-raised-button class="success" (click)="mensagem('success')">Sucesso</button>
+      <button mat-raised-button class="warn" (click)="mensagem('warn')">Alerta</button>
+      <button mat-raised-button class="error" (click)="mensagem('error')">Erro</button>
     </mat-card-content>
   </mat-card>
   <mat-card>

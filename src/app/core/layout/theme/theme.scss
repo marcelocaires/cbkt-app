@@ -1,2 +1,52 @@
+@use '@angular/material' as mat;
 @use 'dark-theme';
 @use 'light-theme';
+.custom-theme {
+  @include mat.expansion-overrides((
+    actions-divider-color: transparent,
+    container-background-color: transparent,
+  ));
+  mat-toolbar{
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 4px -1px rgb(0 0 0 / 20%), 0 4px 5px 0 rgb(0 0 0 / 14%), 0 1px 10px 0 rgb(0 0 0 / 12%);
+    background-color: var(--mat-sys-primary);
+    color: #FFF;
+    >*{
+      color:#FFF;
+    }
+  }
+  mat-sidenav{
+    margin-top:60px;
+    height: calc(100vh - 60px);
+    border: none;
+    background-color: var(--mat-datepicker-calendar-container-background-color, var(--mat-sys-surface-container-high));
+    border-radius: 0;
+  }
+  .mat-mdc-raised-button,.mat-tonal-button,.mat-mdc-flat-button,.mat-mdc-stroked-button,.mat-tonal-button,.mat-mdc-unelevated-button{
+    border-radius:5px !important;
+  }
+  .mat-expansion-panel{
+    box-shadow:none !important;
+  }
+  .mat-slide-toggle {
+    transform: scale(0.7);
+    transform-origin: left center;
+    height: 22px;
+    position: relative;
+    top: -3px;
+  }
+  .mat-expansion-panel-body{
+    padding: 0 !important;
+  }
+  .mat-mdc-dialog-surface {
+    border-radius: 5px !important;
+    transform: scale(0.8) !important;
+  }
+  .mdc-snackbar__surface{
+    background: transparent !important;
+    box-shadow: 0 0 0 0 white !important;
+    border:0 !important;
+  }
+}

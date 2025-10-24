@@ -2,19 +2,24 @@
 @use '@angular/material' as mat;
 
 ul.menu-content{
+  background-color:#231f20;
+  color: white;
   margin: 0;
-  padding-left: 21px;
+  padding: 0;
   >li{
-    padding-left: 14px;
+    padding-left: 15px;
+    color: white;
     cursor: pointer;
     list-style: none;
-    border-left: 2px solid;
+    border-left: 2px solid #f6f6f6;
   }
   >li:hover{
-    font-weight: bold;
+    opacity: 0.5;
+    font-weight: 100;
   }
-  >li:checked{
-    font-weight: bold;
+  >li::marker{
+    opacity: 0.5;
+    font-weight: 100;
   }
 }
 
@@ -37,5 +42,6 @@ ul.menu-content{
   }
 }
 .selected {
+  background-color: #e0f7fa; /* cor de destaque */
   font-weight: bold;
 }

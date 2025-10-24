@@ -7,7 +7,7 @@ import { MatIconModule } from '@angular/material/icon';
   standalone: true,
   imports: [MatIconModule],
   template: `
-    <h2>🎯 Material Symbols (Outlined)</h2>
+    <h2>Outlined</h2>
     <mat-icon fontSet="material-symbols-outlined">home</mat-icon>
     <mat-icon fontSet="material-symbols-outlined">favorite</mat-icon>
     <mat-icon fontSet="material-symbols-outlined">settings</mat-icon>
@@ -26,7 +26,7 @@ import { MatIconModule } from '@angular/material/icon';
     <mat-icon fontSet="material-symbols-outlined">arrow_downward</mat-icon>
     <mat-icon fontSet="material-symbols-outlined">cancel</mat-icon>
 
-    <h2>💎 Material Icons Clássico (fallback)</h2>
+    <h2>Basic</h2>
     <mat-icon>home</mat-icon>
     <mat-icon>favorite</mat-icon>
     <mat-icon>settings</mat-icon>
@@ -44,6 +44,13 @@ import { MatIconModule } from '@angular/material/icon';
     <mat-icon>arrow_upward</mat-icon>
     <mat-icon>arrow_downward</mat-icon>
     <mat-icon>cancel</mat-icon>
+
+    <h2>Svg</h2>
+    <mat-icon svgIcon="thumb_up"></mat-icon>
+    <mat-icon svgIcon="carteirinha"></mat-icon>
+    <mat-icon svgIcon="id_card"></mat-icon>
+    <mat-icon svgIcon="faixa"></mat-icon>
+    <mat-icon svgIcon="faixa-outlined"></mat-icon>
   `,
   styles: [`
     mat-icon {
