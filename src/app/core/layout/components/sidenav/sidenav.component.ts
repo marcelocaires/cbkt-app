@@ -8,7 +8,6 @@ import { SharedModule } from '../../../../shared/shared.module';
 import { Usuario, UsuarioService } from '../../../security/services/usuarioService.service';
 import { MenuComponent, MenuItem } from '../menu/menu.component';
 
-
 @Component({
     selector: 'app-sidenav',
     standalone: true,
@@ -26,23 +25,7 @@ export class SidenavComponent {
   isDev=false;
 
   isOpen=input<boolean>(true);
-  menuItems: MenuItem[]= [
-    {
-      label: 'Atletas',
-      icon: 'sports_martial_arts',
-      route: '/atletas'
-    },
-    {
-      label: 'Graduações',
-      icon: 'school',
-      route: '/graduacoes'
-    },
-    {
-      label: 'Usuários',
-      icon: 'people',
-      route: '/usuarios'
-    }
-  ];
+  menuItems: MenuItem[]= [];
 
   constructor(){
     this.usuario=this.usuarioService.getUsuario();

@@ -58,3 +58,21 @@ div.logo{
     object-fit: cover;
   }
 }
+.modulos{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  >button{
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-evenly;
+    >.mat-icon{
+      margin: 0;
+    }
+    >span{
+      font-size: 12px;
+    }
+  }
+}

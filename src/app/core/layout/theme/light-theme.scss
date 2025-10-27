@@ -4,16 +4,7 @@
 
 $light-theme: mat.define-theme((
   color: (
-    theme-type: light,
-    primary: mat.$cyan-palette,
-    tertiary: mat.$red-palette,
-  ),
-  typography: (
-    brand-family: 'Roboto',
-    bold-weight: 900
-  ),
-  density: (
-    scale: -1
+    theme-type: light
   )
 ));
 

@@ -12,6 +12,17 @@
     </div>
   </div>
   <div class="left">
+    <button matIconButton [matMenuTriggerFor]="menu" aria-label="Módulos" title="Módulos">
+      <mat-icon>dashboard</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <div class="modulos">
+        <button mat-menu-item routerLink="/graduacoes">
+          <mat-icon fontSet="material-symbols-outlined">home_storage</mat-icon>
+          <span>Cadastro</span>
+        </button>
+      </div>
+    </mat-menu>
     <app-theme-toggle></app-theme-toggle>
     <button mat-icon-button title="Sair do sistema" (click)="logof()">
       <mat-icon>power_settings_new</mat-icon>

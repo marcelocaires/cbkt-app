@@ -12,7 +12,7 @@ import { ThemeService } from "./theme.service";
         type="button"
         mat-icon-button
         (click)="toggleTheme()">
-        <mat-icon>
+        <mat-icon style="color: #fff;">
           {{!isDarkMode?"dark_mode":"light_mode"}}
         </mat-icon>
       </button>

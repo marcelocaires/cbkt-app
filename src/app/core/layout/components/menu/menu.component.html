@@ -1,39 +1,28 @@
 <mat-accordion displayMode="flat">
-  <mat-expansion-panel>
-    <mat-expansion-panel-header>
-      <mat-panel-title>
-        <mat-icon>settings</mat-icon>Teste 1
-      </mat-panel-title>
-    </mat-expansion-panel-header>
-    <ul class="menu-content">
-      <li>Coffee</li>
-      <li>Tea</li>
-      <li>Milk</li>
-    </ul>
-  </mat-expansion-panel>
-  <mat-expansion-panel>
-    <mat-expansion-panel-header>
-      <mat-panel-title>
-        <mat-icon >menu</mat-icon>
-        Teste 2
-      </mat-panel-title>
-    </mat-expansion-panel-header>
-    <ul class="menu-content">
-      <li>Coffee</li>
-      <li>Tea</li>
-      <li>Milk</li>
-    </ul>
-  </mat-expansion-panel>
-  <mat-expansion-panel>
-    <mat-expansion-panel-header>
-      <mat-panel-title>
-        <mat-icon>menu</mat-icon>Teste 3
-      </mat-panel-title>
-    </mat-expansion-panel-header>
-    <ul class="menu-content">
-      <li>Coffee</li>
-      <li>Tea</li>
-      <li>Milk</li>
-    </ul>
-  </mat-expansion-panel>
+  @for(menu of MENU; track menu){
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          @if(menu.iconType === iconType.NORMAL){
+            <mat-icon class="header-icon">{{menu.icon}}</mat-icon>
+          }@else if(menu.iconType === iconType.OUTLINED){
+            <mat-icon class="header-icon" fontSet="material-symbols-outlined">{{menu.icon}}</mat-icon>
+          }@else if(menu.iconType === iconType.SVG){
+            <mat-icon class="header-icon" svgIcon="{{menu.icon}}"></mat-icon>
+          }
+          <span  class="header-title">{{menu.title}}</span>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <ul class="menu-content">
+        @for(item of menu.itens; track item){
+          <li (click)="itemSelected(item)" [class.item-selected]="item.selected">
+            {{item.label}}
+            @if(item.selected){
+              <mat-icon>arrow_left</mat-icon>
+            }
+          </li>
+        }
+      </ul>
+    </mat-expansion-panel>
+  }
 </mat-accordion>

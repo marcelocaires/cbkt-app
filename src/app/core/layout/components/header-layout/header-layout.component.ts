@@ -13,7 +13,14 @@ import { ThemeToggleComponent } from '../../theme/theme-toggle.component';
     templateUrl: './header-layout.component.html',
     styleUrls: ['./header-layout.component.scss'],
     standalone: true,
-    imports: [SharedModule, RouterLink,MaterialLayoutModule,MaterialButtonModule,MaterialNavigationModule,ThemeToggleComponent]
+    imports: [
+      SharedModule,
+      RouterLink,
+      MaterialLayoutModule,
+      MaterialButtonModule,
+      MaterialNavigationModule,
+      ThemeToggleComponent
+    ]
 })
 export class HeaderLayoutComponent extends BaseComponent{
   usuarioService=inject(UsuarioService);

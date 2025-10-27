@@ -107,12 +107,12 @@ export class GraduacaoCrudComponent extends BaseComponent{
       descricaoGraduacao: ['', [Validators.required, Validators.maxLength(100)]],
       grau: [''],
       cor: [''],
-      carencia: [0, [Validators.required, Validators.min(0)]],
-      carenciaMenor: [0, [Validators.min(0)]],
+      carencia: [null, [Validators.required, Validators.min(0)]],
+      carenciaMenor: [null, [Validators.min(0)]],
       carenciaAulas: [null],
-      valor: [0, [Validators.required, Validators.min(0)]],
-      idadeMinima: [0, [Validators.required, Validators.min(0)]],
-      anuidadeAte: [0, [Validators.required, Validators.min(0)]],
+      valor: [null, [Validators.required, Validators.min(0)]],
+      idadeMinima: [null, [Validators.required, Validators.min(0)]],
+      anuidadeAte: [null],
       anuidadeApos: [null,],
       anuidade: ['NAO', Validators.required]
     });

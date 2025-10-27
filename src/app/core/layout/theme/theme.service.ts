@@ -35,6 +35,7 @@ export class ThemeService {
   }
 
   switchTheme(isDarkMode: boolean) {
+    this._document.body.classList.add('cyan-theme');
     if(isDarkMode) {
       this.storageService.localStorage.setItem('theme', 'dark');
       this._document.body.classList.add('dark-theme');
