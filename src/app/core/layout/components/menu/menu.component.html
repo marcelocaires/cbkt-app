@@ -1,6 +1,6 @@
 <mat-accordion displayMode="flat">
-  @for(menu of MENU; track menu){
-    <mat-expansion-panel>
+  @for(menu of menu.headers; track menu){
+    <mat-expansion-panel [expanded]="isExpanded(menu)">
       <mat-expansion-panel-header>
         <mat-panel-title>
           @if(menu.iconType === iconType.NORMAL){
@@ -15,7 +15,7 @@
       </mat-expansion-panel-header>
       <ul class="menu-content">
         @for(item of menu.itens; track item){
-          <li (click)="itemSelected(item)" [class.item-selected]="item.selected">
+          <li (click)="itemSelected(item)" [class.item-selected]="item.selected" [routerLink]="item.route">
             {{item.label}}
             @if(item.selected){
               <mat-icon>arrow_left</mat-icon>

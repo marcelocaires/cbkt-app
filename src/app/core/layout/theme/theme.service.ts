@@ -35,18 +35,17 @@ export class ThemeService {
   }
 
   switchTheme(isDarkMode: boolean) {
-    this._document.body.classList.add('cyan-theme');
     if(isDarkMode) {
       this.storageService.localStorage.setItem('theme', 'dark');
-      this._document.body.classList.add('dark-theme');
+      this._document.body.classList.add('cyan-dark-theme');
       this._document.body.classList.add('dark-table');
-      this._document.body.classList.remove('light-theme');
+      this._document.body.classList.remove('cyan-light-theme');
       this._document.body.classList.remove('light-table');
     } else {
       this.storageService.localStorage.setItem('theme', 'light');
-      this._document.body.classList.add('light-theme');
+      this._document.body.classList.add('cyan-light-theme');
       this._document.body.classList.add('light-table');
-      this._document.body.classList.remove('dark-theme');
+      this._document.body.classList.remove('cyan-dark-theme');
       this._document.body.classList.remove('dark-table');
     }
   }

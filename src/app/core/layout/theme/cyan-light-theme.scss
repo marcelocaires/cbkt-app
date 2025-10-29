@@ -4,11 +4,20 @@
 
 $light-theme: mat.define-theme((
   color: (
-    theme-type: light
+    primary: mat.$cyan-palette,
+    tertiary: mat.$orange-palette,
+    theme-type: light,
+  ),
+  typography: (
+    brand-family: 'Roboto',
+    bold-weight: 900
+  ),
+  density: (
+    scale: -1
   )
 ));
 
-.light-theme {
+.cyan-light-theme {
   @include mat.all-component-themes($light-theme);
   @include mat.system-level-colors($light-theme);
   @include mat.system-level-typography($light-theme);

@@ -1,7 +1,6 @@
 @use '@angular/material' as mat;
-@use 'cyan-theme';
-@use 'dark-theme';
-@use 'light-theme';
+@use 'cyan-dark-theme.scss';
+@use 'cyan-light-theme';
 .custom-theme {
   @include mat.expansion-overrides((
     actions-divider-color: transparent,

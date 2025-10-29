@@ -4,11 +4,20 @@
 
 $dark-theme: mat.define-theme((
   color: (
+    primary: mat.$cyan-palette,
+    tertiary: mat.$orange-palette,
     theme-type: dark,
+  ),
+  typography: (
+    brand-family: 'Roboto',
+    bold-weight: 900
+  ),
+  density: (
+    scale: -1
   )
 ));
 
-.dark-theme {
+.cyan-dark-theme {
   @include mat.all-component-themes($dark-theme);
   @include mat.system-level-colors($dark-theme);
   @include mat.system-level-typography($dark-theme);
