@@ -33,8 +33,8 @@ export class HeaderLayoutComponent extends BaseComponent{
     super()
   }
 
-  logof() {
-    throw new Error('Method not implemented.');
+  logout() {
+    this.router.navigate(['/login']);
   }
 
   hideNavBar(){

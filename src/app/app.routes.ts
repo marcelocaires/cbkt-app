@@ -3,6 +3,7 @@ import { AtletaLayoutComponent } from './core/layout/components/atleta-layout/at
 import { MainLayoutComponent } from './core/layout/components/main-layout/main-layout.component';
 import { ExemplosComponent } from './examples/exemplos.component';
 import { AtletaComponent } from './project/atleta/pages/atleta/atleta.component';
+import { AtletasComponent } from './project/atletas/pages/atletas/atletas.component';
 import { LoginComponent } from './project/auth/pages/login/login.component';
 import { PasswordResetComponent } from './project/auth/pages/password-reset/password-reset.component';
 import { PrimeiroAcessoComponent } from './project/auth/pages/primeiro-acesso/primeiro-acesso.component';
@@ -64,6 +65,16 @@ export const routes: Routes = [
         {
             path: '',
             component: AtletaComponent
+        }
+    ],
+  },
+  {
+    path: 'atletas',
+    component: MainLayoutComponent,
+    children: [
+        {
+            path: '',
+            component: AtletasComponent
         }
     ],
   }

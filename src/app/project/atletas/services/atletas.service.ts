@@ -1,23 +1,12 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Atleta } from '../../atleta/models/atleta.model';
+import { ApiPageableResponse } from '../../../shared/components/crud-mat-table/interfaces';
 
 export interface PageParams {
   page?: number;
   size?: number;
   sort?: string;
-}
-
-export interface PageResponse<T> {
-  content: T[];
-  totalElements: number;
-  totalPages: number;
-  size: number;
-  number: number;
-  first: boolean;
-  last: boolean;
-  empty: boolean;
 }
 
 @Injectable({ providedIn: 'root' })
@@ -26,7 +15,7 @@ export class AtletasService {
 
   constructor(private http: HttpClient) {}
 
-  getAllPage(params?: PageParams): Observable<PageResponse<Atleta>> {
+  getAllPage(params?: PageParams): Observable<ApiPageableResponse> {
     let httpParams = new HttpParams();
 
     if (params?.page !== undefined) {
@@ -41,6 +30,6 @@ export class AtletasService {
       httpParams = httpParams.set('sort', params.sort);
     }
 
-    return this.http.get<PageResponse<Atleta>>(`${this.apiUrl}/page`, { params: httpParams });
+    return this.http.get<ApiPageableResponse>(`${this.apiUrl}/page`, { params: httpParams });
   }
 }

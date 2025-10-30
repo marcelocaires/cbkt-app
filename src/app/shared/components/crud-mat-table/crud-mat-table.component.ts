@@ -11,19 +11,26 @@ import { SharedModule } from '../../shared.module';
 import { Util } from '../../util/util';
 import { ConfirmDialogComponent, ConfirmDialogData } from '../confirm-dialog/confirm-dialog.component';
 import { FieldTypesEnum } from './enums';
-import { CustomElementAction, customEventEmmiter, ElementCustomAction, MatTableColumnField } from './interfaces';
+import { ApiPageableResponse, CustomElementAction, customEventEmmiter, ElementCustomAction, MatTableColumnField } from './interfaces';
 
 @Component({
   selector: 'app-crud-mat-table',
   templateUrl: './crud-mat-table.component.html',
   styleUrls: ['./crud-mat-table.component.scss'],
   standalone: true,
-  imports:[SharedModule,MaterialTableModule,MaterialButtonModule,MaterialFormModule,MaterialLayoutModule],
+  imports:[
+    SharedModule,
+    MaterialTableModule,
+    MaterialButtonModule,
+    MaterialFormModule,
+    MaterialLayoutModule
+  ],
 })
 export class CrudMatTableComponent {
   crudName=input.required<string>();
   fieldColumns=input.required<MatTableColumnField[]>();
   data=input.required<any[]>();
+  dataPageable=input<ApiPageableResponse|null>(null);
   msgDelete=input<string|null>(null);
   isPrintAll=input(false,{transform:(value:string|boolean)=>typeof value==="string"?value==="" || value==='true':value});
   isExportAll=input(false,{transform:(value:string|boolean)=>typeof value==="string"?value==="" || value==='true':value});
@@ -33,6 +40,7 @@ export class CrudMatTableComponent {
   isUpdate=input(false,{transform:(value:string|boolean)=>typeof value==="string"?value==="" || value==='true':value});
   isPrint=input(false,{transform:(value:string|boolean)=>typeof value==="string"?value==="" || value==='true':value});
   isExport=input(false,{transform:(value:string|boolean)=>typeof value==="string"?value==="" || value==='true':value});
+  isPageable=input(false,{transform:(value:string|boolean)=>typeof value==="string"?value==="" || value==='true':value});
   customElementActions=input<CustomElementAction[]>([]);
   customTableActions=input<CustomElementAction[]>([]);
 
@@ -74,8 +82,42 @@ export class CrudMatTableComponent {
   }
 
   ngOnInit(): void {
-    if(this.data){
-      this.objectsConverter(this.data());
+    this.initColumns();
+    if(this.isPageable() && this.dataPageable()){
+      const dataPageable:ApiPageableResponse=this.dataPageable() || {
+        content:[],
+        pageable:{
+          pageNumber:0,
+          pageSize:0,
+          sort:{empty:true,sorted:false,unsorted:true},
+          offset:0,
+          paged:true,
+          unpaged:false
+        },
+        totalElements:0,
+        totalPages:0,
+        last:true,
+        size:0,
+        number:0,
+        sort:{empty:true,sorted:false,unsorted:true},
+        first:true,
+        numberOfElements:0,
+        empty:true
+      };
+      this.data.bind(dataPageable.content);
+      this.dataSource = new MatTableDataSource(this.data());
+      const page=new MatPaginator();
+      page.length=dataPageable.totalElements || 0;
+      page.pageIndex=dataPageable.pageable.pageNumber || 0;
+      page.pageSize=dataPageable.pageable.pageSize || 10;
+      //this.dataSource.paginator=page;
+      const sort=new MatSort();
+      sort.active=dataPageable.pageable.sort.sorted ? "": "";
+      sort.direction=dataPageable.pageable.sort.sorted ? 'asc' : 'desc';
+      //this.dataSource.sort=sort;
+    }
+    if(this.data()){
+      this.dataSource = new MatTableDataSource(this.data());
     }
     this.customElementActions().forEach((action)=>{
       this.customEvents.push(
@@ -88,17 +130,14 @@ export class CrudMatTableComponent {
     this.edit.emit(element);
   }
 
-  private objectsConverter(objects:any[]){
+  private initColumns(){
     if(this.isEdit()){
       this.displayedColumns.push("edit");
     }
     this.fieldColumns().forEach((fieldColumn)=>{
       this.displayedColumns.push(fieldColumn.columnName);
     });
-
     this.displayedColumns.push("actions");
-
-    this.dataSource = new MatTableDataSource(objects);
   }
 
   applyFilter(event: Event) {

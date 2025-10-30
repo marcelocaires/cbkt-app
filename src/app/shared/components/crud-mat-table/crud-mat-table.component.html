@@ -1,124 +1,123 @@
 <mat-card>
   <mat-card-content>
-  <table
-    [dataSource]="dataSource"
-    mat-table
-    matSort
-    matSortDisableClear
-    (matSortChange)="sortData($event)">
-      <ng-container matColumnDef="filtro">
-        <th mat-header-cell *matHeaderCellDef [attr.colspan]="100" style='text-align: left !important;' class="thFilter">
-          <div class="filtro">
-            <mat-icon style="vertical-align:middle;margin-right:5px;">filter_alt</mat-icon>
-            <input matInput class="inputFilter" (keyup)="applyFilter($event)" [(ngModel)]="inputFilter" placeholder="Filtro">
-            <a style="cursor: pointer;" title="Limpar Filtro" (click)="cleanFilter()">
-                <mat-icon style="vertical-align:middle;margin-left:5px;">filter_alt_off</mat-icon>
+    <table
+      [dataSource]="dataSource"
+      mat-table
+      matSort
+      matSortDisableClear
+      (matSortChange)="sortData($event)">
+        <ng-container matColumnDef="filtro">
+          <th mat-header-cell *matHeaderCellDef [attr.colspan]="100" style='text-align: left !important;' class="thFilter">
+            <div class="filtro">
+              <mat-icon style="vertical-align:middle;margin-right:5px;">filter_alt</mat-icon>
+              <input matInput class="inputFilter" (keyup)="applyFilter($event)" [(ngModel)]="inputFilter" placeholder="Filtro">
+              <a style="cursor: pointer;" title="Limpar Filtro" (click)="cleanFilter()">
+                  <mat-icon style="vertical-align:middle;margin-left:5px;">filter_alt_off</mat-icon>
+              </a>
+              <span class="separador"></span>
+              @for (action of customTableActions(); track action) {
+                <span style="vertical-align: middle;margin-left:5px">
+                  <button style="min-width: 120px;" mat-flat-button mat-button color="primary" [title]="action.name" (click)="actionTable(action)">
+                    <mat-icon style="color:fff">{{action.icon}}</mat-icon>{{action.name}}
+                  </button>
+                </span>
+              }
+              @if (isCreate()) {
+                <span style="vertical-align: middle;margin-left:5px">
+                  <button matButton="elevated" title="Novo cadastro" (click)="createElement()">
+                    <mat-icon style="color:fff">add_circle</mat-icon>Cadastrar
+                  </button>
+                </span>
+              }
+              @if(isPrintAll()){
+                <span style="vertical-align: middle;margin-left:5px">
+                  <button style="width: 120px;" mat-flat-button mat-button color="primary" title="Gerar impressão" (click)="printAllElements()">
+                    <mat-icon style="color:fff">print</mat-icon>Imprimir
+                  </button>
+                </span>
+              }
+              @if (isExportAll()) {
+                <span style="vertical-align: middle;margin-left:5px">
+                  <button style="width: 120px;" mat-flat-button mat-button color="primary" title="Exportar pra excel" (click)="exportAllElements()">
+                    <mat-icon style="color:fff">table_view</mat-icon>Exportar
+                  </button>
+                </span>
+              }
+            </div>
+          </th>
+      </ng-container>
+      @if(isEdit()){
+        <ng-container matColumnDef="edit">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let element" class="tdActions">
+            <a class="btElement" title="Editar" (click)="editElement(element);">
+              <mat-icon>edit_square</mat-icon>
             </a>
-            <span class="separador"></span>
-            @for (action of customTableActions(); track action) {
-              <span style="vertical-align: middle;margin-left:5px">
-                <button style="min-width: 120px;" mat-flat-button mat-button color="primary" [title]="action.name" (click)="actionTable(action)">
-                  <mat-icon style="color:fff">{{action.icon}}</mat-icon>{{action.name}}
-                </button>
-              </span>
-            }
-            @if (isCreate()) {
-              <span style="vertical-align: middle;margin-left:5px">
-                <button matButton="elevated" title="Novo cadastro" (click)="createElement()">
-                  <mat-icon style="color:fff">add_circle</mat-icon>Cadastrar
-                </button>
-              </span>
-            }
-            @if(isPrintAll()){
-              <span style="vertical-align: middle;margin-left:5px">
-                <button style="width: 120px;" mat-flat-button mat-button color="primary" title="Gerar impressão" (click)="printAllElements()">
-                  <mat-icon style="color:fff">print</mat-icon>Imprimir
-                </button>
-              </span>
-            }
-            @if (isExportAll()) {
-              <span style="vertical-align: middle;margin-left:5px">
-                <button style="width: 120px;" mat-flat-button mat-button color="primary" title="Exportar pra excel" (click)="exportAllElements()">
-                  <mat-icon style="color:fff">table_view</mat-icon>Exportar
-                </button>
-              </span>
-            }
-          </div>
-        </th>
-    </ng-container>
-    @if(isEdit()){
-      <ng-container matColumnDef="edit">
+          </td>
+        </ng-container>
+      }
+
+      @for (c of fieldColumns(); track c) {
+        <ng-container [matColumnDef]="c.columnName">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header  [ngStyle]="{'width.px':c.length}"> {{c.columnName}}</th>
+          <td mat-cell *matCellDef="let element">{{
+            c.type=="date" ?
+            (element[c.field] | date: "dd/MM/yyyy") :
+            (element[c.field])
+          }}</td>
+        </ng-container>
+      }
+
+      <ng-container matColumnDef="actions">
         <th mat-header-cell *matHeaderCellDef></th>
         <td mat-cell *matCellDef="let element" class="tdActions">
-          <a class="btElement" title="Editar" (click)="editElement(element);">
-            <mat-icon>edit_square</mat-icon>
-          </a>
-        </td>
-      </ng-container>
-    }
-
-    @for (c of fieldColumns(); track c) {
-      <ng-container [matColumnDef]="c.columnName">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header  [ngStyle]="{'width.px':c.length}"> {{c.columnName}}</th>
-        <td mat-cell *matCellDef="let element">{{
-          c.type=="date" ?
-          (element[c.field] | date: "dd/MM/yyyy") :
-          (element[c.field])
-        }}</td>
-      </ng-container>
-    }
-
-    <ng-container matColumnDef="actions">
-      <th mat-header-cell *matHeaderCellDef></th>
-      <td mat-cell *matCellDef="let element" class="tdActions">
-        @for(action of customElementActions(); track action){
-          @if(action.show){
-            <a class="btElement" [title]="action.name" (click)="actionElement(action,element);">
-              <mat-icon>{{action.icon}}</mat-icon>
+          @for(action of customElementActions(); track action){
+            @if(action.show){
+              <a class="btElement" [title]="action.name" (click)="actionElement(action,element);">
+                <mat-icon>{{action.icon}}</mat-icon>
+              </a>
+            }
+          }
+          @if (isUpdate()) {
+            <a class="btElement" style="cursor: pointer;" title="Alterar" (click)="updateElement(element)">
+              <mat-icon>edit</mat-icon>
             </a>
           }
-        }
-        @if (isUpdate()) {
-          <a class="btElement" style="cursor: pointer;" title="Alterar" (click)="updateElement(element)">
-            <mat-icon>edit</mat-icon>
-          </a>
-        }
-        @if (isDelete()) {
-          <a class="btElement" title="Remover" (click)="deleteElement(element)">
-            <mat-icon style="color: red;">delete</mat-icon>
-          </a>
-        }
-        @if (isPrint()) {
-          <a class="btElement" title="Imprimir" (click)="printElement(element)">
-            <mat-icon>print</mat-icon>
-          </a>
-        }
-        @if (isExport()) {
-          <a class="btElement" title="Exportar" (click)="exportElement(element)">
-            <mat-icon>table_view</mat-icon>
-          </a>
-        }
-      </td>
-    </ng-container>
+          @if (isDelete()) {
+            <a class="btElement" title="Remover" (click)="deleteElement(element)">
+              <mat-icon style="color: red;">delete</mat-icon>
+            </a>
+          }
+          @if (isPrint()) {
+            <a class="btElement" title="Imprimir" (click)="printElement(element)">
+              <mat-icon>print</mat-icon>
+            </a>
+          }
+          @if (isExport()) {
+            <a class="btElement" title="Exportar" (click)="exportElement(element)">
+              <mat-icon>table_view</mat-icon>
+            </a>
+          }
+        </td>
+      </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="['filtro']"></tr>
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;let i=index;" [ngClass]="{'rowZebra':i%2!=0}"></tr>
+      <tr mat-header-row *matHeaderRowDef="['filtro']"></tr>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;let i=index;" [ngClass]="{'rowZebra':i%2!=0}"></tr>
 
-    <!-- Row shown when there is no matching data. -->
-    <tr class="mat-row" *matNoDataRow>
-      <td class="mat-cell" colspan="4">
-        @if (dataSource.data.length!==0) {
-          <div class="filterMsg">Nenhum dado correspondente ao filtro "{{inputFilter}}"</div>
-        }
-      </td>
-    </tr>
-  </table>
-
-  <mat-paginator
-      [pageSize]="10"
-      [pageSizeOptions]="[5, 10, 15, 20]"
-      showFirstLastButtons>
-  </mat-paginator>
+      <!-- Row shown when there is no matching data. -->
+      <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell" colspan="4">
+          @if (dataSource.data.length!==0) {
+            <div class="filterMsg">Nenhum dado correspondente ao filtro "{{inputFilter}}"</div>
+          }
+        </td>
+      </tr>
+    </table>
+    <mat-paginator
+        [pageSize]="10"
+        [pageSizeOptions]="[5, 10, 15, 20]"
+        showFirstLastButtons>
+    </mat-paginator>
   </mat-card-content>
 </mat-card>

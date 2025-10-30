@@ -1,0 +1,13 @@
+@if(atletasPage$ | async; as atletasPage){
+  <app-crud-mat-table
+    crudName="Atletas"
+    [fieldColumns]="columns"
+    [data]="[]"
+    [dataPageable]="atletasPage"
+    isPageable
+    ></app-crud-mat-table>
+}@else{
+  <ng-template #loading>
+    <p>Loading atletas...</p>
+  </ng-template>
+}
