@@ -52,8 +52,6 @@ export class MenuComponent {
       iconType: IconTypeEnum.SVG,
       itens: [
         { id: 1, label: 'Cadastro', route: '/graduacoes' },
-        { id: 2, label: 'Cadastro', route: '/graduacoes' },
-        { id: 3, label: 'Cadastro', route: '/graduacoes' }
       ],
     },
     {

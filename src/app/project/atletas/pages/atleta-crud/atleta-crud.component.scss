@@ -1,0 +1,282 @@
+.atleta-crud-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+// Header da página
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 32px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #e0e0e0;
+
+  .page-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 0;
+    font-size: 2rem;
+    font-weight: 500;
+
+    mat-icon {
+      font-size: 2rem;
+      width: 2rem;
+      height: 2rem;
+    }
+  }
+
+  .page-actions {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+  }
+}
+
+// Cards de seção do formulário
+.form-section {
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 24px;
+
+  mat-card-header {
+    padding: 20px 24px;
+    border-bottom: 1px solid #f0f0f0;
+
+    mat-card-title {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 1.25rem;
+      font-weight: 500;
+      margin: 0;
+
+      mat-icon {
+        font-size: 1.25rem;
+        width: 1.25rem;
+        height: 1.25rem;
+        opacity: 0.8;
+      }
+    }
+  }
+
+  mat-card-content {
+    padding: 24px;
+  }
+}
+
+// Grid do formulário
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+  align-items: start;
+
+  .full-width {
+    grid-column: 1 / -1;
+  }
+}
+
+// Grid para checkboxes
+.checkbox-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+
+  mat-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    mat-icon {
+      font-size: 1rem;
+      width: 1rem;
+      height: 1rem;
+      margin-right: 4px;
+    }
+  }
+}
+
+// Campos de formulário
+mat-form-field {
+  width: 100%;
+
+  &.full-width {
+    grid-column: 1 / -1;
+  }
+
+  mat-icon[matSuffix] {
+    opacity: 0.6;
+  }
+
+  textarea {
+    resize: vertical;
+    min-height: 80px;
+  }
+}
+
+// Container de loading
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 24px;
+  text-align: center;
+
+  mat-progress-spinner {
+    margin-bottom: 16px;
+  }
+
+  p {
+    margin: 0;
+    color: #666;
+    font-size: 1rem;
+  }
+}
+
+// Responsividade
+@media (max-width: 768px) {
+  .atleta-crud-container {
+    padding: 16px;
+    gap: 16px;
+  }
+
+  .page-header {
+    flex-direction: column;
+    gap: 16px;
+    align-items: flex-start;
+    margin-bottom: 24px;
+
+    .page-title {
+      font-size: 1.5rem;
+
+      mat-icon {
+        font-size: 1.5rem;
+        width: 1.5rem;
+        height: 1.5rem;
+      }
+    }
+
+    .page-actions {
+      width: 100%;
+      justify-content: flex-end;
+    }
+  }
+
+  .form-section {
+    margin-bottom: 16px;
+    border-radius: 8px;
+
+    mat-card-header {
+      padding: 16px 20px;
+
+      mat-card-title {
+        font-size: 1.1rem;
+
+        mat-icon {
+          font-size: 1.1rem;
+          width: 1.1rem;
+          height: 1.1rem;
+        }
+      }
+    }
+
+    mat-card-content {
+      padding: 20px;
+    }
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .checkbox-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .atleta-crud-container {
+    padding: 12px;
+  }
+
+  .page-header {
+    .page-actions {
+      flex-wrap: wrap;
+      gap: 8px;
+
+      button {
+        flex: 1;
+        min-width: 120px;
+      }
+    }
+  }
+
+  .form-section {
+    mat-card-header {
+      padding: 12px 16px;
+    }
+
+    mat-card-content {
+      padding: 16px;
+    }
+  }
+
+  .form-grid {
+    gap: 8px;
+  }
+}
+
+// Estados especiais
+mat-form-field.ng-invalid.ng-touched {
+  .mat-form-field-outline-thick {
+    color: #f44336;
+  }
+}
+
+// Botões
+button[mat-flat-button] {
+  font-weight: 500;
+}
+
+button[mat-stroked-button] {
+  font-weight: 500;
+}
+
+// Melhorias visuais
+mat-card {
+  transition: all 0.3s ease;
+
+  &:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+}
+
+mat-form-field {
+  transition: all 0.3s ease;
+
+  &:focus-within {
+    transform: translateY(-1px);
+  }
+}
+
+// Checkbox customizado
+mat-checkbox {
+  .mat-checkbox-layout {
+    .mat-checkbox-label {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+  }
+}

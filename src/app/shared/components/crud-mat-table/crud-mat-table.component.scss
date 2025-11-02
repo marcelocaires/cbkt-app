@@ -53,3 +53,19 @@ div.filtro{
     font-size: 0.95em;
   }
 }
+.btIcon{
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  color:currentColor;
+  > mat-icon{
+    vertical-align: middle;
+  }
+}
+.btIcon:disabled{
+  color: gray;
+}
+.tdCor{
+  padding: 0 !important;
+}

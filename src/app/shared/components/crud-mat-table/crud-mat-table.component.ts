@@ -1,6 +1,6 @@
-import { Component, EventEmitter, input, output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, inject, input, output, SimpleChanges, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { MatPaginator } from '@angular/material/paginator';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { MaterialButtonModule } from '../../material/material-button.module';
@@ -10,6 +10,7 @@ import { MaterialTableModule } from '../../material/material-table.module';
 import { SharedModule } from '../../shared.module';
 import { Util } from '../../util/util';
 import { ConfirmDialogComponent, ConfirmDialogData } from '../confirm-dialog/confirm-dialog.component';
+import { MySnackBarService } from '../my-snackbar-component/my-snackbar.service';
 import { FieldTypesEnum } from './enums';
 import { ApiPageableResponse, CustomElementAction, customEventEmmiter, ElementCustomAction, MatTableColumnField } from './interfaces';
 
@@ -27,10 +28,11 @@ import { ApiPageableResponse, CustomElementAction, customEventEmmiter, ElementCu
   ],
 })
 export class CrudMatTableComponent {
+  msgService=inject(MySnackBarService);
+
   crudName=input.required<string>();
   fieldColumns=input.required<MatTableColumnField[]>();
-  data=input.required<any[]>();
-  dataPageable=input<ApiPageableResponse|null>(null);
+  data=input.required<any>();
   msgDelete=input<string|null>(null);
   isPrintAll=input(false,{transform:(value:string|boolean)=>typeof value==="string"?value==="" || value==='true':value});
   isExportAll=input(false,{transform:(value:string|boolean)=>typeof value==="string"?value==="" || value==='true':value});
@@ -43,6 +45,9 @@ export class CrudMatTableComponent {
   isPageable=input(false,{transform:(value:string|boolean)=>typeof value==="string"?value==="" || value==='true':value});
   customElementActions=input<CustomElementAction[]>([]);
   customTableActions=input<CustomElementAction[]>([]);
+  matSortActive=input<string>("");
+  matSortDirection=input<'asc'|'desc'|"">("");
+  pageFilter=input<any>();
 
   create=output();
   edit=output<any>();
@@ -53,6 +58,9 @@ export class CrudMatTableComponent {
   printAll=output<any>();
   export=output<any>();
   exportAll=output<any>();
+  pageEvent=output<PageEvent>();
+  sortEvent=output<Sort>();
+  filterEvent=output<string>();
   customTableAction1=output();
   customTableAction2=output();
   customTableAction3=output();
@@ -69,7 +77,12 @@ export class CrudMatTableComponent {
 
   displayedColumns: string[]=[];
   dataSource: MatTableDataSource<any>=new MatTableDataSource<any>();
-  inputFilter:string="";
+  inputFilter:any="";
+  dataPageable:ApiPageableResponse|null=null;
+  pageLength:number=0;
+  pageSize:number=10;
+  pageIndex:number=0;
+  pageSizeOptions=[5, 10, 15];
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -77,46 +90,29 @@ export class CrudMatTableComponent {
   constructor(private dialog: MatDialog){}
 
   ngAfterViewInit(): void {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+    if(!this.isPageable()){
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+    }
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if(this.pageFilter()!=null && this.pageFilter()!=undefined && this.pageFilter()!==""){
+      console.log("filter",this.pageFilter());
+      this.inputFilter=this.pageFilter()?this.pageFilter():"";
+    }
   }
 
   ngOnInit(): void {
     this.initColumns();
-    if(this.isPageable() && this.dataPageable()){
-      const dataPageable:ApiPageableResponse=this.dataPageable() || {
-        content:[],
-        pageable:{
-          pageNumber:0,
-          pageSize:0,
-          sort:{empty:true,sorted:false,unsorted:true},
-          offset:0,
-          paged:true,
-          unpaged:false
-        },
-        totalElements:0,
-        totalPages:0,
-        last:true,
-        size:0,
-        number:0,
-        sort:{empty:true,sorted:false,unsorted:true},
-        first:true,
-        numberOfElements:0,
-        empty:true
-      };
-      this.data.bind(dataPageable.content);
-      this.dataSource = new MatTableDataSource(this.data());
-      const page=new MatPaginator();
-      page.length=dataPageable.totalElements || 0;
-      page.pageIndex=dataPageable.pageable.pageNumber || 0;
-      page.pageSize=dataPageable.pageable.pageSize || 10;
-      //this.dataSource.paginator=page;
-      const sort=new MatSort();
-      sort.active=dataPageable.pageable.sort.sorted ? "": "";
-      sort.direction=dataPageable.pageable.sort.sorted ? 'asc' : 'desc';
-      //this.dataSource.sort=sort;
-    }
-    if(this.data()){
+    if(this.isPageable() && this.data()){
+      const dataPageable:ApiPageableResponse=this.data();
+      this.dataPageable=dataPageable;
+      this.dataSource = new MatTableDataSource(this.dataPageable.content);
+      this.pageIndex=this.dataPageable?.pageable?.pageNumber || 0;
+      this.pageSize=this.dataPageable?.pageable?.pageSize || 10;
+      this.pageLength=this.dataPageable?.totalElements || 0;
+    }else if(this.data()){
       this.dataSource = new MatTableDataSource(this.data());
     }
     this.customElementActions().forEach((action)=>{
@@ -124,6 +120,16 @@ export class CrudMatTableComponent {
         {name:action.name,emitter:new EventEmitter<any>()}
       );
     });
+  }
+
+  onPage($event: PageEvent) {
+    if(!this.isPageable()){
+      return;
+    }
+    this.pageIndex=$event.pageIndex;
+    this.pageSize=$event.pageSize;
+    this.pageLength=$event.length;
+    this.pageEvent.emit($event);
   }
 
   editElement(element: any) {
@@ -135,14 +141,33 @@ export class CrudMatTableComponent {
       this.displayedColumns.push("edit");
     }
     this.fieldColumns().forEach((fieldColumn)=>{
-      this.displayedColumns.push(fieldColumn.columnName);
+      let columnName="";
+      if(fieldColumn.type==FieldTypesEnum.corHex){
+        columnName="Cor";
+      }else{
+        columnName=fieldColumn.columnName;
+      }
+      this.displayedColumns.push(columnName);
     });
     this.displayedColumns.push("actions");
+    this.sortColumns();
   }
 
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+  private sortColumns(){
+    this.displayedColumns=this.displayedColumns.sort((a, b) => {
+      if (a === "Cor") return -1;  // "Cor" vai para o início
+      if (b === "Cor") return 1;   // "cor" vai para o início
+      return 0;                  // mantém ordem original dos outros
+    });
+  }
+
+  applyFilter() {
+    const filterValue = this.inputFilter.trim().toLowerCase();
+    if(this.isPageable()){
+      this.filterEvent.emit(filterValue);
+      return;
+    }
+    this.dataSource.filter = filterValue;
 
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
@@ -152,41 +177,52 @@ export class CrudMatTableComponent {
   cleanFilter() {
     this.dataSource.filter = ""
     this.inputFilter="";
+    if(this.isPageable()){
+      this.filterEvent.emit("");
+      return;
+    }
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
   }
 
-  sortData(sort: Sort) {
+  onSort(sort: Sort) {
     if (!sort.active || sort.direction === '') {
       return;
     }
-    const isAsc = sort.direction === 'asc';
-    const sortData=this.data().slice();
-    const active=sort.active;
-    let sortedData:any[]=[];
-    sortedData = sortData.sort((a, b) => {
-      let sortField:any=null;
-      this.fieldColumns().forEach(f=>{
-        if(active.startsWith(f.columnName)){
-          sortField=f;
+
+    let data:any[]=[];
+    if(this.isPageable()){
+      this.sortEvent.emit(sort);
+      this.dataSource=new MatTableDataSource();
+    }else{
+      data=this.data();
+      const isAsc = sort.direction === 'asc';
+      const sortData=data.slice();
+      const active=sort.active;
+      let sortedData:any[]=[];
+      sortedData = sortData.sort((a, b) => {
+        let sortField:any=null;
+        this.fieldColumns().forEach(f=>{
+          if(active.startsWith(f.field)){
+            sortField=f;
+          }
+        });
+
+        if(sortField){
+          return sortField.type===FieldTypesEnum.date
+          ?Util.compareDate(a[sortField.field], b[sortField.field],isAsc)
+          :(sortField.type==FieldTypesEnum.number
+            ?Util.compareNumber(a[sortField.field], b[sortField.field],isAsc)
+            :Util.compareString(a[sortField.field], b[sortField.field],isAsc)
+          );
         }
+
+        return 0;
       });
-
-      if(sortField){
-        return sortField.type===FieldTypesEnum.date
-        ?Util.compareDate(a[sortField.field], b[sortField.field],isAsc)
-        :(sortField.type==FieldTypesEnum.number
-          ?Util.compareNumber(a[sortField.field], b[sortField.field],isAsc)
-          :Util.compareString(a[sortField.field], b[sortField.field],isAsc)
-        );
-      }
-
-      return 0;
-    });
-
-    this.dataSource=new MatTableDataSource(sortedData);
-    this.dataSource.paginator=this.paginator;
+      this.dataSource=new MatTableDataSource(sortedData);
+      this.dataSource.paginator=this.paginator;
+    }
   }
 
   createElement(){

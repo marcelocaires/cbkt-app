@@ -1,11 +1,19 @@
+<app-page-title title="Cadastro de Atletas"></app-page-title>
 @if(atletasPage$ | async; as atletasPage){
   <app-crud-mat-table
     crudName="Atletas"
     [fieldColumns]="columns"
-    [data]="[]"
-    [dataPageable]="atletasPage"
+    [data]="convertData(atletasPage)"
+    isEdit (edit)="edit($event)"
+    isCreate (create)="create()"
     isPageable
-    ></app-crud-mat-table>
+    (pageEvent)="pageEvent($event)"
+    [matSortActive]="sortActive"
+    [matSortDirection]="sortDirection"
+    (sortEvent)="sortEvent($event)"
+    (filterEvent)="filterEvent($event)"
+    [pageFilter]="filtro"
+  ></app-crud-mat-table>
 }@else{
   <ng-template #loading>
     <p>Loading atletas...</p>

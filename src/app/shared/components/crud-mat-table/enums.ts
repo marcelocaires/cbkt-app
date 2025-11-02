@@ -3,5 +3,6 @@ export enum FieldTypesEnum{
   string="string",
   number="number",
   object="object",
-  currency="currency"
+  currency="currency",
+  corHex="corHex"
 }

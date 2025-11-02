@@ -5,6 +5,7 @@ export interface MatTableColumnField{
   columnName: string;
   type: FieldTypesEnum;
   length?:number;
+  corHex?:string;
 }
 export interface CustomElementAction{
   name:string,

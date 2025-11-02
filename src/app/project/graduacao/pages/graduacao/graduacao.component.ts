@@ -4,6 +4,7 @@ import { BaseComponent } from '../../../../shared/components/base/base.component
 import { CrudMatTableComponent } from '../../../../shared/components/crud-mat-table/crud-mat-table.component';
 import { FieldTypesEnum } from '../../../../shared/components/crud-mat-table/enums';
 import { MatTableColumnField } from '../../../../shared/components/crud-mat-table/interfaces';
+import { PageTitleComponent } from '../../../../shared/components/page-title/page-title.component';
 import { MaterialProgressModule } from '../../../../shared/material/material-progress.module';
 import { SharedModule } from '../../../../shared/shared.module';
 import { Graduacao } from '../../model/graduacao';
@@ -15,7 +16,7 @@ import { GraduacaoService } from '../../services/graduacao.service';
   templateUrl: './graduacao.component.html',
   styleUrls: ['./graduacao.component.scss'],
   standalone: true,
-  imports: [SharedModule,CrudMatTableComponent,MaterialProgressModule]
+  imports: [SharedModule,CrudMatTableComponent,MaterialProgressModule,PageTitleComponent]
 })
 export class GraduacaoComponent extends BaseComponent implements OnInit {
   service=inject(GraduacaoService);
