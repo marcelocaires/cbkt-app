@@ -40,7 +40,6 @@ export class AtletaCrudComponent extends BaseComponent{
   form!: FormGroup;
   atleta = signal<Atleta | null>(null);
   isEditing = signal<boolean>(false);
-  loading = signal<boolean>(false);
 
   ngOnInit(): void {
     this.initializeForm();
@@ -65,14 +64,7 @@ export class AtletaCrudComponent extends BaseComponent{
       certidaoNascimento: [''],
 
       // Endereço
-      logradouro: [''],
-      numero: [''],
-      complemento: [''],
-      bairro: [''],
-      cidade: [''],
-      estado: [''],
-      cep: ['', Validators.pattern(/^\d{5}-\d{3}$/)],
-      uf: [''],
+      endereco:[null,Validators.required],
 
       // Contato
       email: ['', [Validators.email]],
@@ -106,17 +98,15 @@ export class AtletaCrudComponent extends BaseComponent{
 
     if (id && id !== 'new') {
       this.isEditing.set(true);
-      this.loading.set(true);
 
       this.atletasService.findById(parseInt(id)).subscribe({
         next: (atleta: Atleta) => {
           this.atleta.set(atleta);
           this.populateForm(atleta);
-          this.loading.set(false);
+          console.log('Atleta carregado para edição:', this.atleta());
         },
         error: (error: any) => {
           console.error('Erro ao carregar atleta:', error);
-          this.loading.set(false);
           this.router.navigate(['/atletas']);
         }
       });
@@ -138,14 +128,7 @@ export class AtletaCrudComponent extends BaseComponent{
       rgOrgao: atleta.documentos?.rgOrgao,
       rgEstado: atleta.documentos?.rgEstado,
       certidaoNascimento: atleta.documentos?.certidaoNascimento,
-      logradouro: atleta.endereco?.logradouro,
-      numero: atleta.endereco?.numero,
-      complemento: atleta.endereco?.complemento,
-      bairro: atleta.endereco?.bairro,
-      cidade: atleta.endereco?.cidade,
-      estado: atleta.endereco?.estado,
-      cep: atleta.endereco?.cep,
-      uf: atleta.endereco?.uf,
+      endereco: atleta.endereco,
       email: atleta.contato?.email,
       telefone: atleta.contato?.telefone,
       nomePai: atleta.nomePai,
@@ -168,7 +151,6 @@ export class AtletaCrudComponent extends BaseComponent{
 
   onSubmit(): void {
     if (this.form.valid) {
-      this.loading.set(true);
       const formData = this.prepareFormData();
 
       if (this.isEditing()) {
@@ -217,16 +199,7 @@ export class AtletaCrudComponent extends BaseComponent{
         rgEstado: formValue.rgEstado,
         certidaoNascimento: formValue.certidaoNascimento
       },
-      endereco: {
-        logradouro: formValue.logradouro,
-        numero: formValue.numero,
-        complemento: formValue.complemento,
-        bairro: formValue.bairro,
-        cidade: formValue.cidade,
-        estado: formValue.estado,
-        cep: formValue.cep,
-        uf: formValue.uf
-      },
+      endereco: formValue.endereco,
       contato: {
         email: formValue.email,
         telefone: formValue.telefone
@@ -238,12 +211,10 @@ export class AtletaCrudComponent extends BaseComponent{
     this.atletasService.create(data).subscribe({
       next: (response: Atleta) => {
         console.log('Atleta criado com sucesso:', response);
-        this.loading.set(false);
         this.router.navigate(['/atletas']);
       },
       error: (error: any) => {
         console.error('Erro ao criar atleta:', error);
-        this.loading.set(false);
       }
     });
   }
@@ -254,12 +225,10 @@ export class AtletaCrudComponent extends BaseComponent{
       this.atletasService.update(atletaId, data).subscribe({
         next: (response: Atleta) => {
           console.log('Atleta atualizado com sucesso:', response);
-          this.loading.set(false);
           this.router.navigate(['/atletas']);
         },
         error: (error: any) => {
           console.error('Erro ao atualizar atleta:', error);
-          this.loading.set(false);
         }
       });
     }

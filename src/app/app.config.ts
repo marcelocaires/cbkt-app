@@ -8,7 +8,6 @@ import { HttpInterceptor } from './core/interceptors/http-interceptor';
 import { registerLocaleData } from '@angular/common';
 import ptBrExtra from '@angular/common/locales/extra/pt';
 import ptBr from '@angular/common/locales/pt';
-import { MatIconRegistry } from '@angular/material/icon';
 registerLocaleData(ptBr, 'pt-BR', ptBrExtra);
 
 export const appConfig: ApplicationConfig = {
@@ -22,7 +21,6 @@ export const appConfig: ApplicationConfig = {
       withFetch(),
       withInterceptors([HttpInterceptor])
     ),
-    MatIconRegistry,
     { provide: LOCALE_ID, useValue: 'pt-BR' },
     { provide: DEFAULT_CURRENCY_CODE, useValue: 'BRL' }
   ]

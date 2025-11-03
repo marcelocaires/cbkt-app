@@ -1,4 +1,4 @@
-import { Component, output, signal } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MaterialButtonModule } from '../../material/material-button.module';
 import { MaterialFormModule } from '../../material/material-form.module';
@@ -24,9 +24,10 @@ export interface Endereco {
   styleUrls: ['./endereco.component.scss']
 })
 export class EnderecoComponent {
+  endereco=input<Endereco|null>(null);
+  enderecoEvent= output<Endereco>();
+
   form: FormGroup;
-  loading = signal(false);
-  endereco= output<Endereco>();
 
   constructor(
     private fb: FormBuilder,
@@ -45,9 +46,16 @@ export class EnderecoComponent {
     // Emitir o endereço completo quando o formulário for válido
     this.form.valueChanges.subscribe(() => {
       if (this.form.valid) {
-        this.endereco.emit(this.form.value);
+        this.enderecoEvent.emit(this.form.value);
       }
     });
+  }
+
+  ngOnChanges(): void {
+    console.log('Endereco recebido:', this.endereco());
+    if(this.endereco()) {
+      this.initEndereco(this.endereco());
+    }
   }
 
   buscarCep(): void {
@@ -57,8 +65,6 @@ export class EnderecoComponent {
       return;
     }
 
-    this.loading.set(true);
-
     this.enderecoService.buscarEnderecoPorCep(cep).subscribe({
       next: (endereco: EnderecoResponse) => {
         if (endereco.erro) {
@@ -67,12 +73,10 @@ export class EnderecoComponent {
         } else {
           this.preencherEndereco(endereco);
         }
-        this.loading.set(false);
       },
       error: (error) => {
         console.error('Erro ao buscar CEP:', error);
         alert('Erro ao buscar CEP. Tente novamente.');
-        this.loading.set(false);
       }
     });
   }
@@ -86,6 +90,24 @@ export class EnderecoComponent {
       estado: endereco.uf
     });
 
+    // Focar no campo número após preencher
+    setTimeout(() => {
+      document.getElementById('numero')?.focus();
+    }, 100);
+  }
+
+  private initEndereco(endereco: Endereco|null): void {
+    if (endereco) {
+      this.form.patchValue({
+        cep: endereco.cep,
+        logradouro: endereco.logradouro,
+        complemento: endereco.complemento,
+        numero: endereco.numero,
+        bairro: endereco.bairro,
+        cidade: endereco.cidade,
+        estado: endereco.estado
+      });
+    }
     // Focar no campo número após preencher
     setTimeout(() => {
       document.getElementById('numero')?.focus();

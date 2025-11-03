@@ -9,14 +9,8 @@
 ></app-page-title>
 
 <div class="atleta-crud-container">
-  @if (loading()) {
-    <div class="loading-container">
-      <mat-progress-spinner mode="indeterminate" diameter="50"></mat-progress-spinner>
-      <p>{{ isEditing() ? 'Carregando atleta...' : 'Salvando...' }}</p>
-    </div>
-  } @else {
+  @if (atleta(); as atleta) {
     <form [formGroup]="form" (ngSubmit)="onSubmit()">
-
       <!-- Dados Pessoais -->
       <mat-card class="form-section">
         <mat-card-header>
@@ -164,7 +158,9 @@
           </mat-card-title>
         </mat-card-header>
         <mat-card-content>
-          <app-endereco></app-endereco>
+          <app-endereco
+            [endereco]="atleta.endereco"
+          ></app-endereco>
         </mat-card-content>
       </mat-card>
 
@@ -255,30 +251,18 @@
         <mat-card-content>
           <!-- Checkboxes de Status -->
           <div class="checkbox-grid">
-            <mat-checkbox formControlName="ativo">
-              <mat-icon>check_circle</mat-icon>
+            <mat-slide-toggle class="mat-slide-toggle" formControlName="ativo">
               Ativo
-            </mat-checkbox>
-
-            <mat-checkbox formControlName="chkArbitro">
-              <mat-icon>sports_martial_arts</mat-icon>
+            </mat-slide-toggle>
+            <mat-slide-toggle class="mat-slide-toggle" formControlName="chkArbitro">
               Árbitro
-            </mat-checkbox>
-
-            <mat-checkbox formControlName="chkAvaliador">
-              <mat-icon>fact_check</mat-icon>
+            </mat-slide-toggle>
+            <mat-slide-toggle class="mat-slide-toggle" formControlName="chkAvaliador">
               Avaliador
-            </mat-checkbox>
-
-            <mat-checkbox formControlName="chkArbitroCategoria">
-              <mat-icon>category</mat-icon>
-              Árbitro de Categoria
-            </mat-checkbox>
-
-            <mat-checkbox formControlName="pcd">
-              <mat-icon>accessible</mat-icon>
+            </mat-slide-toggle>
+            <mat-slide-toggle class="mat-slide-toggle" formControlName="pcd">
               PCD
-            </mat-checkbox>
+            </mat-slide-toggle>
           </div>
 
           <div class="form-grid">
