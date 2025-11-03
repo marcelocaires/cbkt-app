@@ -26,6 +26,6 @@ export class ConfirmDialogComponent{
     @Inject(MAT_DIALOG_DATA) public data: ConfirmDialogData){
   }
   confirmDialog(){
-    this.dialogRef.close({event:'sim'});
+    this.dialogRef.close(true);
   }
 }

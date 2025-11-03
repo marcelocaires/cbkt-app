@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, inject, signal } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, inject, signal } from '@angular/core';
+import { FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
 import { MaterialButtonModule } from '../../../../shared/material/material-button.module';
 import { MaterialFormModule } from '../../../../shared/material/material-form.module';
@@ -9,6 +8,9 @@ import { MaterialLayoutModule } from '../../../../shared/material/material-layou
 import { MaterialProgressModule } from '../../../../shared/material/material-progress.module';
 import { SharedModule } from '../../../../shared/shared.module';
 
+import { BaseComponent } from '../../../../shared/components/base/base.component';
+import { ConfirmDialogComponent, ConfirmDialogData } from '../../../../shared/components/confirm-dialog/confirm-dialog.component';
+import { EnderecoComponent } from '../../../../shared/components/endereco/endereco.component';
 import { PageTitleComponent } from '../../../../shared/components/page-title/page-title.component';
 import { Atleta } from '../../../atleta/models/atleta.model';
 import { AtletasService } from '../../services/atletas.service';
@@ -26,15 +28,12 @@ import { AtletasService } from '../../services/atletas.service';
     MaterialButtonModule,
     MaterialFormModule,
     MaterialProgressModule,
-    PageTitleComponent
+    PageTitleComponent,
+    EnderecoComponent
   ]
 })
-export class AtletaCrudComponent implements OnInit {
+export class AtletaCrudComponent extends BaseComponent{
 
-  // Injeção de dependências
-  private fb = inject(FormBuilder);
-  private route = inject(ActivatedRoute);
-  private router = inject(Router);
   private atletasService = inject(AtletasService);
 
   // Propriedades do componente
@@ -49,7 +48,7 @@ export class AtletaCrudComponent implements OnInit {
   }
 
   private initializeForm(): void {
-    this.form = this.fb.group({
+    this.form = this.formBuilder.group({
       // Dados Pessoais
       nomeAtleta: ['', [Validators.required, Validators.minLength(2)]],
       dataNascimento: ['', Validators.required],
@@ -103,7 +102,7 @@ export class AtletaCrudComponent implements OnInit {
   }
 
   private loadAtleta(): void {
-    const id = this.route.snapshot.params['id'];
+    const id = this.activatedRoute.snapshot.params['id'];
 
     if (id && id !== 'new') {
       this.isEditing.set(true);
@@ -268,22 +267,37 @@ export class AtletaCrudComponent implements OnInit {
 
   onDelete(): void {
     if (this.isEditing() && this.atleta()) {
-      if (confirm('Tem certeza que deseja excluir este atleta?')) {
-        this.loading.set(true);
-
-        this.atletasService.delete(this.atleta()!.id).subscribe({
-          next: () => {
-            console.log('Atleta excluído com sucesso');
-            this.loading.set(false);
-            this.router.navigate(['/atletas']);
-          },
-          error: (error: any) => {
-            console.error('Erro ao excluir atleta:', error);
-            this.loading.set(false);
-          }
-        });
+      let msg:any="Deseja realmente remover este atleta?";
+      const confirmData:ConfirmDialogData={
+        title:"Remover Atleta",
+        alertMsg:"",
+        confirmMsg:msg
       }
+      const dialogRefConfirm = this.matDialog.open(ConfirmDialogComponent, {
+        height: 'auto',
+        width: '40%',
+        disableClose: true,
+        data:confirmData
+      });
+      dialogRefConfirm.afterClosed().subscribe(result => {
+        console.log('Dialog result:', result);
+        if (result === true) {
+          this.deleteAtleta();
+        }
+      });
     }
+  }
+
+  private deleteAtleta(): void {
+    this.atletasService.delete(this.atleta()!.id).subscribe({
+      next: () => {
+        this.msgService.msgSucesso('Atleta excluído com sucesso');
+        this.router.navigate(['/atletas']);
+      },
+      error: (error: any) => {
+        this.msgService.msgErro('Erro ao excluir atleta: ' + error);
+      }
+    });
   }
 
   onCancel(): void {

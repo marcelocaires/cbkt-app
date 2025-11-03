@@ -143,7 +143,8 @@ export class CrudMatTableComponent {
     this.fieldColumns().forEach((fieldColumn)=>{
       let columnName="";
       if(fieldColumn.type==FieldTypesEnum.corHex){
-        columnName="Cor";
+        columnName="borderCorHex";
+        fieldColumn.columnName=columnName
       }else{
         columnName=fieldColumn.columnName;
       }
@@ -155,8 +156,8 @@ export class CrudMatTableComponent {
 
   private sortColumns(){
     this.displayedColumns=this.displayedColumns.sort((a, b) => {
-      if (a === "Cor") return -1;  // "Cor" vai para o início
-      if (b === "Cor") return 1;   // "cor" vai para o início
+      if (a === "borderCorHex") return -1;  // "Cor" vai para o início
+      if (b === "borderCorHex") return 1;   // "cor" vai para o início
       return 0;                  // mantém ordem original dos outros
     });
   }

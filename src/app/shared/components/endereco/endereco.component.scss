@@ -1,0 +1,92 @@
+.endereco-container {
+  width: 100%;
+  padding: 16px;
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .form-row {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+
+    &:first-child {
+      align-items: center;
+    }
+  }
+
+  .cep-field {
+    flex: 0 0 200px;
+  }
+
+  .buscar-button {
+    height: 56px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0 16px;
+
+    mat-spinner {
+      margin-right: 8px;
+    }
+
+    mat-icon {
+      margin-right: 4px;
+    }
+  }
+
+  .logradouro-field {
+    flex: 1;
+  }
+
+  .numero-field {
+    flex: 0 0 120px;
+  }
+
+  .complemento-field {
+    flex: 0 0 200px;
+  }
+
+  .bairro-field {
+    flex: 1;
+  }
+
+  .cidade-field {
+    flex: 1;
+  }
+
+  .estado-field {
+    flex: 0 0 100px;
+  }
+
+  mat-form-field {
+    width: 100%;
+  }
+}
+
+// Responsividade
+@media (max-width: 768px) {
+  .endereco-container {
+    .form-row {
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .cep-field,
+    .numero-field,
+    .complemento-field,
+    .bairro-field,
+    .cidade-field,
+    .estado-field {
+      flex: 1 1 100%;
+    }
+
+    .buscar-button {
+      width: 100%;
+      margin-bottom: 16px;
+    }
+  }
+}
