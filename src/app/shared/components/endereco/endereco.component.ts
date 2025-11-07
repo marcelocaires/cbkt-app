@@ -1,4 +1,4 @@
-import { Component, input, output } from '@angular/core';
+import { Component, ElementRef, inject, input, output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MaterialButtonModule } from '../../material/material-button.module';
 import { MaterialFormModule } from '../../material/material-form.module';
@@ -24,9 +24,9 @@ export interface Endereco {
   styleUrls: ['./endereco.component.scss']
 })
 export class EnderecoComponent {
-  endereco=input<Endereco|null>(null);
-  enderecoEvent= output<Endereco>();
-
+  endereco = input<Endereco | null>(null);
+  enderecoEvent = output<Endereco>();
+  elementRef = inject(ElementRef);
   form: FormGroup;
 
   constructor(
@@ -89,11 +89,7 @@ export class EnderecoComponent {
       cidade: endereco.localidade,
       estado: endereco.uf
     });
-
-    // Focar no campo número após preencher
-    setTimeout(() => {
-      document.getElementById('numero')?.focus();
-    }, 100);
+    this.numeroFocus();
   }
 
   private initEndereco(endereco: Endereco|null): void {
@@ -107,11 +103,11 @@ export class EnderecoComponent {
         cidade: endereco.cidade,
         estado: endereco.estado
       });
+      if(endereco.cep && endereco.cep !== '') {
+        this.buscarCep();
+      }
     }
-    // Focar no campo número após preencher
-    setTimeout(() => {
-      document.getElementById('numero')?.focus();
-    }, 100);
+    this.numeroFocus();
   }
 
   private limparEndereco(): void {
@@ -122,6 +118,12 @@ export class EnderecoComponent {
       cidade: '',
       estado: ''
     });
+  }
+
+  private numeroFocus(): void {
+    setTimeout(() => {
+      this.elementRef.nativeElement.querySelector('#numero')?.focus();
+    }, 100);
   }
 
   getErrorMessage(fieldName: string): string {

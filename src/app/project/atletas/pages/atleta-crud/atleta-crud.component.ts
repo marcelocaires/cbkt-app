@@ -13,6 +13,7 @@ import { ConfirmDialogComponent, ConfirmDialogData } from '../../../../shared/co
 import { EnderecoComponent } from '../../../../shared/components/endereco/endereco.component';
 import { PageTitleComponent } from '../../../../shared/components/page-title/page-title.component';
 import { Atleta } from '../../../atleta/models/atleta.model';
+import { GraduacaoSelectComponent } from '../../../graduacao/components/graduacao-select/graduacao-select.component';
 import { AtletasService } from '../../services/atletas.service';
 
 @Component({
@@ -29,7 +30,8 @@ import { AtletasService } from '../../services/atletas.service';
     MaterialFormModule,
     MaterialProgressModule,
     PageTitleComponent,
-    EnderecoComponent
+    EnderecoComponent,
+    GraduacaoSelectComponent
   ]
 })
 export class AtletaCrudComponent extends BaseComponent{

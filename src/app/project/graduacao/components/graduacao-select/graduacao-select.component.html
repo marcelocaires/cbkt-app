@@ -1,0 +1,45 @@
+<div class="graduacao-select-container">
+    <mat-form-field appearance="outline" class="select-field">
+      <mat-label>Selecione a Graduação</mat-label>
+      <mat-select (selectionChange)="onGraduacaoChange($event.value)" placeholder="Escolha uma graduação">
+        @for (graduacao of graduacoes(); track graduacao.id) {
+          <mat-option [value]="graduacao.id">
+            <div class="option-content">
+              <div
+                class="color-indicator"
+                [style.background-color]="graduacao.corCodigo || '#ccc'">
+              </div>
+              <span class="graduacao-text">
+                {{ graduacao.descricaoGraduacao }}
+              </span>
+            </div>
+          </mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+
+    @if (selectedGraduacao()) {
+      <div class="preview-container">
+        <h4>Graduação Selecionada:</h4>
+        <app-faixa-karate
+          [corHex]="selectedGraduacao()!.corCodigo"
+          [nomeCor]="selectedGraduacao()!.corNome"
+          [grau]="selectedGraduacao()!.grauNome">
+        </app-faixa-karate>
+        <div class="graduacao-details">
+          <div class="detail-item">
+            <mat-icon>attach_money</mat-icon>
+            <span>Valor: {{ selectedGraduacao()!.valor | currency:'BRL' }}</span>
+          </div>
+          <div class="detail-item">
+            <mat-icon>schedule</mat-icon>
+            <span>Carência: {{ selectedGraduacao()!.carencia }} meses</span>
+          </div>
+          <div class="detail-item">
+            <mat-icon>person</mat-icon>
+            <span>Idade Mínima: {{ selectedGraduacao()!.idadeMinima }} anos</span>
+          </div>
+        </div>
+      </div>
+    }
+</div>

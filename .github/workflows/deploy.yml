@@ -1,8 +1,25 @@
 name: Deploy to Oracle VPS
 
 on:
-  push:
-    branches: [ "main" ]   # muda para "master" se for o seu caso
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Ambiente de destino'
+        required: true
+        default: 'dev'
+        type: choice
+        options:
+          - dev
+          - homo
+          - prod
+      branch:
+        description: 'Branch para deploy'
+        required: true
+        default: 'main'
+      docker_command:
+        description: 'Comando Docker Compose (ex: up -d --build)'
+        required: true
+        default: 'up -d --build'
 
 jobs:
   deploy:
@@ -10,6 +27,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
+      with:
+        ref: ${{ github.event.inputs.branch }}
 
     - name: Setup SSH
       run: |
@@ -19,12 +38,24 @@ jobs:
         echo "Host *" >> ~/.ssh/config
         echo "  StrictHostKeyChecking no" >> ~/.ssh/config
 
-    - name: Deploy over SSH
+    - name: Escolhe diretório por ambiente
+      id: diretorio
+      run: |
+        if [ "${{ github.event.inputs.environment }}" = "prod" ]; then
+          echo "dir=/home/${{ secrets.SERVER_USER }}/app-prod" >> "$GITHUB_OUTPUT"
+        elif [ "${{ github.event.inputs.environment }}" = "homo" ]; then
+          echo "dir=/home/${{ secrets.SERVER_USER }}/app-homo" >> "$GITHUB_OUTPUT"
+        else
+          echo "dir=/home/${{ secrets.SERVER_USER }}/app-dev" >> "$GITHUB_OUTPUT"
+        fi
+
+    - name: Deploy via SSH
       run: |
         ssh ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} "
-          cd /home/${{ secrets.SERVER_USER }}/app &&
+          cd ${{ steps.diretorio.outputs.dir }} &&
+          git checkout ${{ github.event.inputs.branch }} &&
           git pull &&
           docker compose build &&
           docker compose down &&
-          docker compose up -d
+          docker compose ${{ github.event.inputs.docker_command }}
         "

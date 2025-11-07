@@ -280,3 +280,9 @@ mat-checkbox {
     }
   }
 }
+.col2{
+  display: grid;
+  grid-template-columns: 1fr 5fr;
+  justify-content: left;
+  justify-items: start;
+}
