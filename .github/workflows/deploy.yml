@@ -46,7 +46,7 @@ jobs:
         elif [ "${{ github.event.inputs.environment }}" = "homo" ]; then
           echo "dir=/home/${{ secrets.SERVER_USER }}/app-homo" >> "$GITHUB_OUTPUT"
         else
-          echo "dir=/home/${{ secrets.SERVER_USER }}/app-dev" >> "$GITHUB_OUTPUT"
+          echo "dir=/home/${{ secrets.SERVER_USER }}/cbkt-app" >> "$GITHUB_OUTPUT"
         fi
 
     - name: Deploy via SSH
