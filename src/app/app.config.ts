@@ -8,6 +8,8 @@ import { HttpInterceptor } from './core/interceptors/http-interceptor';
 import { registerLocaleData } from '@angular/common';
 import ptBrExtra from '@angular/common/locales/extra/pt';
 import ptBr from '@angular/common/locales/pt';
+import { provideServerRendering, withRoutes } from '@angular/ssr';
+import { serverRoutes } from './app.routes.server';
 registerLocaleData(ptBr, 'pt-BR', ptBrExtra);
 
 export const appConfig: ApplicationConfig = {
@@ -17,6 +19,7 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideClientHydration(withEventReplay()),
     provideClientHydration(),
+    provideServerRendering(withRoutes(serverRoutes)),
     provideHttpClient(
       withFetch(),
       withInterceptors([HttpInterceptor])

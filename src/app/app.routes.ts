@@ -36,7 +36,7 @@ export const routes: Routes = [
   },
   {
     path: 'password/:type/:token',
-    component: PasswordResetComponent
+    component: PasswordResetComponent,
   },
   {
     path: 'graduacoes',

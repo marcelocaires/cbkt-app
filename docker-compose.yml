@@ -1,7 +1,16 @@
 version: '3.8'
 services:
-  angular-app:
+  cbkt:
     build: .
+    container_name: app
     ports:
-      - "8080:80"
-    restart: unless-stopped
+      - "4000:4000"
+
+  nginx:
+    image: nginx
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+    ports:
+      - "80:80"
+    depends_on:
+      - cbkt

@@ -1,0 +1,30 @@
+name: Deploy to Oracle VPS
+
+on:
+  push:
+    branches: [ "main" ]   # muda para "master" se for o seu caso
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Setup SSH
+      run: |
+        mkdir -p ~/.ssh
+        echo "${{ secrets.SERVER_SSH_KEY }}" > ~/.ssh/id_ed25519
+        chmod 600 ~/.ssh/id_ed25519
+        echo "Host *" >> ~/.ssh/config
+        echo "  StrictHostKeyChecking no" >> ~/.ssh/config
+
+    - name: Deploy over SSH
+      run: |
+        ssh ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} "
+          cd /home/${{ secrets.SERVER_USER }}/app &&
+          git pull &&
+          docker compose build &&
+          docker compose down &&
+          docker compose up -d
+        "

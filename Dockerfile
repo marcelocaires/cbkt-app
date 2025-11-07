@@ -1,14 +1,16 @@
-# Etapa 1: Build da aplicação Angular
+# Build SSR
 FROM node:20 AS build
 WORKDIR /app
 COPY package*.json ./
-RUN npm install
+RUN npm ci
 COPY . .
-RUN npm run build -- --output-path=dist
+RUN npm run build:ssr
 
-# Etapa 2: Servir com Nginx
-FROM nginx:alpine
-COPY --from=build /app/dist /usr/share/nginx/html
-COPY nginx.conf /etc/nginx/conf.d/default.conf
-EXPOSE 80
-CMD ["nginx", "-g", "daemon off;"]
+# Server runtime
+FROM node:20 AS server
+WORKDIR /app
+COPY --from=build /app/dist /app/dist
+COPY --from=build /app/node_modules /app/node_modules
+
+EXPOSE 4000
+CMD ["node", "dist/cbkt-app/server/server.mjs"]
