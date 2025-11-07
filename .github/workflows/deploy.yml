@@ -42,11 +42,11 @@ jobs:
       id: diretorio
       run: |
         if [ "${{ github.event.inputs.environment }}" = "prod" ]; then
-          echo "dir=/home/${{ secrets.SERVER_USER }}/app-prod" >> "$GITHUB_OUTPUT"
+          echo "dir=/home/${{ secrets.SERVER_USER }}/cbkt-app-prod" >> "$GITHUB_OUTPUT"
         elif [ "${{ github.event.inputs.environment }}" = "homo" ]; then
-          echo "dir=/home/${{ secrets.SERVER_USER }}/app-homo" >> "$GITHUB_OUTPUT"
+          echo "dir=/home/${{ secrets.SERVER_USER }}/cbkt-app-homo" >> "$GITHUB_OUTPUT"
         else
-          echo "dir=/home/${{ secrets.SERVER_USER }}/cbkt-app" >> "$GITHUB_OUTPUT"
+          echo "dir=/home/${{ secrets.SERVER_USER }}/cbkt-app-dev" >> "$GITHUB_OUTPUT"
         fi
 
     - name: Deploy via SSH
