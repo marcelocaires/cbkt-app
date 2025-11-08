@@ -12,7 +12,7 @@ export function registerSvgIcons() {
 
   const baseUrl = window.location.origin; // Agora o host é dinâmico!
 
-  const icons = ['user', 'home', 'logout']; // coloque seus ícones aqui
+  const icons = ['faixa', 'carteirinha', 'id_card','faixa-outlined']; // coloque seus ícones aqui
   icons.forEach(icon => {
     iconRegistry.addSvgIcon(
       icon,

@@ -24,7 +24,7 @@ const ICON_LIST = [
 export class IconSvgRegisterService {
   iconRegistry = inject(MatIconRegistry);
   sanitizer = inject(DomSanitizer);
-  baseUrl = `http://localhost:4200/assets/icons`;
+  baseUrl = `http://localhost:4000/assets/icons`;
   register() {
     this.registerIcons(this.iconRegistry, this.sanitizer);
   }
