@@ -9,6 +9,7 @@ import { registerLocaleData } from '@angular/common';
 import ptBrExtra from '@angular/common/locales/extra/pt';
 import ptBr from '@angular/common/locales/pt';
 import { provideServerRendering, withRoutes } from '@angular/ssr';
+import { registerSvgIcons } from './app.register-sgv-icons';
 import { serverRoutes } from './app.routes.server';
 registerLocaleData(ptBr, 'pt-BR', ptBrExtra);
 
@@ -25,6 +26,11 @@ export const appConfig: ApplicationConfig = {
       withInterceptors([HttpInterceptor])
     ),
     { provide: LOCALE_ID, useValue: 'pt-BR' },
-    { provide: DEFAULT_CURRENCY_CODE, useValue: 'BRL' }
+    { provide: DEFAULT_CURRENCY_CODE, useValue: 'BRL' },
+    {
+      provide: 'APP_INITIALIZER',
+      useFactory: () => registerSvgIcons,
+      multi: true
+    }
   ]
 };

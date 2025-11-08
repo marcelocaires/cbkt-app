@@ -34,7 +34,7 @@ app.use(
     redirect: false,
   }),
 );
-
+//app.use('/assets', express.static(path.join(__dirname, 'browser', 'assets')));
 /**
  * Handle all other requests by rendering the Angular application.
  */
