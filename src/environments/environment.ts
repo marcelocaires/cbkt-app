@@ -1,4 +1,5 @@
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost:8081/'
+  apiAuthUrl: 'http://localhost:8080',
+  apiCadastroUrl: 'http://localhost:8081'
 };

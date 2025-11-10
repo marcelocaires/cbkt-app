@@ -4,7 +4,7 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm ci
 COPY . .
-RUN npm run build:ssr
+RUN npm run build:ssr --configuration=prod
 
 # Server runtime
 FROM node:20 AS server

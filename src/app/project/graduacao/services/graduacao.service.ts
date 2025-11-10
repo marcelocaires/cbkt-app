@@ -1,17 +1,18 @@
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { environment as env } from '../../../../environments/environment';
 import { CrudService } from '../../../shared/services/crud.service';
 import { Graduacao } from '../model/graduacao';
-import { Observable } from 'rxjs';
-
 @Injectable({
   providedIn: 'root'
 })
 export class GraduacaoService extends CrudService<Graduacao>{
 
   constructor(){
+    const apiUrl = `${env.apiCadastroUrl}/graduacao`;
     super(
-      'http://localhost:8080/api/graduacao',
-      'http://localhost:8080/api/graduacao',
+      apiUrl,
+      apiUrl,
       'Graduação',
       'Graduações'
     );

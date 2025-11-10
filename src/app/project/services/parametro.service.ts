@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-
+import { environment as env } from '../../../environments/environment';
 export interface Cor {
   hex: string;
   indice: number;
@@ -18,7 +18,7 @@ export interface Grau {
   providedIn: 'root'
 })
 export class ParametroService {
-  private readonly baseUrl = 'http://localhost:8080/api/parametros/graduacao';
+  private readonly baseUrl = `${env.apiCadastroUrl}/parametros/graduacao`;
 
   constructor(private http: HttpClient) {}
 

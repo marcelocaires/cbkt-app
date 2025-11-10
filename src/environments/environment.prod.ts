@@ -1,4 +1,5 @@
 export const environment = {
   production: true,
-  apiUrl: 'http://my-prod-url'
+  apiAuthUrl: '/api/auth',
+  apiCadastroUrl: '/api/cadastro'
 };

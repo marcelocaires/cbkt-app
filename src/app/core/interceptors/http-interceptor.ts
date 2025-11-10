@@ -7,14 +7,13 @@ import { LoadingDialogService } from '../layout/components/loading-dialog/loadin
 
 export const HttpInterceptor: HttpInterceptorFn=(req:HttpRequest<unknown>,next:HttpHandlerFn) => {
   const loadingService=inject(LoadingDialogService);
-  const isExemplos=req.url.includes('http');
 
   const isMultipart=req.body instanceof FormData;
   const contentType=isMultipart?'multipart/form-data':'application/json';
 
   const headers={
     'appToken':appinfo.apiToken,
-    'Access-Control-Allow-Origin': env.apiUrl,
+    'Access-Control-Allow-Origin': env.apiAuthUrl,
     'Access-Control-Allow-Credentials': 'true',
     'Access-Control-Max-Age': '86400',
     'Cache-Control': 'no-cache',
@@ -22,13 +21,8 @@ export const HttpInterceptor: HttpInterceptorFn=(req:HttpRequest<unknown>,next:H
     'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
   };
 
-  const modifiedReq =  req.clone({
-    url:isExemplos?req.url:env.apiUrl+req.url
-  });
-
-
   loadingService.openDialog();
-  return next(modifiedReq).pipe(
+  return next(req).pipe(
     tap({
       next:()=>{},
       error:(err: any)=>{

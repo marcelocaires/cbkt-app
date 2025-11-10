@@ -1,6 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment as env } from '../../../../environments/environment';
 import { ApiPageableResponse } from '../../../shared/components/crud-mat-table/interfaces';
 import { Atleta } from '../../atleta/models/atleta.model';
 
@@ -13,7 +14,7 @@ export interface PageParams {
 
 @Injectable({ providedIn: 'root' })
 export class AtletasService {
-  private apiUrl = 'http://localhost:8080/api/atleta';
+  private readonly apiUrl = `${env.apiCadastroUrl}/atleta`;
 
   constructor(private http: HttpClient) {}
 
