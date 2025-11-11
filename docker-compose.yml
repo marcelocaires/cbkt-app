@@ -1,6 +1,9 @@
 services:
-  cbkt:
-    build: .
-    container_name: app
+  cbkt-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: cbkt-app
+    container_name: cbkt-app
     ports:
       - "4000:4000"
