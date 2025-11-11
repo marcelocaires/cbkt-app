@@ -7,3 +7,12 @@ services:
     container_name: cbkt-app
     ports:
       - "4000:4000"
+    networks:
+      - web
+    labels:
+      - "traefik.enable=true"
+      # Rota: https://cbkt.mmc.dev.br/
+      - "traefik.http.routers.app.rule=Host(`cbkt.mmc.dev.br`)"
+      - "traefik.http.routers.app.entrypoints=websecure"
+      - "traefik.http.routers.app.tls.certresolver=letsencrypt"
+      - "traefik.http.services.app.loadbalancer.server.port=4000"
