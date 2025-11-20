@@ -5,8 +5,8 @@ services:
       dockerfile: Dockerfile
     image: cbkt-app
     container_name: cbkt-app
-    ports:
-      - "4000:4000"
+    expose:
+      - "4000"
     networks:
       - web
     labels:
