@@ -1,0 +1,167 @@
+:host {
+  display: block;
+  width: 100%;
+}
+
+.form-section {
+  margin-bottom: 1.5rem;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.form-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+}
+
+.full-width {
+  grid-column: 1 / -1;
+}
+
+// Estilo para campos do formulário
+mat-form-field {
+  width: 100%;
+
+  &.full-width {
+    grid-column: 1 / -1;
+  }
+}
+
+// Estilo para o cabeçalho do card
+mat-card-header {
+  margin-bottom: 1rem;
+
+  mat-card-title {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: var(--mat-sys-primary);
+
+    mat-icon {
+      font-size: 1.2rem;
+      width: 1.2rem;
+      height: 1.2rem;
+    }
+  }
+}
+
+// Estilo para o conteúdo do card
+mat-card-content {
+  padding-top: 0;
+}
+
+// Estilo para campos desabilitados/readonly
+:host(.readonly) {
+  mat-form-field {
+    pointer-events: none;
+
+    .mat-mdc-form-field-subscript-wrapper {
+      display: none;
+    }
+
+    .mat-mdc-text-field-wrapper {
+      background-color: var(--mat-sys-surface-variant);
+      opacity: 0.7;
+    }
+  }
+}
+
+// Estilo para campos com erro
+mat-form-field.mat-form-field-invalid {
+  .mat-mdc-text-field-wrapper {
+    border-color: var(--mat-sys-error);
+  }
+}
+
+// Animações
+mat-form-field {
+  transition: all 0.2s ease-in-out;
+
+  &:hover:not(.mat-form-field-disabled) {
+    .mat-mdc-text-field-wrapper {
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+  }
+}
+
+// Responsividade melhorada
+@media (max-width: 600px) {
+  .form-grid {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+
+  mat-card-header {
+    margin-bottom: 0.75rem;
+
+    mat-card-title {
+      font-size: 1rem;
+    }
+  }
+}
+
+// Estilo para ícones dos campos
+mat-icon[matSuffix] {
+  color: var(--mat-sys-on-surface-variant);
+  font-size: 1.1rem;
+  width: 1.1rem;
+  height: 1.1rem;
+}
+
+// Melhorias visuais para select
+mat-select {
+  .mat-mdc-select-value {
+    color: var(--mat-sys-on-surface);
+  }
+
+  &.mat-mdc-select-disabled {
+    .mat-mdc-select-value {
+      color: var(--mat-sys-on-surface-variant);
+    }
+  }
+}
+
+// Estilo para mensagens de erro
+mat-error {
+  font-size: 0.75rem;
+  line-height: 1.2;
+  margin-top: 0.25rem;
+}
+
+// Estilo para o formulário principal
+.atleta-dados-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  max-width: 100%;
+  margin: 0 auto;
+
+  @media (max-width: 600px) {
+    gap: 1rem;
+  }
+}
+
+// Placeholder styling
+mat-form-field {
+  .mat-mdc-input-element::placeholder {
+    color: var(--mat-sys-on-surface-variant);
+    opacity: 0.6;
+  }
+}
+
+// Focus states
+mat-form-field:focus-within {
+  .mat-mdc-text-field-wrapper {
+    box-shadow: 0 0 0 2px rgba(var(--mat-sys-primary-rgb), 0.2);
+  }
+}

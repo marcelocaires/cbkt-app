@@ -11,159 +11,36 @@
 <div class="atleta-crud-container">
   @if (atleta(); as atleta) {
     <form [formGroup]="form" (ngSubmit)="onSubmit()">
-      <!-- Dados Pessoais -->
-      <mat-card class="form-section">
-        <mat-card-header>
-          <mat-card-title>
+      <mat-tab-group>
+        <mat-tab>
+          <ng-template mat-tab-label>
             <mat-icon>person</mat-icon>
             Dados Pessoais
-          </mat-card-title>
-        </mat-card-header>
-        <mat-card-content>
-          <div class="form-grid">
-            <!-- Nome do Atleta -->
-            <mat-form-field appearance="outline" class="full-width">
-              <mat-label>Nome do Atleta</mat-label>
-              <input matInput formControlName="nomeAtleta" placeholder="Nome completo do atleta">
-              <mat-icon matSuffix>person</mat-icon>
-              @if (form.get('nomeAtleta')?.invalid && form.get('nomeAtleta')?.touched) {
-                <mat-error>{{ getErrorMessage('nomeAtleta') }}</mat-error>
-              }
-            </mat-form-field>
-
-            <!-- Data de Nascimento -->
-            <mat-form-field appearance="outline">
-              <mat-label>Data de Nascimento</mat-label>
-              <input matInput type="date" formControlName="dataNascimento">
-              <mat-icon matSuffix>cake</mat-icon>
-              @if (form.get('dataNascimento')?.invalid && form.get('dataNascimento')?.touched) {
-                <mat-error>{{ getErrorMessage('dataNascimento') }}</mat-error>
-              }
-            </mat-form-field>
-
-            <!-- Sexo -->
-            <mat-form-field appearance="outline">
-              <mat-label>Sexo</mat-label>
-              <mat-select formControlName="sexo">
-                <mat-option value="M">Masculino</mat-option>
-                <mat-option value="F">Feminino</mat-option>
-              </mat-select>
-              <mat-icon matSuffix>wc</mat-icon>
-              @if (form.get('sexo')?.invalid && form.get('sexo')?.touched) {
-                <mat-error>{{ getErrorMessage('sexo') }}</mat-error>
-              }
-            </mat-form-field>
-
-            <!-- Nacionalidade -->
-            <mat-form-field appearance="outline">
-              <mat-label>Nacionalidade</mat-label>
-              <input matInput formControlName="nacionalidade">
-              <mat-icon matSuffix>flag</mat-icon>
-            </mat-form-field>
-
-            <!-- Naturalidade -->
-            <mat-form-field appearance="outline">
-              <mat-label>Naturalidade</mat-label>
-              <input matInput formControlName="naturalidade">
-              <mat-icon matSuffix>place</mat-icon>
-            </mat-form-field>
-          </div>
-        </mat-card-content>
-      </mat-card>
-
-      <!-- Documentos -->
-      <mat-card class="form-section">
-        <mat-card-header>
-          <mat-card-title>
+          </ng-template>
+          <app-atleta-dados-pessoais-form></app-atleta-dados-pessoais-form>
+        </mat-tab>
+        <mat-tab>
+          <ng-template mat-tab-label>
+              <mat-icon>home</mat-icon>
+              Endereço
+          </ng-template>
+          <!-- Endereço -->
+          <mat-card class="form-section">
+            <mat-card-content>
+              <app-endereco
+                [endereco]="atleta.endereco"
+              ></app-endereco>
+            </mat-card-content>
+          </mat-card>
+        </mat-tab>
+        <mat-tab>
+          <ng-template mat-tab-label>
             <mat-icon>description</mat-icon>
             Documentos
-          </mat-card-title>
-        </mat-card-header>
-        <mat-card-content>
-          <div class="form-grid">
-            <!-- CPF -->
-            <mat-form-field appearance="outline">
-              <mat-label>CPF</mat-label>
-              <input matInput formControlName="cpf" placeholder="000.000.000-00">
-              <mat-icon matSuffix>badge</mat-icon>
-              @if (form.get('cpf')?.invalid && form.get('cpf')?.touched) {
-                <mat-error>{{ getErrorMessage('cpf') }}</mat-error>
-              }
-            </mat-form-field>
-
-            <!-- RG -->
-            <mat-form-field appearance="outline">
-              <mat-label>RG</mat-label>
-              <input matInput formControlName="rg">
-              <mat-icon matSuffix>credit_card</mat-icon>
-            </mat-form-field>
-
-            <!-- Órgão Expedidor -->
-            <mat-form-field appearance="outline">
-              <mat-label>Órgão Expedidor</mat-label>
-              <input matInput formControlName="rgOrgao" placeholder="SSP, PC, etc.">
-              <mat-icon matSuffix>corporate_fare</mat-icon>
-            </mat-form-field>
-
-            <!-- Estado -->
-            <mat-form-field appearance="outline">
-              <mat-label>Estado Expedidor</mat-label>
-              <mat-select formControlName="rgEstado">
-                <mat-option value="AC">Acre</mat-option>
-                <mat-option value="AL">Alagoas</mat-option>
-                <mat-option value="AP">Amapá</mat-option>
-                <mat-option value="AM">Amazonas</mat-option>
-                <mat-option value="BA">Bahia</mat-option>
-                <mat-option value="CE">Ceará</mat-option>
-                <mat-option value="DF">Distrito Federal</mat-option>
-                <mat-option value="ES">Espírito Santo</mat-option>
-                <mat-option value="GO">Goiás</mat-option>
-                <mat-option value="MA">Maranhão</mat-option>
-                <mat-option value="MT">Mato Grosso</mat-option>
-                <mat-option value="MS">Mato Grosso do Sul</mat-option>
-                <mat-option value="MG">Minas Gerais</mat-option>
-                <mat-option value="PA">Pará</mat-option>
-                <mat-option value="PB">Paraíba</mat-option>
-                <mat-option value="PR">Paraná</mat-option>
-                <mat-option value="PE">Pernambuco</mat-option>
-                <mat-option value="PI">Piauí</mat-option>
-                <mat-option value="RJ">Rio de Janeiro</mat-option>
-                <mat-option value="RN">Rio Grande do Norte</mat-option>
-                <mat-option value="RS">Rio Grande do Sul</mat-option>
-                <mat-option value="RO">Rondônia</mat-option>
-                <mat-option value="RR">Roraima</mat-option>
-                <mat-option value="SC">Santa Catarina</mat-option>
-                <mat-option value="SP">São Paulo</mat-option>
-                <mat-option value="SE">Sergipe</mat-option>
-                <mat-option value="TO">Tocantins</mat-option>
-              </mat-select>
-            </mat-form-field>
-
-            <!-- Certidão de Nascimento -->
-            <mat-form-field appearance="outline" class="full-width">
-              <mat-label>Certidão de Nascimento</mat-label>
-              <input matInput formControlName="certidaoNascimento">
-              <mat-icon matSuffix>assignment</mat-icon>
-            </mat-form-field>
-          </div>
-        </mat-card-content>
-      </mat-card>
-
-      <!-- Endereço -->
-      <mat-card class="form-section">
-        <mat-card-header>
-          <mat-card-title>
-            <mat-icon>home</mat-icon>
-            Endereço
-          </mat-card-title>
-        </mat-card-header>
-        <mat-card-content>
-          <app-endereco
-            [endereco]="atleta.endereco"
-          ></app-endereco>
-        </mat-card-content>
-      </mat-card>
-
+          </ng-template>
+          <app-atleta-dados-pessoais-form></app-atleta-dados-pessoais-form>
+        </mat-tab>
+      </mat-tab-group>
       <!-- Endereço -->
       <mat-card class="form-section">
         <mat-card-header>
@@ -206,33 +83,6 @@
           </div>
         </mat-card-content>
       </mat-card>
-
-      <!-- Informações Familiares -->
-      <mat-card class="form-section">
-        <mat-card-header>
-          <mat-card-title>
-            <mat-icon>family_restroom</mat-icon>
-            Filiação
-          </mat-card-title>
-        </mat-card-header>
-        <mat-card-content>
-          <div class="form-grid">
-            <!-- Nome do Pai -->
-            <mat-form-field appearance="outline">
-              <mat-label>Nome do Pai</mat-label>
-              <input matInput formControlName="nomePai">
-              <mat-icon matSuffix>person</mat-icon>
-            </mat-form-field>
-            <!-- Nome da Mãe -->
-            <mat-form-field appearance="outline">
-              <mat-label>Nome da Mãe</mat-label>
-              <input matInput formControlName="nomeMae">
-              <mat-icon matSuffix>person</mat-icon>
-            </mat-form-field>
-          </div>
-        </mat-card-content>
-      </mat-card>
-
       <!-- Informações do Karatê -->
       <mat-card class="form-section">
         <mat-card-header>

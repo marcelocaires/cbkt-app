@@ -65,7 +65,7 @@ export class EnderecoComponent {
       return;
     }
 
-    this.enderecoService.buscarEnderecoPorCep(cep).subscribe({
+    this.enderecoService.buscarEnderecoViaCep(cep).subscribe({
       next: (endereco: EnderecoResponse) => {
         if (endereco.erro) {
           alert('CEP não encontrado!');

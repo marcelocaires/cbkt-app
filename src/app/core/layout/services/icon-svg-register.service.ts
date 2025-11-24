@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
-
+import { environment as env } from '../../../../environments/environment';
 const THUMBUP_ICON =
   `
   <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px">
@@ -24,7 +24,7 @@ const ICON_LIST = [
 export class IconSvgRegisterService {
   iconRegistry = inject(MatIconRegistry);
   sanitizer = inject(DomSanitizer);
-  baseUrl = `http://localhost:4000/assets/icons`;
+  baseUrl = `${env.baseUrl}/assets/icons`;
   register() {
     this.registerIcons(this.iconRegistry, this.sanitizer);
   }

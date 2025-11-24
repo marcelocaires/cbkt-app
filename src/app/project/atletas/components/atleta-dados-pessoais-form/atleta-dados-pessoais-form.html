@@ -1,0 +1,94 @@
+<!-- Formulário de Dados Pessoais do Atleta -->
+<form [formGroup]="form" class="atleta-dados-form">
+  <!-- Seção de Dados Pessoais -->
+  <mat-card class="form-section">
+    <mat-card-content>
+      <div class="form-grid">
+        <!-- Nome do Atleta -->
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Nome do Atleta</mat-label>
+          <input matInput formControlName="nomeAtleta">
+          <mat-icon matSuffix>person</mat-icon>
+          @if (form.get('nomeAtleta')?.invalid && form.get('nomeAtleta')?.touched) {
+            <mat-error>{{ getErrorMessage('nomeAtleta') }}</mat-error>
+          }
+        </mat-form-field>
+
+        <!-- Data de Nascimento -->
+        <mat-form-field appearance="outline">
+          <mat-label>Data de Nascimento</mat-label>
+          <input matInput type="date" formControlName="dataNascimento">
+          <mat-icon matSuffix>cake</mat-icon>
+          @if (form.get('dataNascimento')?.invalid && form.get('dataNascimento')?.touched) {
+            <mat-error>{{ getErrorMessage('dataNascimento') }}</mat-error>
+          }
+        </mat-form-field>
+
+        <!-- Sexo -->
+        <mat-form-field appearance="outline">
+          <mat-label>Sexo</mat-label>
+          <mat-select formControlName="sexo">
+            <mat-option value="M">Masculino</mat-option>
+            <mat-option value="F">Feminino</mat-option>
+          </mat-select>
+          <mat-icon matSuffix>wc</mat-icon>
+          @if (form.get('sexo')?.invalid && form.get('sexo')?.touched) {
+            <mat-error>{{ getErrorMessage('sexo') }}</mat-error>
+          }
+        </mat-form-field>
+
+        <!-- Nacionalidade -->
+        <mat-form-field appearance="outline">
+          <mat-label>Nacionalidade</mat-label>
+          <input matInput formControlName="nacionalidade">
+          <mat-icon matSuffix>flag</mat-icon>
+          @if (form.get('nacionalidade')?.invalid && form.get('nacionalidade')?.touched) {
+            <mat-error>{{ getErrorMessage('nacionalidade') }}</mat-error>
+          }
+        </mat-form-field>
+
+        <!-- Naturalidade -->
+        <mat-form-field appearance="outline">
+          <mat-label>Naturalidade</mat-label>
+          <input matInput formControlName="naturalidade">
+          <mat-icon matSuffix>place</mat-icon>
+          @if (form.get('naturalidade')?.invalid && form.get('naturalidade')?.touched) {
+            <mat-error>{{ getErrorMessage('naturalidade') }}</mat-error>
+          }
+        </mat-form-field>
+      </div>
+      <!-- Seção de Filiação -->
+      <mat-card class="form-section">
+        <mat-card-header>
+          <mat-card-title>
+            <mat-icon>family_restroom</mat-icon>
+            Filiação
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="form-grid">
+            <!-- Nome do Pai -->
+            <mat-form-field appearance="outline">
+              <mat-label>Nome do Pai</mat-label>
+              <input matInput formControlName="nomePai">
+              <mat-icon matSuffix>person</mat-icon>
+              @if (form.get('nomePai')?.invalid && form.get('nomePai')?.touched) {
+                <mat-error>{{ getErrorMessage('nomePai') }}</mat-error>
+              }
+            </mat-form-field>
+
+            <!-- Nome da Mãe -->
+            <mat-form-field appearance="outline">
+              <mat-label>Nome da Mãe</mat-label>
+              <input matInput formControlName="nomeMae">
+              <mat-icon matSuffix>person</mat-icon>
+              @if (form.get('nomeMae')?.invalid && form.get('nomeMae')?.touched) {
+                <mat-error>{{ getErrorMessage('nomeMae') }}</mat-error>
+              }
+            </mat-form-field>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </mat-card-content>
+  </mat-card>
+</form>

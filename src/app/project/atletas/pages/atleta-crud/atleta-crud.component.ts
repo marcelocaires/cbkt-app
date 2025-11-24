@@ -14,6 +14,7 @@ import { EnderecoComponent } from '../../../../shared/components/endereco/endere
 import { PageTitleComponent } from '../../../../shared/components/page-title/page-title.component';
 import { Atleta } from '../../../atleta/models/atleta.model';
 import { GraduacaoSelectComponent } from '../../../graduacao/components/graduacao-select/graduacao-select.component';
+import { AtletaDadosPessoaisFormComponent } from '../../components/atleta-dados-pessoais-form/atleta-dados-pessoais-form';
 import { AtletasService } from '../../services/atletas.service';
 
 @Component({
@@ -31,7 +32,8 @@ import { AtletasService } from '../../services/atletas.service';
     MaterialProgressModule,
     PageTitleComponent,
     EnderecoComponent,
-    GraduacaoSelectComponent
+    GraduacaoSelectComponent,
+    AtletaDadosPessoaisFormComponent
   ]
 })
 export class AtletaCrudComponent extends BaseComponent{
