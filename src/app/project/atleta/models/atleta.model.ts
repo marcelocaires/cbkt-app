@@ -1,5 +1,5 @@
 export interface Atleta {
-  id: number;
+  id: number | null;
   nomeAtleta: string;
   dataCadastro: string;
   sexo: string;
@@ -19,7 +19,7 @@ export interface Atleta {
   chkArbitroCategoria: boolean;
   pcd: boolean;
   urlFoto: string;
-  dataFaixa: string | null;
+  dataFaixa: string;
   nacionalidade: string;
   naturalidade: string;
   nomeMae: string;
@@ -100,4 +100,6 @@ export interface AtletaClube {
   clube: Clube;
   dataAdmissao: string;
   transferido: boolean;
+  dataSaida: string;
+  clubeOrigem: Clube | null;
 }

@@ -2,21 +2,15 @@ import { CommonModule } from '@angular/common';
 import { Component, input, output } from '@angular/core';
 import { FormGroup, Validators } from '@angular/forms';
 import { BaseComponent } from '../../../../shared/components/base/base.component';
+import { EnderecoComponent } from '../../../../shared/components/endereco/endereco.component';
+import { DateMaskDirective } from '../../../../shared/directives/date-mask.directive';
 import { MaterialButtonModule } from '../../../../shared/material/material-button.module';
 import { MaterialFormModule } from '../../../../shared/material/material-form.module';
 import { MaterialLayoutModule } from '../../../../shared/material/material-layout.module';
 import { SharedModule } from '../../../../shared/shared.module';
 import { Atleta } from '../../../atleta/models/atleta.model';
-
-export interface AtletaDadosPessoais {
-  nomeAtleta: string;
-  dataNascimento: string;
-  sexo: string;
-  nacionalidade?: string;
-  naturalidade?: string;
-  nomePai?: string;
-  nomeMae?: string;
-}
+import { AtletaContatoForm } from '../atleta-contato-form/atleta-contato-form';
+import { AtletaDocumentosForm } from '../atleta-documentos-form/atleta-documentos-form';
 
 @Component({
   selector: 'app-atleta-dados-pessoais-form',
@@ -28,35 +22,38 @@ export interface AtletaDadosPessoais {
     SharedModule,
     MaterialLayoutModule,
     MaterialButtonModule,
-    MaterialFormModule
+    MaterialFormModule,
+    EnderecoComponent,
+    AtletaDocumentosForm,
+    AtletaContatoForm,
+    DateMaskDirective
   ]
 })
 export class AtletaDadosPessoaisFormComponent extends BaseComponent{
   atleta=input<Atleta|null>(null);
-  dadosValidos=output<any>();
+  valor=output<any>();
   form: FormGroup={} as FormGroup;
-  initialData: AtletaDadosPessoais | null = null;
+
+  constructor(){
+    super();
+    this.createForm();
+    this.form.valueChanges.subscribe(() => {
+      if (this.form.valid) {
+        this.valor.emit(this.form.value);
+      }
+    });
+  }
 
   ngOnInit(): void {
     if(this.atleta()){
-      const atleta:any=this.atleta();
-      this.initialData = {
-        nomeAtleta: atleta.nomeAtleta,
-        dataNascimento: atleta.dataNascimento,
-        sexo: atleta.sexo,
-        nacionalidade: atleta.nacionalidade || '',
-        naturalidade: atleta.naturalidade || '',
-        nomePai: atleta.nomePai || '',
-        nomeMae: atleta.nomeMae || ''
-      };
+      this.populateForm();
     }
-    this.initializeForm();
   }
 
-  private initializeForm(): void {
+  private createForm(): void {
     this.form = this.formBuilder.group({
       nomeAtleta: [
-        this.initialData?.nomeAtleta || '',
+        null,
         [
           Validators.required,
           Validators.minLength(2),
@@ -65,45 +62,60 @@ export class AtletaDadosPessoaisFormComponent extends BaseComponent{
         ]
       ],
       dataNascimento: [
-        this.initialData?.dataNascimento || '',
+        null,
         [
           Validators.required,
           this.dateValidator
         ]
       ],
       sexo: [
-        this.initialData?.sexo || '',
+        null,
         [Validators.required]
       ],
       nacionalidade: [
-        this.initialData?.nacionalidade || 'Brasileira',
+        'Brasileira',
         [
           Validators.maxLength(50),
           Validators.pattern(/^[a-zA-ZÀ-ÿ\s]*$/)
         ]
       ],
       naturalidade: [
-        this.initialData?.naturalidade || '',
+        null,
         [
           Validators.maxLength(100),
-          Validators.pattern(/^[a-zA-ZÀ-ÿ\s]*$/)
+          Validators.pattern(/^[a-zA-ZÀ-ÿ\s\-:\\]*$/)
         ]
       ],
       nomePai: [
-        this.initialData?.nomePai || '',
+        null,
         [
           Validators.maxLength(100),
           Validators.pattern(/^[a-zA-ZÀ-ÿ\s]*$/)
         ]
       ],
       nomeMae: [
-        this.initialData?.nomeMae || '',
+        null,
         [
           Validators.maxLength(100),
           Validators.pattern(/^[a-zA-ZÀ-ÿ\s]*$/)
         ]
-      ]
+      ],
+      endereco:[null,Validators.required],
+      contato:[null,Validators.required],
+      documentos:[null,Validators.required]
     });
+  }
+
+  populateForm(){
+    if(this.atleta()){
+      this.form.get('nomeAtleta')?.setValue(this.atleta()!.nomeAtleta);
+      this.form.get('dataNascimento')?.setValue(this.atleta()!.dataNascimento);
+      this.form.get('sexo')?.setValue(this.atleta()!.sexo);
+      this.form.get('nacionalidade')?.setValue(this.atleta()!.nacionalidade);
+      this.form.get('naturalidade')?.setValue(this.atleta()!.naturalidade);
+      this.form.get('nomePai')?.setValue(this.atleta()!.nomePai);
+      this.form.get('nomeMae')?.setValue(this.atleta()!.nomeMae);
+    }
   }
 
   /**
@@ -184,13 +196,6 @@ export class AtletaDadosPessoaisFormComponent extends BaseComponent{
   }
 
   /**
-   * Retorna os dados do formulário
-   */
-  getFormData(): AtletaDadosPessoais {
-    return this.form.value;
-  }
-
-  /**
    * Verifica se o formulário é válido
    */
   isFormValid(): boolean {
@@ -209,13 +214,21 @@ export class AtletaDadosPessoaisFormComponent extends BaseComponent{
    */
   resetForm(): void {
     this.form.reset();
-    this.initializeForm();
+    this.createForm();
   }
 
-  /**
-   * Atualiza os dados do formulário
-   */
-  updateFormData(data: Partial<AtletaDadosPessoais>): void {
-    this.form.patchValue(data);
+  atualizarEndereco(endereco: any): void {
+    console.log('Atualizando endereço:', endereco);
+    this.form.patchValue({ endereco: endereco });
+  }
+
+  atualizarDocumentos(documentos: any): void {
+    console.log('Atualizando documentos:', documentos);
+    this.form.patchValue({ documentos: documentos });
+  }
+
+  atualizarContato(contato: any): void {
+    console.log('Atualizando contato:', contato);
+    this.form.patchValue({ contato: contato });
   }
 }

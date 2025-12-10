@@ -15,7 +15,8 @@ const ICON_LIST = [
   'carteirinha',
   'id_card',
   'faixa',
-  'faixa-outlined'
+  'faixa-outlined',
+  'dojo'
 ];
 
 @Injectable({

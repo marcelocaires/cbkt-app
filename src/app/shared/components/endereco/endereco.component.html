@@ -11,6 +11,9 @@
           <mat-error>{{ getErrorMessage('cep') }}</mat-error>
         }
         <mat-icon style="cursor:pointer" matSuffix (click)="buscarCep()">search</mat-icon>
+        @if(isCepNaoEncontrado) {
+          <mat-hint class="cep-nao-encontrado">CEP não encontrado!</mat-hint>
+        }
       </mat-form-field>
     </div>
 

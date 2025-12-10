@@ -1,0 +1,28 @@
+<form [formGroup]="form">
+  <mat-card>
+    @if(isHeader()){
+      <mat-card-header>
+        <mat-card-title>
+          <mat-icon>contact_phone</mat-icon>
+          Contato
+        </mat-card-title>
+      </mat-card-header>
+    }
+    <mat-card-content>
+      <div class="form-grid">
+        <!-- Email -->
+        <mat-form-field appearance="outline">
+          <mat-label>Email</mat-label>
+          <input matInput type="email" formControlName="email">
+          <mat-icon matSuffix>email</mat-icon>
+        </mat-form-field>
+        <!-- Telefone -->
+        <mat-form-field appearance="outline">
+          <mat-label>Telefone</mat-label>
+          <input matInput formControlName="telefone" telefoneMask placeholder="(00) 00000-0000">
+          <mat-icon matSuffix>phone</mat-icon>
+        </mat-form-field>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</form>

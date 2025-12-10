@@ -2,7 +2,7 @@
 <form [formGroup]="form" class="atleta-dados-form">
   <!-- Seção de Dados Pessoais -->
   <mat-card class="form-section">
-    <mat-card-content>
+    <mat-card-content style="padding: 20px;">
       <div class="form-grid">
         <!-- Nome do Atleta -->
         <mat-form-field appearance="outline" class="full-width">
@@ -17,7 +17,7 @@
         <!-- Data de Nascimento -->
         <mat-form-field appearance="outline">
           <mat-label>Data de Nascimento</mat-label>
-          <input matInput type="date" formControlName="dataNascimento">
+          <input matInput type="text" dateMask formControlName="dataNascimento">
           <mat-icon matSuffix>cake</mat-icon>
           @if (form.get('dataNascimento')?.invalid && form.get('dataNascimento')?.touched) {
             <mat-error>{{ getErrorMessage('dataNascimento') }}</mat-error>
@@ -76,7 +76,6 @@
                 <mat-error>{{ getErrorMessage('nomePai') }}</mat-error>
               }
             </mat-form-field>
-
             <!-- Nome da Mãe -->
             <mat-form-field appearance="outline">
               <mat-label>Nome da Mãe</mat-label>
@@ -89,6 +88,47 @@
           </div>
         </mat-card-content>
       </mat-card>
+      <mat-tab-group>
+        <mat-tab>
+          <ng-template mat-tab-label>
+              <mat-icon>home</mat-icon>
+              Endereço
+          </ng-template>
+          <!-- Endereço -->
+          <mat-card class="form-section">
+            <mat-card-content>
+              <app-endereco
+                [endereco]="atleta()?.endereco"
+                (enderecoEvent)="atualizarEndereco($event)"
+              ></app-endereco>
+            </mat-card-content>
+          </mat-card>
+        </mat-tab>
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <mat-icon>phone</mat-icon>
+            Contato
+          </ng-template>
+          <mat-card-content>
+            <app-atleta-contato-form
+              [atleta]="atleta()"
+              (valor)="atualizarContato($event)"
+            ></app-atleta-contato-form>
+          </mat-card-content>
+        </mat-tab>
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <mat-icon>description</mat-icon>
+            Documentos
+          </ng-template>
+          <mat-card-content>
+            <app-atleta-documentos-form
+              [atleta]="atleta()"
+              (valor)="atualizarDocumentos($event)"
+            ></app-atleta-documentos-form>
+          </mat-card-content>
+        </mat-tab>
+      </mat-tab-group>
     </mat-card-content>
   </mat-card>
 </form>

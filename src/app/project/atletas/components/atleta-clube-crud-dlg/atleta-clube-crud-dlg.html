@@ -1,0 +1,25 @@
+<h2 mat-dialog-title class="titulo">{{titulo}}</h2>
+<mat-divider></mat-divider>
+<mat-dialog-content class="dlg-content">
+  <app-atleta-clube-form
+    (selectValue)="onSelectValueChange($event)"
+    [isTransferencia]="isTransferencia"
+  ></app-atleta-clube-form>
+</mat-dialog-content>
+<mat-divider></mat-divider>
+<mat-dialog-actions>
+  <button
+    mat-dialog-close
+    mat-flat-button
+    color="primary"
+    (click)="confirmDialog()"
+    [disabled]="!isValidForm"
+    title="Transferir atleta de clube">
+    <mat-icon fontSet="material-symbols-outlined">{{iconAction}}</mat-icon>
+    {{action}}
+  </button>
+  <button matButton="tonal" class="btExcluir" type="button" mat-dialog-close>
+    <mat-icon>cancel</mat-icon>
+    Cancelar
+  </button>
+</mat-dialog-actions>

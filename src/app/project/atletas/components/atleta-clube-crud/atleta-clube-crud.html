@@ -1,0 +1,59 @@
+<div class="graduacoes-container">
+  @if(clubes.length==0) {
+    <div style="padding-top: 10px;padding-bottom: 10px;">
+      <button matButton="filled" (click)="onCreate()">
+        <mat-icon>add_circle</mat-icon>
+        Adicionar Clube</button>
+    </div>
+    <mat-divider></mat-divider>
+  }
+  @if (clubes && clubes.length > 0) {
+    <app-page-title title="Clubes"></app-page-title>
+  }
+    <div class="cards">
+      @for (atletaClube of clubes; track atletaClube.id) {
+        <mat-card class="card" [style.border-left]="'5px solid'">
+          <mat-card-content>
+            <div class="card-info">
+              <div class="info-item">
+                <mat-icon svgIcon="dojo"></mat-icon>
+                <span><strong>Clube:</strong> {{atletaClube.clube.nome}}</span>
+              </div>
+              <div class="info-item">
+                <mat-icon>person</mat-icon>
+                <span><strong>Responsável:</strong> {{atletaClube.clube.responsavel}}</span>
+              </div>
+              <div class="info-item">
+                <mat-icon>event</mat-icon>
+                <span><strong>Admissão:</strong> {{atletaClube.dataAdmissao | date:'shortDate'}}</span>
+              </div>
+              @if(atletaClube.dataSaida) {
+                <div class="info-item">
+                  <mat-icon>exit_to_app</mat-icon>
+                  <span><strong>Saída:</strong> {{atletaClube.dataSaida | date:'shortDate'}}</span>
+                </div>
+              }
+              @if(atletaClube.transferido) {
+                <div class="info-item">
+                  <mat-icon>compare_arrows</mat-icon>
+                  <span><strong>Transferido de:</strong> {{atletaClube.clubeOrigem?.nome}}</span>
+                </div>
+              }
+            </div>
+            <div class="card-actions">
+              @if(!atletaClube.dataSaida) {
+                <button mat-icon-button (click)="onTransfer(atletaClube)"
+                title="Transferir atleta de clube">
+                  <mat-icon fontSet="material-symbols-outlined">swap_horizontal_circle</mat-icon>
+                </button>
+              }
+              <button mat-icon-button (click)="onDelete(atletaClube)" [style.color]="'red'"
+                title="Excluir atleta do clube">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      }
+    </div>
+</div>

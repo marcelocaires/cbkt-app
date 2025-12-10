@@ -1,0 +1,23 @@
+<form>
+  <mat-form-field appearance="outline">
+    <mat-label>Clube</mat-label>
+    <input type="text"
+      placeholder="Selecione um clube"
+      matInput
+      [formControl]="myControl"
+      [matAutocomplete]="auto">
+    <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" (optionSelected)="selectEvent($event)">
+      @for (clube of filtered | async; track clube) {
+        <mat-option [value]="clube.nome">{{clube.nome}}</mat-option>
+      }
+    </mat-autocomplete>
+    <mat-icon
+      class="btIcon"
+      fontSet="material-symbols-outlined"
+      matSuffix
+      (click)="cleanFilter()"
+      [class.disabled]="false">
+      filter_alt_off
+    </mat-icon>
+  </mat-form-field>
+</form>

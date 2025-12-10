@@ -1,10 +1,11 @@
 import { Component, ElementRef, inject, input, output } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormGroup, Validators } from '@angular/forms';
 import { MaterialButtonModule } from '../../material/material-button.module';
 import { MaterialFormModule } from '../../material/material-form.module';
 import { MaterialProgressModule } from '../../material/material-progress.module';
 import { EnderecoResponse, EnderecoService } from '../../services/endereco.service';
 import { SharedModule } from '../../shared.module';
+import { BaseComponent } from '../base/base.component';
 
 export interface Endereco {
   cep: string;
@@ -23,17 +24,17 @@ export interface Endereco {
   templateUrl: './endereco.component.html',
   styleUrls: ['./endereco.component.scss']
 })
-export class EnderecoComponent {
-  endereco = input<Endereco | null>(null);
+export class EnderecoComponent extends BaseComponent{
+  endereco = input<Endereco | null | undefined>(null);
   enderecoEvent = output<Endereco>();
   elementRef = inject(ElementRef);
   form: FormGroup;
+  enderecoService = inject(EnderecoService);
+  isCepNaoEncontrado = false;
 
-  constructor(
-    private fb: FormBuilder,
-    private enderecoService: EnderecoService
-  ) {
-    this.form = this.fb.group({
+  constructor() {
+    super();
+    this.form = this.formBuilder.group({
       cep: ['', [Validators.required, Validators.pattern(/^\d{5}-?\d{3}$/)]],
       logradouro: ['', Validators.required],
       numero: ['', Validators.required],
@@ -52,7 +53,6 @@ export class EnderecoComponent {
   }
 
   ngOnChanges(): void {
-    console.log('Endereco recebido:', this.endereco());
     if(this.endereco()) {
       this.initEndereco(this.endereco());
     }
@@ -67,11 +67,13 @@ export class EnderecoComponent {
 
     this.enderecoService.buscarEnderecoViaCep(cep).subscribe({
       next: (endereco: EnderecoResponse) => {
-        if (endereco.erro) {
-          alert('CEP não encontrado!');
-          this.limparEndereco();
+        if (endereco && endereco.erro) {
+          this.msgService.msgErro('CEP não encontrado!');
+          //this.limparEndereco();
+          this.isCepNaoEncontrado = true;
         } else {
           this.preencherEndereco(endereco);
+          this.isCepNaoEncontrado = false;
         }
       },
       error: (error) => {
@@ -92,7 +94,7 @@ export class EnderecoComponent {
     this.numeroFocus();
   }
 
-  private initEndereco(endereco: Endereco|null): void {
+  private initEndereco(endereco: Endereco|null|undefined): void {
     if (endereco) {
       this.form.patchValue({
         cep: endereco.cep,

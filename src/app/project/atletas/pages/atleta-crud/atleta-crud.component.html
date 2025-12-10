@@ -1,5 +1,5 @@
 <app-page-title
-  [title]="isEditing() ? 'Editar Atleta' : 'Novo Atleta'"
+  [title]="isEditing() ? 'Atualizar Atleta' : 'Cadastrar Atleta'"
   isCrud
   [isDelete]="isEditing()"
   [isValid]="form.valid"
@@ -9,7 +9,40 @@
 ></app-page-title>
 
 <div class="atleta-crud-container">
-  @if (atleta(); as atleta) {
+  @if(atleta$ | async; as atleta) {
+    <form [formGroup]="form">
+      <mat-tab-group>
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <mat-icon>person</mat-icon>
+            Dados Pessoais
+          </ng-template>
+          <app-atleta-dados-pessoais-form
+            [atleta]="atleta"
+            (valor)="atualizarAtleta($event)"
+          ></app-atleta-dados-pessoais-form>
+        </mat-tab>
+        <mat-tab [disabled]="!isEditing()">
+          <ng-template mat-tab-label>
+            <mat-icon svgIcon="dojo"></mat-icon>
+            Clube
+          </ng-template>
+          <app-atleta-clube-crud
+            [atleta]="atleta">
+          </app-atleta-clube-crud>
+        </mat-tab>
+        <mat-tab [disabled]="!isEditing()">
+          <ng-template mat-tab-label>
+            <mat-icon svgIcon="faixa"></mat-icon>
+            Graduação
+          </ng-template>
+          <app-atleta-graduacao-crud
+            [atleta]="atleta">
+          </app-atleta-graduacao-crud>
+        </mat-tab>
+      </mat-tab-group>
+    </form>
+  }@else {
     <form [formGroup]="form" (ngSubmit)="onSubmit()">
       <mat-tab-group>
         <mat-tab>
@@ -17,135 +50,24 @@
             <mat-icon>person</mat-icon>
             Dados Pessoais
           </ng-template>
-          <app-atleta-dados-pessoais-form></app-atleta-dados-pessoais-form>
+          <app-atleta-dados-pessoais-form
+            [atleta]="null"
+            (valor)="atualizarAtleta($event)"
+          ></app-atleta-dados-pessoais-form>
         </mat-tab>
-        <mat-tab>
+        <mat-tab [disabled]="!isEditing()">
           <ng-template mat-tab-label>
-              <mat-icon>home</mat-icon>
-              Endereço
+            <mat-icon svgIcon="dojo"></mat-icon>
+            Clube
           </ng-template>
-          <!-- Endereço -->
-          <mat-card class="form-section">
-            <mat-card-content>
-              <app-endereco
-                [endereco]="atleta.endereco"
-              ></app-endereco>
-            </mat-card-content>
-          </mat-card>
         </mat-tab>
-        <mat-tab>
+        <mat-tab [disabled]="!isEditing()">
           <ng-template mat-tab-label>
-            <mat-icon>description</mat-icon>
-            Documentos
+            <mat-icon svgIcon="faixa"></mat-icon>
+            Graduação
           </ng-template>
-          <app-atleta-dados-pessoais-form></app-atleta-dados-pessoais-form>
         </mat-tab>
       </mat-tab-group>
-      <!-- Endereço -->
-      <mat-card class="form-section">
-        <mat-card-header>
-          <mat-card-title>
-            <mat-icon>home</mat-icon>
-            Graduação
-          </mat-card-title>
-        </mat-card-header>
-        <mat-card-content>
-          <app-graduacao-select></app-graduacao-select>
-        </mat-card-content>
-      </mat-card>
-
-      <!-- Contato -->
-      <mat-card class="form-section">
-        <mat-card-header>
-          <mat-card-title>
-            <mat-icon>contact_phone</mat-icon>
-            Contato
-          </mat-card-title>
-        </mat-card-header>
-        <mat-card-content>
-          <div class="form-grid">
-            <!-- Email -->
-            <mat-form-field appearance="outline">
-              <mat-label>Email</mat-label>
-              <input matInput type="email" formControlName="email">
-              <mat-icon matSuffix>email</mat-icon>
-              @if (form.get('email')?.invalid && form.get('email')?.touched) {
-                <mat-error>{{ getErrorMessage('email') }}</mat-error>
-              }
-            </mat-form-field>
-
-            <!-- Telefone -->
-            <mat-form-field appearance="outline">
-              <mat-label>Telefone</mat-label>
-              <input matInput formControlName="telefone" placeholder="(00) 00000-0000">
-              <mat-icon matSuffix>phone</mat-icon>
-            </mat-form-field>
-          </div>
-        </mat-card-content>
-      </mat-card>
-      <!-- Informações do Karatê -->
-      <mat-card class="form-section">
-        <mat-card-header>
-          <mat-card-title>
-            <mat-icon>sports_martial_arts</mat-icon>
-            Clube
-          </mat-card-title>
-        </mat-card-header>
-        <mat-card-content>
-          <div class="form-grid">
-            <!-- Nome do Clube -->
-            <mat-form-field appearance="outline" class="full-width">
-              <mat-label>Nome do Clube</mat-label>
-              <input matInput formControlName="nomeClube">
-              <mat-icon matSuffix>sports</mat-icon>
-            </mat-form-field>
-          </div>
-        </mat-card-content>
-      </mat-card>
-
-      <!-- Status e Informações Adicionais -->
-      <mat-card class="form-section">
-        <mat-card-header>
-          <mat-card-title>
-            <mat-icon>settings</mat-icon>
-            Status e Informações Adicionais
-          </mat-card-title>
-        </mat-card-header>
-        <mat-card-content class="col2">
-          <!-- Checkboxes de Status -->
-          <div class="checkbox-grid">
-            <mat-slide-toggle formControlName="ativo">
-              Ativo
-            </mat-slide-toggle>
-            <mat-slide-toggle formControlName="chkArbitro">
-              Árbitro
-            </mat-slide-toggle>
-            <mat-slide-toggle formControlName="chkAvaliador">
-              Avaliador
-            </mat-slide-toggle>
-            <mat-slide-toggle formControlName="pcd">
-              PCD
-            </mat-slide-toggle>
-          </div>
-
-          <div class="form-grid" style="width: 100%;">
-            <!-- URL da Foto -->
-            <mat-form-field *ngIf="false" appearance="outline" class="full-width">
-              <mat-label>URL da Foto</mat-label>
-              <input matInput formControlName="urlFoto" placeholder="https://...">
-              <mat-icon matSuffix>photo_camera</mat-icon>
-            </mat-form-field>
-
-            <!-- Observações -->
-            <mat-form-field appearance="outline" class="full-width">
-              <mat-label>Observações</mat-label>
-              <textarea matInput formControlName="observacao" rows="3" placeholder="Observações gerais sobre o atleta"></textarea>
-              <mat-icon matSuffix>note</mat-icon>
-            </mat-form-field>
-          </div>
-        </mat-card-content>
-      </mat-card>
-
     </form>
   }
 </div>

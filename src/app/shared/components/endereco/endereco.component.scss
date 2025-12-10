@@ -1,6 +1,5 @@
 .endereco-container {
   width: 100%;
-  padding: 16px;
 
   form {
     display: flex;
@@ -65,6 +64,10 @@
   mat-form-field {
     width: 100%;
   }
+}
+.cep-nao-encontrado{
+  color:red !important;
+  font-size: 0.9em;
 }
 
 // Responsividade

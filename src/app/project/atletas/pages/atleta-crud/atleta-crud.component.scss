@@ -1,7 +1,10 @@
+:host{
+  display: block;
+  padding: 16px;
+  box-sizing: border-box;
+}
 .atleta-crud-container {
-  max-width: 1200px;
   margin: 0 auto;
-  //padding: 2px;
   display: flex;
   flex-direction: column;
   gap: 24px;

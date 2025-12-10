@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, Validators } from '@angular/forms';
 
 import { MatDialog } from '@angular/material/dialog';
 import { ThemeToggleComponent } from '../core/layout/theme/theme-toggle.component';
+import { DatepickerComponent } from '../shared/components/datepicker/datepicker.component';
 import { EnderecoComponent } from '../shared/components/endereco/endereco.component';
 import { MySnackBarService } from '../shared/components/my-snackbar-component/my-snackbar.service';
 import { MaterialButtonModule } from '../shared/material/material-button.module';
@@ -31,7 +32,8 @@ import { MyTableComponent } from './my-table/my-table.component';
       MaterialProgressModule,
       IconExampleComponent,
       ThemeToggleComponent,
-      EnderecoComponent
+      EnderecoComponent,
+      DatepickerComponent
     ]
 })
 export class ExemplosComponent{

@@ -1,37 +1,33 @@
 <form [formGroup]="form">
-  <mat-card class="form-section">
-    <mat-card-header>
-      <mat-card-title>
-        <mat-icon>description</mat-icon>
-        Documentos
-      </mat-card-title>
-    </mat-card-header>
+  <mat-card>
+    @if(isHeader()){
+      <mat-card-header>
+        <mat-card-title>
+          <mat-icon>description</mat-icon>
+          Documentos
+        </mat-card-title>
+      </mat-card-header>
+    }
     <mat-card-content>
       <div class="form-grid">
         <!-- CPF -->
         <mat-form-field appearance="outline">
           <mat-label>CPF</mat-label>
-          <input matInput formControlName="cpf" placeholder="000.000.000-00">
+          <input matInput formControlName="cpf" mask="999.999.999-99" placeholder="000.000.000-00">
           <mat-icon matSuffix>badge</mat-icon>
-          @if (form.get('cpf')?.invalid && form.get('cpf')?.touched) {
-            <mat-error>{{ getErrorMessage('cpf') }}</mat-error>
-          }
         </mat-form-field>
-
         <!-- RG -->
         <mat-form-field appearance="outline">
           <mat-label>RG</mat-label>
           <input matInput formControlName="rg">
           <mat-icon matSuffix>credit_card</mat-icon>
         </mat-form-field>
-
         <!-- Órgão Expedidor -->
         <mat-form-field appearance="outline">
           <mat-label>Órgão Expedidor</mat-label>
           <input matInput formControlName="rgOrgao" placeholder="SSP, PC, etc.">
           <mat-icon matSuffix>corporate_fare</mat-icon>
         </mat-form-field>
-
         <!-- Estado -->
         <mat-form-field appearance="outline">
           <mat-label>Estado Expedidor</mat-label>
@@ -65,7 +61,6 @@
             <mat-option value="TO">Tocantins</mat-option>
           </mat-select>
         </mat-form-field>
-
         <!-- Certidão de Nascimento -->
         <mat-form-field appearance="outline" class="full-width">
           <mat-label>Certidão de Nascimento</mat-label>

@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment as env } from '../../../../environments/environment';
 import { ApiPageableResponse } from '../../../shared/components/crud-mat-table/interfaces';
-import { Atleta } from '../../atleta/models/atleta.model';
+import { Atleta, AtletaClube } from '../../atleta/models/atleta.model';
 
 export interface PageParams {
   page?: number;
@@ -40,6 +40,20 @@ export class AtletasService {
     return this.http.get<ApiPageableResponse>(`${this.apiUrl}/page`, { params: httpParams });
   }
 
+  adicionarAtletaClube(form: any): Observable<AtletaClube[]> {
+    const url = `${this.apiUrl}/clube`;
+    return this.http.post<AtletaClube[]>(url, form);
+  }
+
+  removerAtletaClube(idAtleta: number, idClube: number): Observable<AtletaClube[]> {
+    const url = `${this.apiUrl}/${idAtleta}/clube/${idClube}`;
+    return this.http.delete<AtletaClube[]>(url);
+  }
+
+  transferirAtletaClube(form: any): Observable<AtletaClube[]> {
+    const url = `${this.apiUrl}/clube/transferir`;
+    return this.http.post<AtletaClube[]>(url, form);
+  }
   // Métodos CRUD adicionais
   findById(id: number): Observable<Atleta> {
     return this.http.get<Atleta>(`${this.apiUrl}/id/${id}`);

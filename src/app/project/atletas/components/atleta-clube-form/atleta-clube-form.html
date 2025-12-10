@@ -1,0 +1,11 @@
+<form [formGroup]="form">
+  <div class="form-grid">
+    <app-clube-filter
+      (select)="selecionarClube($event)"
+    ></app-clube-filter>
+    <app-datepicker
+      [label]="dtLabel"
+      (select)="selecionarDataAdmissao($event)"
+    ></app-datepicker>
+  </div>
+</form>
