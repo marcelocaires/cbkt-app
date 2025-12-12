@@ -8,6 +8,7 @@ export interface Graduacao {
   cor: string | null;
   corNome: string | null;
   corCodigo: string | null;
+  corHex: string | null;
   carencia: number;
   carenciaMenor: number;
   carenciaAulas: number;

@@ -1,0 +1,39 @@
+<div class="form-grid">
+  @if (graduacoes$ | async; as graduacoes) {
+    <fieldset>
+      <legend>Graduação</legend>
+      <mat-select formControlName="graduacao" (selectionChange)="graduacaoSelect($event)">
+          @for (graduacao of graduacoes; track graduacao) {
+            <mat-option [value]="graduacao.descricaoGraduacao">
+              <app-faixa-karate
+                [corHex]="graduacao.corHex"
+                [nomeCor]="graduacao.corNome"
+                [grau]="graduacao.grauNome"
+                style="width: 100%"
+              ></app-faixa-karate>
+            </mat-option>
+          }
+      </mat-select>
+    </fieldset>
+  }
+  <fieldset>
+    <legend>Nota do Exame</legend>
+    <mat-slider
+        class="example-margin"
+        [disabled]="disabled"
+        [max]="max"
+        [min]="min"
+        [step]="step"
+        [discrete]="thumbLabel"
+        [showTickMarks]="showTicks"
+        style="width:calc(100% - 20px);"
+        >
+      <input matSliderThumb #slider/>
+    </mat-slider>
+  </fieldset>
+  <app-datepicker
+    [label]="dtLabel"
+    (select)="selecionarDataExame($event)"
+  ></app-datepicker>
+</div>
+

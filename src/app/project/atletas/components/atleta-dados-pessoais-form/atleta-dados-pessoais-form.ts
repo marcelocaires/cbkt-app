@@ -106,18 +106,6 @@ export class AtletaDadosPessoaisFormComponent extends BaseComponent{
     });
   }
 
-  populateForm(){
-    if(this.atleta()){
-      this.form.get('nomeAtleta')?.setValue(this.atleta()!.nomeAtleta);
-      this.form.get('dataNascimento')?.setValue(this.atleta()!.dataNascimento);
-      this.form.get('sexo')?.setValue(this.atleta()!.sexo);
-      this.form.get('nacionalidade')?.setValue(this.atleta()!.nacionalidade);
-      this.form.get('naturalidade')?.setValue(this.atleta()!.naturalidade);
-      this.form.get('nomePai')?.setValue(this.atleta()!.nomePai);
-      this.form.get('nomeMae')?.setValue(this.atleta()!.nomeMae);
-    }
-  }
-
   /**
    * Validador personalizado para data de nascimento
    */
@@ -230,5 +218,17 @@ export class AtletaDadosPessoaisFormComponent extends BaseComponent{
   atualizarContato(contato: any): void {
     console.log('Atualizando contato:', contato);
     this.form.patchValue({ contato: contato });
+  }
+
+  populateForm(){
+    if(this.atleta()){
+      this.form.get('nomeAtleta')?.setValue(this.atleta()!.nomeAtleta);
+      this.form.get('dataNascimento')?.setValue(this.atleta()!.dataNascimento);
+      this.form.get('sexo')?.setValue(this.atleta()!.sexo);
+      this.form.get('nacionalidade')?.setValue(this.atleta()!.nacionalidade);
+      this.form.get('naturalidade')?.setValue(this.atleta()!.naturalidade);
+      this.form.get('nomePai')?.setValue(this.atleta()!.nomePai);
+      this.form.get('nomeMae')?.setValue(this.atleta()!.nomeMae);
+    }
   }
 }
