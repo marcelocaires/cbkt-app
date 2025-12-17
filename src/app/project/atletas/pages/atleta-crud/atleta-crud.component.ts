@@ -63,7 +63,8 @@ export class AtletaCrudComponent extends BaseComponent{
   }
 
   atualizarAtleta(dados: any): void {
-    this.form.patchValue({atleta:dados});
+    if(!dados) return;
+      this.form.patchValue({atleta:dados});
   }
 
   private createForm(): void {
@@ -92,10 +93,9 @@ export class AtletaCrudComponent extends BaseComponent{
   }
 
   private createAtleta(data: any): void {
-    this.atletasService.create(data).subscribe({
+    this.atletasService.create(data.atleta).subscribe({
       next: (response: Atleta) => {
-        console.log('Atleta criado com sucesso:', response);
-        this.router.navigate(['/atletas']);
+        this.msgService.msgSucesso('Atleta cadastrado com sucesso! Realize os cadastros de clube e graduação.');
       },
       error: (error: any) => {
         console.error('Erro ao criar atleta:', error);

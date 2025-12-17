@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment as env } from '../../../../environments/environment';
 import { ApiPageableResponse } from '../../../shared/components/crud-mat-table/interfaces';
-import { Atleta, AtletaClube } from '../../atleta/models/atleta.model';
+import { Atleta, AtletaClube, AtletaGraduacao } from '../../atleta/models/atleta.model';
 
 export interface PageParams {
   page?: number;
@@ -43,6 +43,16 @@ export class AtletasService {
   adicionarAtletaClube(form: any): Observable<AtletaClube[]> {
     const url = `${this.apiUrl}/clube`;
     return this.http.post<AtletaClube[]>(url, form);
+  }
+
+  adicionarGraduacaoAtleta(form: any): Observable<AtletaGraduacao[]> {
+    const url = `${this.apiUrl}/graduacao`;
+    return this.http.post<AtletaGraduacao[]>(url, form);
+  }
+
+  removerGraduacaoAtleta(idAtletaGraduacao: number): Observable<AtletaGraduacao[]> {
+    const url = `${this.apiUrl}/graduacao/${idAtletaGraduacao}`;
+    return this.http.delete<AtletaGraduacao[]>(url);
   }
 
   removerAtletaClube(idAtleta: number, idClube: number): Observable<AtletaClube[]> {

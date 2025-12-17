@@ -1,7 +1,10 @@
 <h2 mat-dialog-title class="titulo">{{titulo}}</h2>
 <mat-divider></mat-divider>
 <mat-dialog-content class="dlg-content">
-  <app-atleta-graduacao-form></app-atleta-graduacao-form>
+  <app-atleta-graduacao-form
+    (isValid)="onIsValidChange($event)"
+    (value)="onIsValueChange($event)"
+  ></app-atleta-graduacao-form>
 </mat-dialog-content>
 <mat-divider></mat-divider>
 <mat-dialog-actions>
@@ -10,7 +13,7 @@
     mat-flat-button
     color="primary"
     (click)="confirmDialog()"
-    [disabled]="!isValidForm"
+    [disabled]="!isFormValid"
     title="Cadastrar Graduação">
     <mat-icon fontSet="material-symbols-outlined">{{iconAction}}</mat-icon>
     {{action}}

@@ -4,6 +4,10 @@
     Adicionar Graduação</button>
 </div>
 <mat-divider></mat-divider>
-<app-atleta-graduacoes
-    [graduacoes]="atleta().graduacoes"
-></app-atleta-graduacoes>
+@if (graduacoes && graduacoes.length > 0) {
+  <app-atleta-graduacoes
+      [graduacoes]="graduacoes"
+      [isDelete]="true"
+      (onDelete)="onDelete($event)"
+  ></app-atleta-graduacoes>
+}

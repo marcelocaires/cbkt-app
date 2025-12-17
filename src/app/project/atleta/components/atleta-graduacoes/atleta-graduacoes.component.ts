@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 import { BaseComponent } from '../../../../shared/components/base/base.component';
 import { PageTitleComponent } from '../../../../shared/components/page-title/page-title.component';
 import { MaterialButtonModule } from '../../../../shared/material/material-button.module';
@@ -22,8 +22,14 @@ import { AtletaGraduacao } from '../../models/atleta.model';
 })
 export class AtletaGraduacoesComponent extends BaseComponent{
   graduacoes = input.required<AtletaGraduacao[]>();
+  isDelete = input<boolean>(false);
+  onDelete = output<AtletaGraduacao>();
 
   constructor() {
     super();
+  }
+
+  deleteGraduacao(graduacao: AtletaGraduacao) {
+    this.onDelete.emit(graduacao);
   }
 }

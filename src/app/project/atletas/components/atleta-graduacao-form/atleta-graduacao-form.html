@@ -1,39 +1,30 @@
 <div class="form-grid">
   @if (graduacoes$ | async; as graduacoes) {
-    <fieldset>
-      <legend>Graduação</legend>
-      <mat-select formControlName="graduacao" (selectionChange)="graduacaoSelect($event)">
+    <mat-form-field appearance="outline">
+      <mat-label>Graduação</mat-label>
+      <mat-select (selectionChange)="graduacaoSelect($event)">
           @for (graduacao of graduacoes; track graduacao) {
-            <mat-option [value]="graduacao.descricaoGraduacao">
-              <app-faixa-karate
-                [corHex]="graduacao.corHex"
-                [nomeCor]="graduacao.corNome"
-                [grau]="graduacao.grauNome"
-                style="width: 100%"
-              ></app-faixa-karate>
+            <mat-option
+              [style.background-color]="graduacao.corHex"
+              [style.color]="getContrastingColor(graduacao.corHex)"
+              style="border: 1px solid;"
+              [style.border.color]="getContrastingColor(graduacao.corHex)"
+              [value]="graduacao">
+              {{ graduacao.descricaoGraduacao }}
             </mat-option>
           }
       </mat-select>
-    </fieldset>
+    </mat-form-field>
   }
-  <fieldset>
-    <legend>Nota do Exame</legend>
-    <mat-slider
-        class="example-margin"
-        [disabled]="disabled"
-        [max]="max"
-        [min]="min"
-        [step]="step"
-        [discrete]="thumbLabel"
-        [showTickMarks]="showTicks"
-        style="width:calc(100% - 20px);"
-        >
-      <input matSliderThumb #slider/>
-    </mat-slider>
-  </fieldset>
   <app-datepicker
     [label]="dtLabel"
     (select)="selecionarDataExame($event)"
   ></app-datepicker>
+  <app-slider
+    [label]="'Nota do Exame'"
+    [min]="5"
+    [max]="7"
+    [step]="0.1"
+    (value)="valorNota($event)"
+  ></app-slider>
 </div>
-

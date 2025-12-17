@@ -21,12 +21,11 @@ import { AtletaGraduacaoForm } from '../atleta-graduacao-form/atleta-graduacao-f
 })
 export class AtletaGraduacaoCrudDlg extends BaseDialogComponent<AtletaGraduacaoCrudDlg>{
   isValid = false;
-  formValue: any;
   titulo:string="Cadastrar Graduação";
   action:string="Cadastrar";
   iconAction:string="add_circle";
   isTransferencia=false;
-
+  formValue:any;
   constructor() {
     super();
     if(this.data && this.data.transferencia){
@@ -40,14 +39,16 @@ export class AtletaGraduacaoCrudDlg extends BaseDialogComponent<AtletaGraduacaoC
   onIsValidChange(valid: boolean) {
     this.isValid = valid;
   }
-  onSelectValueChange($event: any) {
-    this.formValue = $event;
-  }
-  confirmDialog(){
-    this.dialogRef.close(this.formValue);
+
+  get isFormValid() {
+    return this.isValid;
   }
 
-  get isValidForm(): boolean {
-    return this.formValue !== undefined && this.formValue !== null;
+  onIsValueChange($event:any) {
+    this.formValue = $event;
+  }
+
+  confirmDialog(){
+    this.dialogRef.close(this.formValue);
   }
 }

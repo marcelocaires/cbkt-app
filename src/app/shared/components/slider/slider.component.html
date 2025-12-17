@@ -1,0 +1,14 @@
+<fieldset appearance="outline">
+  <legend>{{label()}}</legend>
+    <mat-slider
+      [max]="max()"
+      [min]="min()"
+      [step]="step()"
+      [discrete]="thumbLabel()"
+      [showTickMarks]="showTicks()"
+      style="width:calc(100% - 20px);">
+      <input matSliderThumb #slider
+        [(value)]="sliderValue"
+        (valueChange)="emitValue()"/>
+    </mat-slider>
+</fieldset>

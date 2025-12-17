@@ -4,23 +4,33 @@
     <div class="cards-grid">
       @for (graduacao of graduacoes; track graduacao.id) {
         <mat-card class="graduacao-card" [style.border-left]="'5px solid ' + (graduacao.graduacao.corHex || '#ccc')">
-          <mat-card-content>
-            <app-faixa-karate
-              [corHex]="graduacao.graduacao.corHex"
-              [grau]="graduacao.graduacao.grauNome"
-              [nomeCor]="graduacao.graduacao.corNome"
-              borderRadius="4px">
-            </app-faixa-karate>
-            <div class="graduacao-info">
-              <div class="info-item">
-                <mat-icon>event</mat-icon>
-                <span><strong>Data do exame:</strong> {{graduacao.dataGraduacao | date:'dd/MM/yyyy'}}</span>
-              </div>
-              @if (graduacao.notaGraduacao) {
+          <mat-card-content class="card-content">
+            <div style="width: 80%;">
+              <app-faixa-karate
+                [corHex]="graduacao.graduacao.corHex"
+                [grau]="graduacao.graduacao.grauNome"
+                [nomeCor]="graduacao.graduacao.corNome"
+                borderRadius="4px">
+              </app-faixa-karate>
+              <div class="graduacao-info">
                 <div class="info-item">
-                  <mat-icon>grade</mat-icon>
-                  <span><strong>Nota:</strong> {{graduacao.notaGraduacao}}</span>
+                  <mat-icon>event</mat-icon>
+                  <span><strong>Data do exame:</strong> {{graduacao.dataExame | date:'dd/MM/yyyy'}}</span>
                 </div>
+                @if (graduacao.notaExame) {
+                  <div class="info-item">
+                    <mat-icon>grade</mat-icon>
+                    <span><strong>Nota:</strong> {{graduacao.notaExame}}</span>
+                  </div>
+                }
+              </div>
+            </div>
+            <div>
+              @if (isDelete()) {
+                <button mat-icon-button (click)="deleteGraduacao(graduacao)" [style.color]="'red'"
+                  title="Excluir atleta do clube">
+                  <mat-icon>delete</mat-icon>
+                </button>
               }
             </div>
           </mat-card-content>

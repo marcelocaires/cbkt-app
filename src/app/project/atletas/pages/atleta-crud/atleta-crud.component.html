@@ -18,6 +18,7 @@
             Dados Pessoais
           </ng-template>
           <app-atleta-dados-pessoais-form
+            ngSkipHydration
             [atleta]="atleta"
             (valor)="atualizarAtleta($event)"
           ></app-atleta-dados-pessoais-form>

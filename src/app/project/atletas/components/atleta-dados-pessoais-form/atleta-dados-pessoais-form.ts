@@ -32,16 +32,18 @@ import { AtletaDocumentosForm } from '../atleta-documentos-form/atleta-documento
 export class AtletaDadosPessoaisFormComponent extends BaseComponent{
   atleta=input<Atleta|null>(null);
   valor=output<any>();
-  form: FormGroup={} as FormGroup;
+  form: FormGroup ={} as FormGroup;
 
   constructor(){
     super();
     this.createForm();
-    this.form.valueChanges.subscribe(() => {
-      if (this.form.valid) {
-        this.valor.emit(this.form.value);
-      }
-    });
+    if(this.form && this.form.value){
+      this.form.valueChanges.subscribe(() => {
+        if (this.form && this.form.valid) {
+          this.valor.emit(this.form.value);
+        }
+      });
+    }
   }
 
   ngOnInit(): void {

@@ -40,9 +40,9 @@ export class AtletasComponent extends BaseComponent{
     const content = data.content.map((atleta:AtletaShort) => ({
       id: atleta.id,
       nomeAtleta: atleta.nomeAtleta,
-      graduacaoDescricao: atleta.graduacaoDescricao,
-      nomeClube: atleta.nomeClube,
-      corHex: atleta.graduacaoCorHex
+      graduacaoDescricao: atleta.graduacaoDescricao?atleta.graduacaoDescricao:'',
+      nomeClube: atleta.nomeClube?atleta.nomeClube:'',
+      corHex: atleta.graduacaoCorHex?atleta.graduacaoCorHex:'#FFFFFF'
     }));
     data.content = content;
     return data;

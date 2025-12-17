@@ -53,8 +53,8 @@ export interface Graduacao {
 export interface AtletaGraduacao{
   id: number;
   graduacao: Graduacao;
-  dataGraduacao: string;
-  notaGraduacao: number;
+  dataExame: string;
+  notaExame: number;
 }
 export interface Documentos {
   cpf: string
