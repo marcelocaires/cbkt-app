@@ -1,4 +1,5 @@
 <!-- Formulário de Dados Pessoais do Atleta -->
+<div></div>
 <form [formGroup]="form" class="atleta-dados-form">
   <!-- Seção de Dados Pessoais -->
   <mat-card class="form-section">
@@ -88,47 +89,84 @@
           </div>
         </mat-card-content>
       </mat-card>
-      <mat-tab-group>
-        <mat-tab>
-          <ng-template mat-tab-label>
-              <mat-icon>home</mat-icon>
-              Endereço
-          </ng-template>
-          <!-- Endereço -->
-          <mat-card class="form-section">
-            <mat-card-content>
-              <app-endereco
-                [endereco]="atleta()?.endereco"
-                (enderecoEvent)="atualizarEndereco($event)"
-              ></app-endereco>
-            </mat-card-content>
-          </mat-card>
-        </mat-tab>
-        <mat-tab>
-          <ng-template mat-tab-label>
-            <mat-icon>phone</mat-icon>
-            Contato
-          </ng-template>
-          <mat-card-content>
-            <app-atleta-contato-form
-              [atleta]="atleta()"
-              (valor)="atualizarContato($event)"
-            ></app-atleta-contato-form>
-          </mat-card-content>
-        </mat-tab>
-        <mat-tab>
-          <ng-template mat-tab-label>
-            <mat-icon>description</mat-icon>
-            Documentos
-          </ng-template>
-          <mat-card-content>
-            <app-atleta-documentos-form
-              [atleta]="atleta()"
-              (valor)="atualizarDocumentos($event)"
-            ></app-atleta-documentos-form>
-          </mat-card-content>
-        </mat-tab>
-      </mat-tab-group>
+      <mat-card class="form-section">
+        <mat-card-header>
+          <mat-card-title>
+            <mat-icon>info</mat-icon>
+            Status
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="info-adicionais">
+            <!-- Ativo -->
+            <div class="toggle-field">
+              <mat-slide-toggle formControlName="ativo" color="primary">
+                Atleta Ativo
+              </mat-slide-toggle>
+            </div>
+            <!-- Árbitro -->
+            <div class="toggle-field">
+              <mat-slide-toggle formControlName="chkArbitro" color="primary">
+                Árbitro
+              </mat-slide-toggle>
+            </div>
+            <!-- Avaliador -->
+            <div class="toggle-field">
+              <mat-slide-toggle formControlName="chkAvaliador" color="primary">
+                Avaliador
+              </mat-slide-toggle>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+      <mat-card class="form-section">
+        <mat-card-content>
+          <mat-tab-group>
+            <mat-tab>
+              <ng-template mat-tab-label>
+                  <mat-icon>home</mat-icon>
+                  Endereço
+              </ng-template>
+              <!-- Endereço -->
+              <mat-card class="form-section">
+                <mat-card-content>
+                  <app-endereco
+                    [endereco]="atleta()?.endereco"
+                    (enderecoEvent)="atualizarEndereco($event)"
+                    (onInvalid)="enderecoInvalido($event)"
+                  ></app-endereco>
+                </mat-card-content>
+              </mat-card>
+            </mat-tab>
+            <mat-tab>
+              <ng-template mat-tab-label>
+                <mat-icon>phone</mat-icon>
+                Contato
+              </ng-template>
+              <mat-card-content>
+                <app-atleta-contato-form
+                  [atleta]="atleta()"
+                  (valor)="atualizarContato($event)"
+                  (onInvalid)="contatoInvalido($event)"
+                ></app-atleta-contato-form>
+              </mat-card-content>
+            </mat-tab>
+            <mat-tab>
+              <ng-template mat-tab-label>
+                <mat-icon>description</mat-icon>
+                Documentos
+              </ng-template>
+              <mat-card-content>
+                <app-atleta-documentos-form
+                  [atleta]="atleta()"
+                  (valor)="atualizarDocumentos($event)"
+                  (onInvalid)="documentosInvalidos($event)"
+                ></app-atleta-documentos-form>
+              </mat-card-content>
+            </mat-tab>
+          </mat-tab-group>
+        </mat-card-content>
+      </mat-card>
     </mat-card-content>
   </mat-card>
 </form>

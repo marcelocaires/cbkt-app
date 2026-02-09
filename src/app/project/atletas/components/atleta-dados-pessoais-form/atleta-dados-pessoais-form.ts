@@ -33,6 +33,8 @@ export class AtletaDadosPessoaisFormComponent extends BaseComponent{
   atleta=input<Atleta|null>(null);
   valor=output<any>();
   form: FormGroup ={} as FormGroup;
+  onInvalid=output<any>();
+  erros:string[]=[];
 
   constructor(){
     super();
@@ -42,6 +44,11 @@ export class AtletaDadosPessoaisFormComponent extends BaseComponent{
         if (this.form && this.form.valid) {
           this.valor.emit(this.form.value);
         }
+        /*
+        else if(this.form.dirty){
+          this.onInvalid.emit(this.form.errors);
+        }
+          */
       });
     }
   }
@@ -102,9 +109,13 @@ export class AtletaDadosPessoaisFormComponent extends BaseComponent{
           Validators.pattern(/^[a-zA-ZÀ-ÿ\s]*$/)
         ]
       ],
+      urlFoto: [null],
       endereco:[null,Validators.required],
       contato:[null,Validators.required],
-      documentos:[null,Validators.required]
+      documentos:[null,Validators.required],
+      ativo: [true],
+      chkArbitro: [false],
+      chkAvaliador: [false]
     });
   }
 
@@ -211,15 +222,30 @@ export class AtletaDadosPessoaisFormComponent extends BaseComponent{
     console.log('Atualizando endereço:', endereco);
     this.form.patchValue({ endereco: endereco });
   }
+  enderecoInvalido(msg: any) {
+    this.form.patchValue({ endereco: null });
+    this.erros.push(msg);
+    this.onInvalid.emit(this.erros);
+  }
 
   atualizarDocumentos(documentos: any): void {
     console.log('Atualizando documentos:', documentos);
     this.form.patchValue({ documentos: documentos });
   }
+  documentosInvalidos(msg: any) {
+    this.form.patchValue({ documentos: null });
+    this.erros.push(msg);
+    this.onInvalid.emit(this.erros);
+  }
 
   atualizarContato(contato: any): void {
     console.log('Atualizando contato:', contato);
     this.form.patchValue({ contato: contato });
+  }
+  contatoInvalido(msg: any) {
+    this.form.patchValue({ contato: null });
+    this.erros.push(msg);
+    this.onInvalid.emit(this.erros);
   }
 
   populateForm(){
@@ -231,6 +257,9 @@ export class AtletaDadosPessoaisFormComponent extends BaseComponent{
       this.form.get('naturalidade')?.setValue(this.atleta()!.naturalidade);
       this.form.get('nomePai')?.setValue(this.atleta()!.nomePai);
       this.form.get('nomeMae')?.setValue(this.atleta()!.nomeMae);
+      this.form.get('ativo')?.setValue(this.atleta()!.ativo);
+      this.form.get('chkArbitro')?.setValue(this.atleta()!.chkArbitro);
+      this.form.get('chkAvaliador')?.setValue(this.atleta()!.chkAvaliador);
     }
   }
 }

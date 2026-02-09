@@ -1,0 +1,63 @@
+.rel-medico-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 15px;
+  margin-top: 15px;
+}
+
+.file-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  border-radius: 6px;
+  background: #e8f5e9;
+  color: #1b5e20;
+
+  .file-size {
+    color: #4a5d5e;
+    font-size: 0.9rem;
+  }
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.viewer {
+  margin-top: 12px;
+  width: 100%;
+  height: 70vh;
+}
+
+.pdf-frame {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.placeholder {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  background: #f5f5f5;
+  border-radius: 8px;
+  color: #555;
+}
+
+.error {
+  color: #c62828;
+  margin: 8px 0;
+  font-size: 0.95rem;
+}

@@ -1,0 +1,39 @@
+<div class="consulta-pessoa">
+  <form [formGroup]="searchForm" class="search-form">
+    <mat-form-field appearance="outline">
+      <mat-label>CPF</mat-label>
+      <input matInput
+        id="cpf"
+        mask="999.999.999-99"
+        formControlName="cpf"
+        placeholder="000.000.000-00"
+        (blur)="onSearch()" />
+      <mat-icon style="cursor:pointer" matSuffix (click)="onSearch()">search</mat-icon>
+      @if(isClear) {
+        <mat-icon style="cursor:pointer" matSuffix (click)="clear()">search_off</mat-icon>
+      }
+    </mat-form-field>
+  </form>
+</div>
+@if(isSearched){
+  <div class="consulta-pessoa">
+    <form [formGroup]="pessoaForm" class="pessoa-form">
+      <mat-form-field appearance="outline">
+        <mat-label>Nome</mat-label>
+        <input matInput formControlName="nome" />
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Data de Nascimento</mat-label>
+        <input matInput dateMask formControlName="dataNascimento"/>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email" />
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Telefone</mat-label>
+        <input matInput formControlName="telefone" />
+      </mat-form-field>
+    </form>
+  </div>
+}

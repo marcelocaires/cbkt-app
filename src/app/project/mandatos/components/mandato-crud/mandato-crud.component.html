@@ -1,0 +1,84 @@
+@if(modoEdicao()) {
+  <app-mandato-manter
+    [mandato]="mandatoSelecionado()"
+    [entidade]="entidade()"
+    [tipoEntidade]="tipoEntidade()"
+    (salvar)="salvarMandato()"
+    (cancelar)="cancelarEdicao()">
+  </app-mandato-manter>
+}@else {
+  <div class="page-actions">
+    <button matButton="filled" color="primary" (click)="manterMandato(null)">
+      <mat-icon>add_circle</mat-icon>
+      Novo Mandato
+    </button>
+  </div>
+  @if(mandatoAtivo()){
+    <mat-card class="mandato-card">
+      <mat-card-content>
+        <div class="mandatos-list">
+          <div class="diretoria-info">
+            <div>Diretoria Atual</div>
+            <div><b>Descrição:</b> {{ mandatoAtivo().descricao }}</div>
+            <div><b>Data Início:</b> {{ mandatoAtivo().dataInicio | date:'shortDate' }}</div>
+          </div>
+          @if(mandatoAtivo().cargos; as cargos) {
+            <app-mandato-cargos-list
+              [cargos]="cargos">
+            </app-mandato-cargos-list>
+          }
+        </div>
+      </mat-card-content>
+    </mat-card>
+  }
+  <mat-card class="mandato-card">
+    <mat-card-content>
+      <!-- Lista de mandatos existentes -->
+      @if(mandatos().length > 0) {
+        <div class="mandatos-list">
+          <h3>Histórico de Mandatos</h3>
+          <div class="cards">
+            @for(mandato of mandatos(); track mandato.id) {
+              <mat-card class="card" [class.ativo]="mandato.ativo" (click)="mandatoAtivo.set(mandato);">
+                <mat-card-content>
+                  <div class="card-info">
+                    <div class="info-item">
+                      <mat-icon>assignment</mat-icon>
+                      <span><strong>Descrição:</strong> {{ mandato.descricao }}</span>
+                    </div>
+                    <div class="info-item">
+                      <mat-icon>event</mat-icon>
+                      <span><strong>Início:</strong> {{ mandato.dataInicio | date:'shortDate' }}</span>
+                    </div>
+                    @if(mandato.dataFim) {
+                      <div class="info-item">
+                        <mat-icon>event_busy</mat-icon>
+                        <span><strong>Fim:</strong> {{ mandato.dataFim | date:'shortDate' }}</span>
+                      </div>
+                    }
+                    <div class="info-item">
+                      <mat-icon>{{ mandato.ativo ? 'check_circle' : 'cancel' }}</mat-icon>
+                      <span><strong>Status:</strong> {{ mandato.ativo ? 'Ativo' : 'Inativo' }}</span>
+                    </div>
+                  </div>
+                  <div class="card-actions">
+                    <button mat-icon-button
+                      title="Diretoria"
+                      (click)="abrirCargosDialog(mandato);">
+                      <mat-icon>groups</mat-icon>
+                    </button>
+                    <button mat-icon-button
+                      title="Editar mandato"
+                      (click)="manterMandato(mandato)">
+                      <mat-icon>edit</mat-icon>
+                    </button>
+                  </div>
+                </mat-card-content>
+              </mat-card>
+            }
+          </div>
+        </div>
+      }
+    </mat-card-content>
+  </mat-card>
+}

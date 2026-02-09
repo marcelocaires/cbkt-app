@@ -1,5 +1,7 @@
 export const environment = {
   production: false,
-  apiAuthUrl: '/api/auth/',
-  apiCadastroUrl: '/api/cadastro/'
+  baseUrl: 'http://localhost:4000',
+  apiAuthUrl: '/api/auth',
+  apiCadastroUrl: '/api/cadastro',
+  apiOsUrl: '/api/os'
 };

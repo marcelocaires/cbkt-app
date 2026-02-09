@@ -7,12 +7,9 @@
     </div>
     <div class="body">
       <div mat-card-avatar class="carteirinha-foto">
-        @if (atleta.sexo === 'F') {
-          <img src="assets/images/avatar-af.png" alt="Foto do(a) atleta" />
-        }
-        @if (atleta.sexo === 'M') {
-          <img src="assets/images/avatar-am.png" alt="Foto do(a) atleta" />
-        }
+        <app-atleta-foto
+          [atleta]="atleta"
+        ></app-atleta-foto>
       </div>
       <div class="carteirinha-dados">
         <div class="nome">

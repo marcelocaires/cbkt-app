@@ -1,0 +1,32 @@
+<form [formGroup]="form">
+  <mat-card class="laudo-section">
+    <mat-card-content>
+      <mat-slide-toggle formControlName="isPcd" aria-label="Atleta PCD">
+        Atleta PCD (Pessoa com Deficiência)
+      </mat-slide-toggle>
+      @if(isPcd){
+        <div class="pcd-extra">
+          <div class="form-content">
+            <mat-form-field appearance="outline">
+              <mat-label>Tipo de deficiência</mat-label>
+              <input matInput formControlName="deficienciaTipo" aria-label="Tipo de deficiência" />
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>Descrição da deficiência</mat-label>
+              <input matInput formControlName="deficienciaDescricao" aria-label="Descrição da deficiência" />
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>CID</mat-label>
+              <input matInput formControlName="deficienciaCID" aria-label="CID" />
+            </mat-form-field>
+          </div>
+          <app-atleta-laudo-medico
+            [atleta]="atleta()"
+            [isValid]="form.valid"
+            (onUpdateUrl)="updateLaudo($event)">
+          </app-atleta-laudo-medico>
+        </div>
+      }
+    </mat-card-content>
+  </mat-card>
+</form>

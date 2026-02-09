@@ -1,0 +1,29 @@
+<!-- Formulário de Informações Adicionais do Atleta -->
+<form [formGroup]="form" class="atleta-info-form">
+  <mat-card class="form-section">
+    <mat-card-content>
+      <div class="form-grid">
+        <!-- Ativo -->
+        <div class="toggle-field">
+          <mat-slide-toggle formControlName="ativo" color="primary">
+            Atleta Ativo
+          </mat-slide-toggle>
+        </div>
+
+        <!-- Árbitro -->
+        <div class="toggle-field">
+          <mat-slide-toggle formControlName="chkArbitro" color="primary">
+            Árbitro
+          </mat-slide-toggle>
+        </div>
+
+        <!-- Avaliador -->
+        <div class="toggle-field">
+          <mat-slide-toggle formControlName="chkAvaliador" color="primary">
+            Avaliador
+          </mat-slide-toggle>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</form>

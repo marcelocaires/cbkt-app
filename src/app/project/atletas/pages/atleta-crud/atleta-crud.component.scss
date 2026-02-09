@@ -289,3 +289,30 @@ mat-checkbox {
   justify-content: left;
   justify-items: start;
 }
+.error-box{
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #ffdddd;
+  color: #d8000c;
+  padding: 12px;
+  border: 1px solid #d8000c;
+  border-radius: 4px;
+  margin-bottom: 16px;
+
+  mat-icon{
+    font-size: 20px;
+  }
+}
+.error-box ul {
+  //list-style-type: none; /* Remove os marcadores de lista (bolinhas) */
+  margin: 0; /* Remove a margem padrão do navegador */
+}
+
+.error-box li {
+  margin-bottom: 5px; /* Adiciona um pequeno espaço entre os itens da lista */
+}
+
+.error-box li:last-child {
+  margin-bottom: 0; /* Remove a margem do último item para não criar espaço extra */
+}

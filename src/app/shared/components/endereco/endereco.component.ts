@@ -31,6 +31,8 @@ export class EnderecoComponent extends BaseComponent{
   form: FormGroup;
   enderecoService = inject(EnderecoService);
   isCepNaoEncontrado = false;
+  onInvalid=output<any>();
+  msgInvalid:any=null;
 
   constructor() {
     super();
@@ -48,6 +50,11 @@ export class EnderecoComponent extends BaseComponent{
     this.form.valueChanges.subscribe(() => {
       if (this.form.valid) {
         this.enderecoEvent.emit(this.form.value);
+      }else if(this.form.pristine){
+        if(this.msgInvalid==null){
+          this.msgInvalid = "Endereço inválido ou incompleto!";
+          this.onInvalid.emit(this.msgInvalid);
+        }
       }
     });
   }
@@ -86,12 +93,11 @@ export class EnderecoComponent extends BaseComponent{
   private preencherEndereco(endereco: EnderecoResponse): void {
     this.form.patchValue({
       logradouro: endereco.logradouro,
-      complemento: endereco.complemento,
       bairro: endereco.bairro,
       cidade: endereco.localidade,
       estado: endereco.uf
-    });
-    this.numeroFocus();
+    }, { emitEvent: false });
+    //this.numeroFocus();
   }
 
   private initEndereco(endereco: Endereco|null|undefined): void {
@@ -104,12 +110,12 @@ export class EnderecoComponent extends BaseComponent{
         bairro: endereco.bairro,
         cidade: endereco.cidade,
         estado: endereco.estado
-      });
+      }, { emitEvent: false });
       if(endereco.cep && endereco.cep !== '') {
         this.buscarCep();
       }
     }
-    this.numeroFocus();
+    //this.numeroFocus();
   }
 
   private limparEndereco(): void {
@@ -119,7 +125,7 @@ export class EnderecoComponent extends BaseComponent{
       bairro: '',
       cidade: '',
       estado: ''
-    });
+    }, { emitEvent: false });
   }
 
   private numeroFocus(): void {

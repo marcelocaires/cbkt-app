@@ -1,0 +1,27 @@
+<div mat-dialog-title class="dialog-header">
+  <h2>Cargos</h2>
+  <button
+    mat-icon-button
+    (click)="onClose()"
+    class="close-button">
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
+<mat-dialog-content class="dialog-content">
+  <div class="diretoria-info">
+    <div><b>Descrição:</b> {{ mandato.descricao }}</div>
+    <div><b>Data Início:</b> {{ mandato.dataInicio | date:'shortDate' }}</div>
+  </div>
+  @if (mandato!=null) {
+    @if(mandato.cargos;as cargos) {
+      <app-mandato-cargos-list
+        [cargos]="cargos"
+      ></app-mandato-cargos-list>
+    }@else {
+      <div class="empty-state">
+        <mat-icon>people_outline</mat-icon>
+        <p>Nenhum cargo cadastrado neste mandato</p>
+      </div>
+    }
+  }
+</mat-dialog-content>

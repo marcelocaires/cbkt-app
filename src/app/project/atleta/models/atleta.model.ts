@@ -31,6 +31,11 @@ export interface Atleta {
   graduacao: Graduacao;
   graduacoes: AtletaGraduacao[];
   clubes: AtletaClube[];
+  isPcd:boolean;
+  deficienciaTipo:string;
+  deficienciaDescricao: string;
+  deficienciaCID: string;
+  urlLaudoMedico: string;
 }
 export interface Graduacao {
   id: number
@@ -86,13 +91,21 @@ export interface Clube{
   abreviatura: string;
   classificacao: string;
   cnpj: string;
+  dataFundacao: string;
+  contato: ContatoClube;
+  diretoria: DiretoriaClube;
+  endereco: Endereco;
+}
+
+export interface ContatoClube {
+  email: string;
+  telefone: string;
+}
+
+export interface DiretoriaClube {
   responsavel: string;
   presidente: string;
   diretorTecnico: string;
-  dataFundacao: string;
-  telefone: string;
-  email: string;
-  endereco: Endereco;
 }
 
 export interface AtletaClube {

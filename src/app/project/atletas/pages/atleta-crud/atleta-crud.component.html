@@ -10,6 +10,19 @@
 
 <div class="atleta-crud-container">
   @if(atleta$ | async; as atleta) {
+    @if(validationErrors().length > 0) {
+      <div class="error-box">
+        <mat-icon>error</mat-icon>
+        <div>
+          <div><b>Existem erros cadastrais, por favor corrija-os antes de continuar:</b></div>
+          <ul>
+            @for(e of validationErrors(); track e) {
+              <li>{{ e }}</li>
+            }
+          </ul>
+        </div>
+      </div>
+    }
     <form [formGroup]="form">
       <mat-tab-group>
         <mat-tab>
@@ -21,7 +34,38 @@
             ngSkipHydration
             [atleta]="atleta"
             (valor)="atualizarAtleta($event)"
+            (onInvalid)="dadosPessoaisInvalidos($event)"
           ></app-atleta-dados-pessoais-form>
+        </mat-tab>
+        <mat-tab>
+          <ng-template mat-tab-label>
+              <mat-icon>photo</mat-icon>
+              Foto
+          </ng-template>
+          <mat-card class="form-section">
+            <mat-card-content>
+              <app-atleta-foto
+                [atleta]="atleta"
+                [isUpdateMode]="true"
+                (onFotoUpdate)="atualizarFotoUrl($event)"
+                (onFotoError)="fotoInvalida($event)"
+              ></app-atleta-foto>
+            </mat-card-content>
+          </mat-card>
+        </mat-tab>
+        <mat-tab>
+          <ng-template mat-tab-label>
+              <mat-icon><mat-icon>medical_information</mat-icon></mat-icon>
+              PCD
+          </ng-template>
+          <mat-card class="form-section">
+            <mat-card-content>
+              <app-atleta-pcd-form
+                [atleta]="atleta"
+                (update)="updatePcd($event)">
+              </app-atleta-pcd-form>
+            </mat-card-content>
+          </mat-card>
         </mat-tab>
         <mat-tab [disabled]="!isEditing()">
           <ng-template mat-tab-label>
@@ -43,8 +87,8 @@
         </mat-tab>
       </mat-tab-group>
     </form>
-  }@else {
-    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+  } @else {
+    <form [formGroup]="form">
       <mat-tab-group>
         <mat-tab>
           <ng-template mat-tab-label>
@@ -54,19 +98,8 @@
           <app-atleta-dados-pessoais-form
             [atleta]="null"
             (valor)="atualizarAtleta($event)"
+            (onInvalid)="dadosPessoaisInvalidos($event)"
           ></app-atleta-dados-pessoais-form>
-        </mat-tab>
-        <mat-tab [disabled]="!isEditing()">
-          <ng-template mat-tab-label>
-            <mat-icon svgIcon="dojo"></mat-icon>
-            Clube
-          </ng-template>
-        </mat-tab>
-        <mat-tab [disabled]="!isEditing()">
-          <ng-template mat-tab-label>
-            <mat-icon svgIcon="faixa"></mat-icon>
-            Graduação
-          </ng-template>
         </mat-tab>
       </mat-tab-group>
     </form>

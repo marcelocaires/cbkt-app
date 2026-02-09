@@ -12,6 +12,15 @@ export interface PageParams {
   filter?:string|null;
 }
 
+export interface updateAtletaPCDRequest {
+  id: number;
+  isPcd: boolean;
+  deficienciaTipo: string;
+  deficienciaDescricao: string;
+  deficienciaCID: string;
+  urlLaudoMedico: string;
+}
+
 @Injectable({ providedIn: 'root' })
 export class AtletasService {
   private readonly apiUrl = `${env.apiCadastroUrl}/atleta`;
@@ -64,6 +73,12 @@ export class AtletasService {
     const url = `${this.apiUrl}/clube/transferir`;
     return this.http.post<AtletaClube[]>(url, form);
   }
+
+  atualizarAtletaPCD(form: updateAtletaPCDRequest): Observable<Atleta> {
+    const url = `${this.apiUrl}/pcd`;
+    return this.http.put<Atleta>(url, form);
+  }
+
   // Métodos CRUD adicionais
   findById(id: number): Observable<Atleta> {
     return this.http.get<Atleta>(`${this.apiUrl}/id/${id}`);

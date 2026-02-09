@@ -1,0 +1,138 @@
+.mandato-manter-card {
+  max-width: 1200px;
+  margin: 0 auto;
+
+  mat-card-header {
+    margin-bottom: 1.5rem;
+
+    mat-card-title {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 1.5rem;
+      font-weight: 500;
+  }
+
+  mat-card-content {
+    padding: 1.5rem;
+  }
+
+  mat-card-actions {
+    padding: 1rem 1.5rem;
+    gap: 0.5rem;
+
+    button {
+      mat-icon {
+        margin-right: 0.25rem;
+      }
+    }
+  }
+}
+
+.form-section {
+  margin-bottom: 2rem;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+
+  .section-title {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0 0 1rem 0;
+    font-size: 1.125rem;
+    font-weight: 500;
+    color: rgba(0, 0, 0, 0.87);
+
+    mat-icon {
+      font-size: 1.25rem;
+      width: 1.25rem;
+      height: 1.25rem;
+    }
+  }
+}
+
+.form-row {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  mat-form-field {
+    &.field-full {
+      flex: 1;
+    }
+
+    &.field-medium {
+      flex: 0 0 calc(50% - 0.5rem);
+    }
+
+    &.field-small {
+      flex: 0 0 calc(33.333% - 0.67rem);
+    }
+  }
+}
+
+mat-divider {
+  margin: 2rem 0;
+}
+
+.info-message {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem;
+  margin-top: 1rem;
+  background-color: #e3f2fd;
+  border-left: 4px solid #1976d2;
+  border-radius: 4px;
+  color: rgba(0, 0, 0, 0.87);
+
+  mat-icon {
+    flex-shrink: 0;
+  }
+
+  p {
+    margin: 0;
+    font-size: 0.875rem;
+  }
+}
+
+// Responsividade
+@media (max-width: 768px) {
+  .form-row {
+    flex-direction: column;
+
+    mat-form-field {
+      &.field-medium,
+      &.field-small {
+        flex: 1;
+      }
+    }
+  }
+
+  .section-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+
+    button {
+      width: 100%;
+    }
+  }
+}
+}
+.tab-content {
+  padding: 16px;
+}

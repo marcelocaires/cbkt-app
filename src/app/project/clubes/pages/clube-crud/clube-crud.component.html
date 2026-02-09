@@ -1,0 +1,158 @@
+<app-page-title
+  [title]="isEditing ? 'Atualizar Clube' : 'Cadastrar Clube'"
+  isCrud
+  [isDelete]="isEditing"
+  [isValid]="form.valid"
+  (cancel)="onCancel()"
+  (save)="onSubmit()"
+  (delete)="onDelete()"
+></app-page-title>
+
+<div class="clube-crud-container">
+  @if(validationErrors().length > 0) {
+    <div class="error-box">
+      <mat-icon>error</mat-icon>
+      <div>
+        <div><b>Existem erros cadastrais, por favor corrija-os antes de continuar:</b></div>
+        <ul>
+          @for(e of validationErrors(); track e) {
+            <li>{{ e }}</li>
+          }
+        </ul>
+      </div>
+    </div>
+  }
+  <form [formGroup]="form">
+    <mat-tab-group>
+      <!-- Aba: Dados Gerais -->
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <mat-icon>business</mat-icon>
+          Dados Gerais
+        </ng-template>
+        <mat-card class="form-section">
+          <mat-card-content>
+            <div class="grid two-col">
+              <mat-form-field appearance="outline">
+                <mat-label>Nome</mat-label>
+                <input matInput formControlName="nome" />
+                @if(form.get('nome')?.touched) {
+                  <mat-error>{{ getErrorMessage('nome') }}</mat-error>
+                }
+              </mat-form-field>
+
+              <mat-form-field appearance="outline">
+                <mat-label>Abreviatura</mat-label>
+                <input matInput formControlName="abreviatura" />
+                @if(form.get('abreviatura')?.touched) {
+                  <mat-error>{{ getErrorMessage('abreviatura') }}</mat-error>
+                }
+              </mat-form-field>
+
+              <mat-form-field appearance="outline">
+                <mat-label>Classificação</mat-label>
+                <input matInput formControlName="classificacao" />
+                @if(form.get('classificacao')?.touched) {
+                  <mat-error>{{ getErrorMessage('classificacao') }}</mat-error>
+                }
+              </mat-form-field>
+
+              <mat-form-field appearance="outline">
+                <mat-label>CNPJ</mat-label>
+                <input matInput formControlName="cnpj" />
+                @if(form.get('cnpj')?.touched) {
+                  <mat-error>{{ getErrorMessage('cnpj') }}</mat-error>
+                }
+              </mat-form-field>
+
+              <mat-form-field appearance="outline">
+                <mat-label>Data de Fundação</mat-label>
+                <input matInput type="date" formControlName="dataFundacao" />
+              </mat-form-field>
+            </div>
+            <div class="tabs-section">
+              <mat-tab-group>
+                <mat-tab>
+                  <ng-template mat-tab-label>
+                    <mat-icon>location_on</mat-icon>
+                    Endereço
+                  </ng-template>
+                  <mat-card class="form-section">
+                    <mat-card-content>
+                      <app-endereco
+                        ngSkipHydration
+                        [endereco]="form.value.endereco"
+                        (enderecoEvent)="onEnderecoChange($event)"
+                        (onInvalid)="onEnderecoInvalid($event)">
+                      </app-endereco>
+                    </mat-card-content>
+                  </mat-card>
+                </mat-tab>
+                <!-- Aba: Contato -->
+                <mat-tab>
+                  <ng-template mat-tab-label>
+                    <mat-icon>phone</mat-icon>
+                    Contato
+                  </ng-template>
+                  <mat-card class="form-section">
+                    <mat-card-content>
+                      <div formGroupName="contato" class="grid two-col">
+                        <mat-form-field appearance="outline">
+                          <mat-label>Telefone</mat-label>
+                          <input matInput formControlName="telefone" />
+                          @if(form.get('contato.telefone')?.touched) {
+                            <mat-error>{{ getErrorMessage('contato.telefone') }}</mat-error>
+                          }
+                        </mat-form-field>
+
+                        <mat-form-field appearance="outline">
+                          <mat-label>E-mail</mat-label>
+                          <input matInput formControlName="email" />
+                          @if(form.get('contato.email')?.touched) {
+                            <mat-error>{{ getErrorMessage('contato.email') }}</mat-error>
+                          }
+                        </mat-form-field>
+                      </div>
+                    </mat-card-content>
+                  </mat-card>
+                </mat-tab>
+              </mat-tab-group>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </mat-tab>
+
+      <!-- Aba: Diretoria -->
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <mat-icon>groups</mat-icon>
+          Diretoria
+        </ng-template>
+        <mat-card class="form-section">
+          <mat-card-content>
+            @if(clube){
+              <app-mandato-crud
+                ngSkipHydration
+                [tipoEntidade]="'CLUBE'"
+                [entidade]="clube">
+              </app-mandato-crud>
+            }
+          </mat-card-content>
+        </mat-card>
+      </mat-tab>
+
+      <!-- Aba: Instrutores (desabilitada se não está em modo edição) -->
+      <mat-tab [disabled]="!isEditing">
+        <ng-template mat-tab-label>
+          <mat-icon>school</mat-icon>
+          Instrutores
+        </ng-template>
+        <mat-card class="form-section">
+          <mat-card-content>
+            <p>Gerenciamento de instrutores do clube será implementado aqui.</p>
+          </mat-card-content>
+        </mat-card>
+      </mat-tab>
+    </mat-tab-group>
+  </form>
+</div>

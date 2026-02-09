@@ -1,0 +1,95 @@
+@if(atleta(); as atleta) {
+  @if(isUpdateMode()) {
+    <div class="atleta-foto-container">
+      @if(isHeader()) {
+        <app-page-title title="Foto do Atleta"></app-page-title>
+      }
+      <mat-card class="foto-card">
+        <mat-card-content>
+          <div class="foto-content">
+            <div class="foto-display">
+              <div class="foto-wrapper">
+                <img
+                  [src]="getFotoUrl()"
+                  [alt]="'Foto de ' + atleta.nomeAtleta"
+                  class="foto-preview"
+                />
+              </div>
+            </div>
+            <!-- Área de upload -->
+            <div class="upload-section">
+              <div
+                class="drop-zone"
+                [class.dragging]="isDragging()"
+                (dragover)="onDragOver($event)"
+                (dragleave)="onDragLeave($event)"
+                (drop)="onDrop($event)">
+                <mat-icon class="upload-icon">cloud_upload</mat-icon>
+                <p class="drop-text">Arraste uma foto aqui ou</p>
+                <button mat-raised-button color="primary" onclick="document.getElementById('fileInput').click()">
+                  <mat-icon>add_photo_alternate</mat-icon>
+                  Selecione o arquivo
+                </button>
+                <input
+                  id="fileInput"
+                  type="file"
+                  accept="image/jpeg,image/jpg,image/png,image/webp"
+                  (change)="onFileSelected($event)"
+                  style="display: none"
+                />
+                <p class="format-info">Formatos aceitos: JPG, PNG, WEBP (máx. 5MB)</p>
+              </div>
+            </div>
+            @if (selectedFile()) {
+              <div class="file-info">
+                <mat-icon color="primary">check_circle</mat-icon>
+                <span>{{ selectedFile()?.name }}</span>
+                <span class="file-size">({{ (selectedFile()!.size / 1024).toFixed(2) }} KB)</span>
+              </div>
+            }
+          </div>
+
+          <!-- Ações -->
+          @if (selectedFile()) {
+            <div class="actions">
+              <button mat-button (click)="cancelar()">
+                <mat-icon>cancel</mat-icon>
+                Cancelar
+              </button>
+              <button mat-raised-button color="primary" (click)="uploadFoto()">
+                <mat-icon>save</mat-icon>
+                Atualizar Foto
+              </button>
+            </div>
+          }
+        </mat-card-content>
+      </mat-card>
+
+      <!-- Informações adicionais -->
+      <mat-card class="info-card">
+        <mat-card-content>
+          <h3>
+            <mat-icon>info</mat-icon>
+            Orientações
+          </h3>
+          <ul>
+            <li>A foto deve ser recente e mostrar claramente o rosto do atleta</li>
+            <li>Prefira fotos com fundo neutro e boa iluminação</li>
+            <li>A foto será usada na carteirinha, em chaves de campeonatos e em documentos oficiais</li>
+            <li>Recomendamos fotos em formato 3x4 ou similar</li>
+          </ul>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  }@else {
+    <div class="foto-display">
+      <div class="foto-wrapper">
+        <img
+          [src]="getFotoUrl()"
+          [alt]="'Foto de ' + atleta.nomeAtleta"
+          class="foto-preview"
+        />
+      </div>
+    </div>
+  }
+}

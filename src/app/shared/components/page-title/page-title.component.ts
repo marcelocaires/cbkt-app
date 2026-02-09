@@ -13,7 +13,7 @@ import { MaterialLayoutModule } from '../../material/material-layout.module';
   styleUrls: ['./page-title.component.scss']
 })
 export class PageTitleComponent {
-  title=input.required<string>();
+  title=input<string>();
   isCrud=input(false,{transform:(value:string|boolean)=>typeof value==="string"?value==="" || value==='true':value});
   isValid=input(false,{transform:(value:string|boolean)=>typeof value==="string"?value==="" || value==='true':value});
   isDelete=input(false,{transform:(value:string|boolean)=>typeof value==="string"?value==="" || value==='true':value});

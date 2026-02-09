@@ -10,6 +10,8 @@ import { PasswordResetComponent } from './project/auth/pages/password-reset/pass
 import { PrimeiroAcessoComponent } from './project/auth/pages/primeiro-acesso/primeiro-acesso.component';
 import { GraduacaoCrudComponent } from './project/graduacao/pages/graduacao-crud/graduacao-crud.component';
 import { GraduacaoComponent } from './project/graduacao/pages/graduacao/graduacao.component';
+import { ClubesComponent } from './project/clubes/pages/clubes/clubes';
+import { ClubeCrudComponent } from './project/clubes/pages/clube-crud';
 
 export const routes: Routes = [
   {
@@ -98,5 +100,35 @@ export const routes: Routes = [
             component: AtletaCrudComponent
         }
     ],
-  }
+  },
+  {
+    path: 'clubes',
+    component: MainLayoutComponent,
+    children: [
+        {
+            path: '',
+            component: ClubesComponent
+        }
+    ],
+  },
+  {
+    path: 'clube-crud',
+    component: MainLayoutComponent,
+    children: [
+        {
+            path: '',
+            component: ClubeCrudComponent
+        }
+    ],
+  },
+  {
+    path: 'clube-crud/:id',
+    component: MainLayoutComponent,
+    children: [
+        {
+            path: '',
+            component: ClubeCrudComponent
+        }
+    ],
+  },
 ];

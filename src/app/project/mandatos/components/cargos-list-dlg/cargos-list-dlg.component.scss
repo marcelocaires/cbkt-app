@@ -1,0 +1,31 @@
+.dialog-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  h2 {
+    margin: 0;
+    font-size: 1.2rem;
+    font-weight: 500;
+  }
+
+  .close-button {
+    flex-shrink: 0;
+     mat-icon{
+      font-size: 20px;
+      width: 20px;
+      height: 20px;
+    }
+  }
+
+}
+.diretoria-info{
+  margin-bottom: 5px;
+  >div{
+    padding-left: 8px;
+    font-size: 0.8rem;
+    >b{
+      font-size: 0.8rem;
+    }
+  }
+}

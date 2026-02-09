@@ -1,5 +1,7 @@
 <div class="tituloPagina">
-  <a title="voltar">{{title()}}</a>
+  @if(title()){
+    <a title="voltar">{{title()}}</a>
+  }
   <div class="actions">
     @if(isCrud()) {
       <button matButton="tonal" class="btCancelar" type="button" (click)="onCancel()">

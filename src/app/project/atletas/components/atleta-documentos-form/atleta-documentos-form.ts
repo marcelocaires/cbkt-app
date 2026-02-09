@@ -29,6 +29,8 @@ export class AtletaDocumentosForm extends BaseComponent{
   valor=output<any>();
   isHeader=input<boolean>(false);
   atleta=input<Atleta|null>(null);
+  onInvalid=output<any>();
+  msgInvalid:any=null;
 
   constructor(){
     super();
@@ -36,6 +38,11 @@ export class AtletaDocumentosForm extends BaseComponent{
     this.form.valueChanges.subscribe(() => {
       if (this.form.valid) {
         this.valor.emit(this.form.value);
+      }else if(this.form.pristine){
+        if(this.msgInvalid===null){
+          this.msgInvalid = "Documentação incompleta!";
+          this.onInvalid.emit(this.msgInvalid);
+        }
       }
     });
   }

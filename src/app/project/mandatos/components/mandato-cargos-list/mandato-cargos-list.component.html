@@ -1,0 +1,61 @@
+<div class="mandato-cargos-list">
+  @if (cargos().length === 0) {
+    <div class="empty-state">
+      <mat-icon>people_outline</mat-icon>
+      <p>Nenhum cargo cadastrado neste mandato</p>
+    </div>
+  } @else {
+    <div class="cargos-grid">
+      @for (cargo of cargos(); track cargo) {
+        <mat-card class="cargo-card card">
+          <mat-card-content>
+            <!-- Nome em destaque -->
+            <div class="cargo-nome">
+              {{ cargo.pessoa.nome }}
+            </div>
+            <!-- Chips e Status -->
+            <div class="cargo-info">
+              <!-- Tipo de Ocupação -->
+              <mat-chip class="chip-ocupacao">
+                <span class="chip-span">{{ cargo.cargo?.nome }}</span>
+              </mat-chip>
+              <!-- Tipo de Vínculo -->
+              <mat-chip class="chip-vinculo">
+                <span class="chip-span">{{ cargo.tipoVinculo }}</span>
+              </mat-chip>
+
+              <!-- Status -->
+              <mat-chip
+                [class.chip-ativo]="cargo.ativo"
+                [class.chip-inativo]="!cargo.ativo">
+                <span class="chip-span">{{ cargo.ativo ? 'Ativo' : 'Inativo' }}</span>
+              </mat-chip>
+            </div>
+@if(false) {
+            <!-- Datas -->
+            <div class="cargo-datas">
+              <div class="data-item">
+                <span class="label">Início:</span>
+                <span class="value">{{ cargo.dataInicio | date:'dd/MM/yyyy' }}</span>
+              </div>
+              @if (cargo.dataFim) {
+                <div class="data-item">
+                  <span class="label">Fim:</span>
+                  <span class="value">{{ cargo.dataFim | date:'dd/MM/yyyy' }}</span>
+                </div>
+              }
+            </div>
+}
+            <!-- Observação se existir -->
+            @if (cargo.observacao && false) {
+              <div class="cargo-observacao">
+                <span class="label">Observação:</span>
+                <p>{{ cargo.observacao }}</p>
+              </div>
+            }
+          </mat-card-content>
+        </mat-card>
+      }
+    </div>
+  }
+</div>

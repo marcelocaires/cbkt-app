@@ -1,0 +1,89 @@
+<div class="actions">
+  @if(!isInsert){
+    <button
+      matButton="filled"
+      type="button"
+      (click)="isInsert=true">
+      <mat-icon>group_add</mat-icon>
+      Adicionar Cargo
+    </button>
+  }@else{
+    <button
+      matButton="tonal"
+      type="button"
+      (click)="cancelar()">
+      <mat-icon>add_circle</mat-icon>
+      Cancelar
+    </button>
+    <button
+      matButton="filled"
+      type="button"
+      (click)="insert()"
+      [disabled]="form.invalid">
+      <mat-icon>add_circle</mat-icon>
+      Adicionar
+    </button>
+  }
+</div>
+@if(!isInsert){
+  <div class="form-section">
+    @if(cargosInseridos.length === 0) {
+      <div class="info-message">
+        <mat-icon>info</mat-icon>
+        <p>Adicione as pessoas que ocuparão os cargos deste mandato.</p>
+      </div>
+    }@else {
+      <app-mandato-cargos-list
+        [cargos]="cargosInseridos"
+      ></app-mandato-cargos-list>
+    }
+  </div>
+}@else{
+  <mat-card>
+    <mat-card-title>
+      <div>Pessoa</div>
+    </mat-card-title>
+    <mat-card-content>
+      <app-consulta-pessoa
+        (value)="atualizarPessoa($event)"
+      ></app-consulta-pessoa>
+    </mat-card-content>
+  </mat-card>
+  <mat-card>
+    <mat-card-title>
+      <div>Detalhes do Cargo</div>
+    </mat-card-title>
+    <mat-card-content>
+      <form [formGroup]="form" class="form">
+        <mat-form-field appearance="outline">
+          <mat-label>Cargo</mat-label>
+          <mat-select formControlName="cargo">
+            @if(cargos$ | async; as cargos){
+              @for (cargo of cargos; track cargo) {
+                <mat-option [value]="cargo">{{cargo.nome}}</mat-option>
+              }
+            }
+          </mat-select>
+          <mat-error>Selecione o cargo</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Vínculo</mat-label>
+          <mat-select formControlName="tipoVinculo" required>
+            @if(tiposVinculo$ | async; as tiposVinculo){
+              @for (tipo of tiposVinculo; track tipo) {
+                <mat-option [value]="tipo.codigo">{{tipo.descricao}}</mat-option>
+              }
+            }
+          </mat-select>
+          <mat-error>Selecione o vínculo</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" style="width: 100%;">
+          <mat-label>Observação</mat-label>
+          <input matInput formControlName="observacao" />
+        </mat-form-field>
+      </form>
+    </mat-card-content>
+  </mat-card>
+}

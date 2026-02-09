@@ -1,0 +1,47 @@
+<form [formGroup]="form" class="grid three-col">
+  <mat-form-field appearance="outline">
+    <mat-label>Pessoa</mat-label>
+    <mat-select formControlName="pessoaId" required>
+      @for(pessoa of pessoas(); track pessoa.id) {
+        <mat-option [value]="pessoa.id">{{ pessoa.nome }}</mat-option>
+      }
+    </mat-select>
+    <mat-error>Selecione uma pessoa</mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Tipo de Ocupação</mat-label>
+    <mat-select formControlName="tipoOcupacao" required>
+      <mat-option value="TITULAR">Titular</mat-option>
+      <mat-option value="SUPLENTE">Suplente</mat-option>
+    </mat-select>
+    <mat-error>Selecione o tipo</mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Tipo de Vínculo</mat-label>
+    <mat-select formControlName="tipoVinculo" required>
+      <mat-option value="ELEITO">Eleito</mat-option>
+      <mat-option value="NOMEADO">Nomeado</mat-option>
+      <mat-option value="CONTRATADO">Contratado</mat-option>
+      <mat-option value="PRO_TEMPORE">Pro Tempore</mat-option>
+    </mat-select>
+    <mat-error>Selecione o vínculo</mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Data Início</mat-label>
+    <input matInput type="date" formControlName="dataInicio" required />
+    <mat-error>Campo obrigatório</mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Data Fim (opcional)</mat-label>
+    <input matInput type="date" formControlName="dataFim" />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Observação</mat-label>
+    <input matInput formControlName="observacao" />
+  </mat-form-field>
+</form>

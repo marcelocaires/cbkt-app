@@ -5,7 +5,7 @@ import { inject } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { SharedService } from './shared.service';
 
-abstract class ResourceModel<T> {
+export abstract class ResourceModel<T> {
   public id?: number;
 
   constructor(model?: Partial<T>) {

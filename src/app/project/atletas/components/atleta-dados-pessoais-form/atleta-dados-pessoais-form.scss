@@ -161,3 +161,11 @@ mat-form-field:focus-within {
     box-shadow: 0 0 0 2px rgba(var(--mat-sys-primary-rgb), 0.2);
   }
 }
+.info-adicionais{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: center;
+    align-items: center;
+    justify-content: space-around;
+}

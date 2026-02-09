@@ -1,0 +1,70 @@
+@if (atleta(); as atleta) {
+  <div class="rel-medico-container">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>
+          <mat-icon>medical_information</mat-icon>
+          Laudo Médico
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="controls">
+          <button mat-stroked-button color="primary" aria-label="Selecionar PDF" (click)="fileInput.click()" [disabled]="uploading()">
+            <mat-icon>upload_file</mat-icon>
+            Selecionar PDF
+          </button>
+          <input #fileInput type="file" accept="application/pdf" (change)="onFileInputChange($event)" hidden />
+
+          @if (selectedFile()) {
+            <div class="file-chip">
+              <mat-icon color="primary">picture_as_pdf</mat-icon>
+              <span>{{ selectedFile()?.name }}</span>
+              <span class="file-size">({{ (selectedFile()!.size / 1024).toFixed(1) }} KB)</span>
+            </div>
+          }
+
+          <span class="spacer"></span>
+
+          <button matButton="filled" aria-label="Salvar PDF" (click)="uploadRelatorio()" [disabled]="!isValid() && (!selectedFile() || uploading())">
+            <mat-icon>save</mat-icon>
+            @if(isUpdate) {
+              Atualizar
+            }@else {
+              Salvar
+            }
+          </button>
+          <button matButton="tonal" aria-label="Cancelar selecao" (click)="clearSelected()" [disabled]="!selectedFile() || uploading()">
+            <mat-icon>close</mat-icon>
+            Cancelar
+          </button>
+        </div>
+
+        @if (uploadErrorMsg()) {
+          <div class="error">{{ uploadErrorMsg() }}</div>
+        }
+
+        @if (uploading()) {
+          <mat-progress-bar mode="indeterminate" aria-label="Enviando PDF"></mat-progress-bar>
+        }
+
+        @if (relatorioUrl()) {
+          <div class="viewer">
+            <iframe class="pdf-frame" [src]="relatorioUrl()" title="Relatorio medico"></iframe>
+          </div>
+        }@else {
+          <ng-template #noPdf>
+            <div class="placeholder">
+              <mat-icon>picture_as_pdf</mat-icon>
+              <div>
+                <p>Nenhum relatório enviado.</p>
+                @if (isUpdateMode()) {
+                  <small>Selecione um PDF para enviar.</small>
+                }
+              </div>
+            </div>
+          </ng-template>
+        }
+      </mat-card-content>
+    </mat-card>
+  </div>
+}

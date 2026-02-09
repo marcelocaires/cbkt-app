@@ -28,15 +28,21 @@ export class AtletaContatoForm extends BaseComponent{
   valor=output<any>();
   isHeader=input<boolean>(false);
   form: FormGroup={} as FormGroup;
-
+  onInvalid=output<any>();
+  msgInvalid:any=null;
   constructor(){
     super();
     this.createForm();
 
     // Emitir o valor quando o formulário for válido
     this.form.valueChanges.subscribe(() => {
-      if (this.form.valid) {
+      if(this.form.valid) {
         this.valor.emit(this.form.value);
+      }else if(this.form.pristine){
+        if(this.msgInvalid==null){
+          this.msgInvalid = "Dados de contato incompletos!";
+          this.onInvalid.emit(this.msgInvalid);
+        }
       }
     });
   }
@@ -57,5 +63,4 @@ export class AtletaContatoForm extends BaseComponent{
       this.form.get('telefone')?.setValue(this.atleta()!.contato?.telefone);
     }
   }
-
 }

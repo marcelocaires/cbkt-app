@@ -1,0 +1,15 @@
+<h2 mat-dialog-title>{{ titulo }}</h2>
+<mat-dialog-content>
+  <app-mandato-ocupacao-form
+    [pessoas]="data?.pessoas || []"
+    (isValid)="onIsValidChange($event)"
+    (selectValue)="onSelectValueChange($event)"
+  ></app-mandato-ocupacao-form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancelar</button>
+  <button mat-raised-button color="primary" [disabled]="!isValidForm" (click)="confirmDialog()">
+    <mat-icon>{{ iconAction }}</mat-icon>
+    {{ action }}
+  </button>
+</mat-dialog-actions>

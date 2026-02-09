@@ -1,0 +1,101 @@
+<mat-card class="mandato-manter-card">
+    <app-page-title
+      [title]="''"
+      [isCrud]="true"
+      [isDelete]="false"
+      [isValid]="isFormValido()"
+      (cancel)="onCancelar()"
+      (save)="onSalvar()"
+    ></app-page-title>
+    <mat-card-header>
+      <mat-card-title>
+        <mat-icon>assignment</mat-icon>
+        {{ getTitulo() }}
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-tab-group>
+        <!-- Aba: Dados Gerais -->
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <mat-icon>info</mat-icon>
+            Dados do Mandato
+          </ng-template>
+          <div class="tab-content">
+            <form [formGroup]="mandatoForm">
+              <!-- Seção: Dados do Mandato -->
+              <div class="form-section">
+                <div class="form-row">
+                  <mat-form-field appearance="outline" class="field-medium">
+                    <mat-label>Data Início</mat-label>
+                    <input
+                      matInput
+                      [matDatepicker]="pickerInicio"
+                      formControlName="dataInicio"
+                      required>
+                    <mat-datepicker-toggle matIconSuffix [for]="pickerInicio"></mat-datepicker-toggle>
+                    <mat-datepicker #pickerInicio></mat-datepicker>
+                    <mat-error>Campo obrigatório</mat-error>
+                  </mat-form-field>
+
+                  <mat-form-field appearance="outline" class="field-medium">
+                    <mat-label>Data Fim (Opcional)</mat-label>
+                    <input
+                      matInput
+                      [matDatepicker]="pickerFim"
+                      formControlName="dataFim">
+                    <mat-datepicker-toggle matIconSuffix [for]="pickerFim"></mat-datepicker-toggle>
+                    <mat-datepicker #pickerFim></mat-datepicker>
+                  </mat-form-field>
+                </div>
+
+                <div class="form-row">
+                  <mat-form-field appearance="outline" class="field-full">
+                    <mat-label>Descrição</mat-label>
+                    <textarea
+                      matInput
+                      formControlName="descricao"
+                      rows="3"
+                      placeholder="Ex: Mandato 2024-2028"
+                      required>
+                    </textarea>
+                    <mat-error>Campo obrigatório</mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+            </form>
+          </div>
+        </mat-tab>
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <mat-icon>group</mat-icon>
+            Diretoria
+          </ng-template>
+          <div class="tab-content">
+            @if(mandato(); as mandato){
+              <app-mandato-cargo-manter
+                [mandato]="mandato"
+                (value)="atualizarCargos($event)"
+              ></app-mandato-cargo-manter>
+            }@else {
+               <app-mandato-cargo-manter
+                [mandato]="null"
+                (value)="atualizarCargos($event)"
+              ></app-mandato-cargo-manter>
+            }
+          </div>
+        </mat-tab>
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <mat-icon>description</mat-icon>
+            Documentos
+          </ng-template>
+          <div class="tab-content">
+            <div class="form-row">
+            </div>
+          </div>
+        </mat-tab>
+      </mat-tab-group>
+    </mat-card-content>
+</mat-card>
+<pre>{{ mandatoForm.value | json }}</pre>

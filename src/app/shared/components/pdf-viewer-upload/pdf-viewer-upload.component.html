@@ -1,0 +1,24 @@
+<mat-card class="pdf-upload-card">
+  <div class="controls">
+    <input type="file" accept="application/pdf" aria-label="Selecionar arquivo PDF" (change)="onFileInputChange($event)" />
+
+    <button mat-raised-button color="primary" aria-label="Enviar arquivo PDF" (click)="upload()" [disabled]="!selectedFile || uploading">
+      <mat-icon>cloud_upload</mat-icon>
+      <span>Upload</span>
+    </button>
+
+    <mat-progress-bar *ngIf="uploading" mode="indeterminate" aria-label="Enviando arquivo..."></mat-progress-bar>
+  </div>
+
+  <div class="viewer" *ngIf="safeUrl; else noPdf">
+    <!-- Usando iframe com blob/URL para delegar ao viewer nativo do navegador -->
+    <iframe [src]="safeUrl" title="Visualizador PDF" aria-label="Visualizador de PDF" class="pdf-frame"></iframe>
+  </div>
+
+  <ng-template #noPdf>
+    <div class="placeholder" aria-label="Nenhum PDF selecionado">
+      <mat-icon>picture_as_pdf</mat-icon>
+      <p>Nenhum PDF selecionado</p>
+    </div>
+  </ng-template>
+</mat-card>
